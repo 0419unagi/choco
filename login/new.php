@@ -4,6 +4,8 @@
 
   session_start();
 
+  require('../dbconnect.php');
+
 
 
   // 初期値
@@ -72,14 +74,17 @@
       $_SESSION["user_info"]["datepicker2"] = $datepicker2;
       $_SESSION["user_info"]["password"] = $password;
 
-    header("location:confirm.php");
-    exit();
-    }
+      $sql = 'INSERT INTO `batch_users` SET `username` = ?, `nickname` = ?, `email` =? , `course` =? , `datepicker` =? , `datepicker2` =? , `password` = ?,`create` = NOW()';
+
+      $data = array($username,$nickname,$email,$course,$datepicker,$datepicker2,$password);
+      $stmt = $dbh->prepare($sql);
+      $stmt->execute($data);
+
+      header("Location:confirm.php");
+      exit();
+      }
 
     }
-
-    // header("location:confirm.php");
-    // exit();
 
 
 ?>

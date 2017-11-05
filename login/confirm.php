@@ -9,15 +9,15 @@
     }
  
 
-  $username = ($_SESSION["user_info"]['username']);
-  $nickname = ($_SESSION["user_info"]['nickname']);
-  $email = ($_SESSION["user_info"]['email']);
-  $course = ($_SESSION["user_info"]["course"]);
-  $datepicker = ($_SESSION["user_info"]["datepicker"]);
-  $datepicker2 = ($_SESSION["user_info"]["datepicker2"]);
-  $password = ($_SESSION["user_info"]["password"]);
+    $username = ($_SESSION["user_info"]['username']);
+    $nickname = ($_SESSION["user_info"]['nickname']);
+    $email = ($_SESSION["user_info"]['email']);
+    $course = ($_SESSION["user_info"]["course"]);
+    $datepicker = ($_SESSION["user_info"]["datepicker"]);
+    $datepicker2 = ($_SESSION["user_info"]["datepicker2"]);
+    $password = ($_SESSION["user_info"]["password"]);
 
-
+    
  ?>
 
 <!DOCTYPE html>

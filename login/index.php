@@ -2,6 +2,8 @@
 
 	session_start();
 
+	require('../dbconnect.php');
+
 	$email = '';
 	$password = '';
 
@@ -27,15 +29,34 @@
 			$errors['password'] = 'length';
 		}
 
-	if(empty($errors)){
+    if(empty($errors)){
+    	// エラーがなかったら、ログインできるかをチェック
+    	$sql = 'SELECT * FROM `batch_users` WHERE `email` = ? AND `password` = ?';
 
-      $_SESSION['user_info']['email'] = $email;
-      $_SESSION['user_info']['password'] = $password;
+    	// ?マークを代入する
+    	$data = array($email,$password);
+    	$stmt = $dbh->prepare($sql);
+    	$stmt->execute($data);
 
-      header('Location: top.php');
-      exit();
+    	// セレクト文を実行した結果を取得する。
+
+		$record = $stmt->fetch(PDO::FETCH_ASSOC);
+		// 全件取得させる場合はループさせて、配列に入れる
+		// セレクトした内容の一番上(エクセルの表の一番上のみ)だけ取得して存在するかどうかチェックすれば、ログイン判定可能
+
+		// var_dump($record);
+
+		if($record){
+			// echo 'ログインできました。タイムラインへ移動します。<br>';
+			// 一致した場合はログインする。
+			$_SESSION['login_user'] = $record;
+			header('Location: top.php');
+			exit();
+		}else{
+			// ログインできなかった場合
+			$errors['login'] = 'NG';
+		}
     }
-
 	}
  ?>
 
@@ -50,14 +71,22 @@
 </head>
 <body>
 
-<!-- 新規登録 -->
-<form method="POST" action="new.php" enctype="multipart/form-data">
+<!-- 新規登録 -->}
+}
+<form method="POST" action="new.php" >
 	<label >新規登録</label><br>
 	<input type="submit" value="登録する">
 	<br><br></form>
 
 <!-- ログイン -->
-<form method="POST" action="" enctype="multipart/form-data">
+<form method="POST" action="" >
+
+	<?php if(isset($errors['login']) ){ ?>
+      <div class="alert alert-danger">
+        メールアドレスまたはパスワードが違います。
+      </div>
+    <?php } ?>
+
 	<label >ログイン</label><br>
 	<input type="email" name="email" placeholder="メールアドレスを入力" value="<?php echo $email; ?>">
 	<br>

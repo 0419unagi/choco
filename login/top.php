@@ -1,7 +1,15 @@
 <?php 
-	echo "<pre>";
-	var_dump($_POST);
-	echo "</pre>";
+	// echo "<pre>";
+	// var_dump($_POST);
+	// echo "</pre>";
+	session_start();
+
+	if(!isset($_SESSION['login_user']['id'])){
+		header('Location: index.php');
+		exit();
+}
+
+
  ?>
 
 <!DOCTYPE html>
@@ -12,7 +20,8 @@
 </head>
 <body>
 
-ようこそ
+<h3>マイページ</h3>
+	ようこそ。<?php echo $_SESSION['login_user']['username'] ?>さん。
 
 </body>
 </html>
