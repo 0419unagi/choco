@@ -12,6 +12,7 @@
   $username = "";
   $nickname = "";
   $email = "";
+  $course = "";
   $course_p = "";
   $course_e = "";
   $datepicker = "";
@@ -23,6 +24,8 @@
     $nickname = htmlspecialchars($_POST["nickname"]);
     $email = htmlspecialchars($_POST["email"]);
     $course = htmlspecialchars($_POST["course"]);
+    $course_p = htmlspecialchars($_POST["$course_p"]);
+    $course_e = htmlspecialchars($_POST["$course_e"]);
     $datepicker = htmlspecialchars($_POST["datepicker"]);
     $datepicker2 = htmlspecialchars($_POST["datepicker2"]);
     $password = htmlspecialchars($_POST["password"]);
@@ -70,6 +73,8 @@
       $_SESSION["user_info"]["nickname"] = $nickname;
       $_SESSION["user_info"]["email"] = $email;
       $_SESSION["user_info"]["course"] = $course;
+      $_SESSION["user_info"]["course_p"] = $course_p;
+      $_SESSION["user_info"]["course_e"] = $course_e;
       $_SESSION["user_info"]["datepicker"] = $datepicker;
       $_SESSION["user_info"]["datepicker2"] = $datepicker2;
       $_SESSION["user_info"]["password"] = $password;

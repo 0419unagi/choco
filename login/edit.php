@@ -2,9 +2,10 @@
   var_dump($_POST);
   echo "<br><br>";
 
+require('../dbconnect.php');
 
   session_start();
-//初期値にnew.phpのデータベースから持って切る？
+//初期値にnew.phpのデータベースから持ってくる？
 
   $username = ($_SESSION["user_info"]["username"]);
   $nickname = ($_SESSION["user_info"]['nickname']);
@@ -14,12 +15,21 @@
   $datepicker2 = ($_SESSION["user_info"]["datepicker2"]);
   $password = ($_SESSION["user_info"]["password"]);
 
+
+  $course_p = "";
+  $course_e = "";
   $image = "";
   $year = "";
   $birthplace = "";
   $hobby = "";
   $intro = "";
 
+    if ($course =="programming"){
+        $course_p = "checked";
+    }
+    elseif($course =="english"){
+        $course_e = "checked";
+    }
 
   if (!empty($_POST)) {
     $year = htmlspecialchars($_POST["year"]);
@@ -29,6 +39,13 @@
 
     $errors = array();
 
+
+    if ($course =="programming"){
+        $course_p = "checked";
+    }
+    elseif($course =="english"){
+        $course_e = "checked";
+    }
     if ($year == "") {
       $errors["year"] = "blank";
     }
@@ -41,6 +58,7 @@
     if ($intro == "") {
       $errors["intro"] = "blank";
     }
+
 
 
     $fileName = $_FILES["image"]["name"];
@@ -58,15 +76,36 @@
     }
   }
 
-    // if (empty($errors)) {
-    //   move_uploaded_file($_FILES["image"]["tmp_name"],"../" destination)
-    // }
-  
+
+
+    if (empty($errors)) {
+      move_uploaded_file($_FILES["image"]["tmp_name"],"image/" . $username . "_" . $_FILES["image"]["name"]);
+    }
+
+
+    if (empty($errors)) {
+      echo "エラーなし！ok！";
+
+      $_SESSION["user_info"]["year"] = $year;
+      $_SESSION["user_info"]["birthplace"] = $birthplace;
+      $_SESSION["user_info"]["hobby"] = $hobby;
+      $_SESSION["user_info"]["intro"] = $intro;
+      $_SESSION["user_info"]["image"] = $username . "_" . $_FILES["image"]["name"];
+
+      // $sql = 'UPDATE `batch_users` SET `username` = ?, `nickname` = ?, `email` =? , `course` =? , `datepicker` =? , `datepicker2` =? , `password` = ?, `image`= ?, `year` = ?, `birthplace` = ?, `hobby` = ?, `intro` = ?, `modified` = NOW()';
+
+      $sql = 'UPDATE `batch_users` SET `id`=?,`username`=?,`nickname`=?,`email`=?,`course`=?,`datepicker`=?,`datepicker2`=?,`password`=?,`image`=?,`year`=?,`birthplace`=?,`hobby`=?,`intro`=?, `modified`= NOW(), WHERE 1';
+
+      $data = array($username,$nickname,$email,$course,$datepicker,$datepicker2,$password,$image,$year,$birthplace,$hobby,$intro);
+      $stmt = $dbh->prepare($sql);
+      $stmt->execute($data);
 
 
 
+    header("Location:edit.php");
+    exit();
 
-
+}
 
 }
 
@@ -89,9 +128,9 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>jQuery UI Datepicker - Default functionality</title>
+  <title>マイプロフ編集画面</title>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="/resources/demos/style.css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -102,37 +141,109 @@
   } );
   </script>
 
-  <title>マイページ編集</title>
 </head>
 <body>
   <form method="POST" action="" enctype="multipart/form-data">
     <label>プロフィール画像</label><br>
     <input type="file" name="image" accept="image/*">
     <br><br>
+    <?php if (isset($errors["image"])
+      && $errors["image"] == "blank") { ?>
+      <div class="alert alert-danger">
+        *プロフィール画像を選択してください
+      </div>
+    <?php }elseif (isset($errors["image"])
+      && $errors["image"] == "extention") {?>
+      <div class="alert alert-danger">
+        *使用できる拡張子は「jpg」または「png」、「gif」のみです。
+      </div>
+      <?php } ?>
 
 
     <label>名前</label><br>
-    <input type="text" name="username" value="<?php echo $username; ?>">
+    <input type="text" name="username" placeholder="シードくん" value="<?php echo $username; ?>">
     <br><br>
-    
+    <?php if (isset($errors["username"]) 
+      && $errors["username"] == "blank"): ?>
+      <div class="alert alert-danger">
+        *名前を入力してください
+      </div>
+    <?php endif; ?>
+
+
     <label>ニックネーム</label><br>
-    <input type="text" name="nickname" value="<?php echo $nickname; ?>">
+    <input type="text" name="nickname" placeholder="シード" value="<?php echo $nickname; ?>">
     <br><br>
+    <?php if (isset($errors["nickname"]) 
+    && $errors["nickname"] == "blank"): ?>
+      <div class="alert alert-danger">
+        *ニックネームを入力してください
+      </div>
+    <?php endif; ?>
+
 
     <label>メールアドレス</label><br>
-    <input type="text" name="email" value="<?php echo $email; ?>">
+    <input type="email" name="email" placeholder="seed@com" value="<?php echo $email; ?>">
     <br><br>
+    <?php if (isset($errors["email"]) 
+      && $errors["email"] == "blank"): ?>
+      <div class="alert alert-danger">
+        *メールアドレスを入力してください
+      </div>
+    <?php endif; ?>
+
 
     <label>コース</label><br>
-    <input type="radio" name="course" value="programming">プログラミング(Web/iOS)
-    <input type="radio" name="course" value="english">英語
+    <input type="radio" name="course" value="programming" <?php echo $course_p; ?> >プログラミング(Web/iOS)
+    <input type="radio" name="course" value="english" <?php echo $course_e; ?> >英語
     <br><br>
+    <?php if (isset($errors["course"]) 
+      && $errors["course"] == "blank"): ?>
+      <div class="alert alert-danger">
+        *コースを選択してください
+      </div>
+    <?php endif; ?>
+
 
     <label>留学期間</label><br>
     <input type="text" name="datepicker" id="datepicker" value="<?php echo $datepicker; ?>">〜<input type="text" name="datepicker2" id="datepicker2" value="<?php echo $datepicker2; ?>">
     <br><br>
 
-<!-- ここまではデータベースから引っ張ってくる？ -->
+    <?php if (isset($errors["datepicker"]) && (isset($errors["datepicker2"])) && $errors["datepicker"] == "blank" && $errors["datepicker2"] == "blank"): ?>
+      <div class="alert alert-danger">
+        *留学期間を選択してください
+      </div>
+    <?php endif; ?>
+
+    <?php if (isset($errors["datepicker"]) 
+      && $errors["datepicker"] == "blank" && (!empty($datepicker2))): ?>
+      <div class="alert alert-danger">
+        *留学開始日を選択してください
+      </div>
+    <?php endif; ?>
+    <?php if (isset($errors["datepicker2"]) 
+      && $errors["datepicker2"] == "blank" && (!empty($datepicker))): ?>
+      <div class="alert alert-danger">
+        *留学終了日を選択してください
+      </div>
+    <?php endif; ?>
+
+
+    <label>パスワード</label><br>
+    <input type="password" name="password" value="<?php echo $password; ?>">
+    <br><br>
+    <?php if (isset($errors["password"]) 
+      && $errors["password"] == "blank"): ?>
+      <div class="alert alert-danger">
+        *パスワードを入力してください
+      </div>
+    <?php endif; ?>
+    <?php if(isset($errors["password"]) 
+    && $errors["password"] == "length"): ?>
+      <div class="alert alert-danger">
+        *パスワードは4文字以上8文字以内で入力してください
+      </div>
+    <?php endif; ?>
 
 
     <label>生年月日</label><br>
@@ -145,6 +256,12 @@
     <select name="day">
       <?php optionLoop("1" , "31" , "1");?>
     </select>
+    <?php if(isset($errors["year"]) 
+    && $errors["year"] == "blank"): ?>
+    <div class="alert alert-danger">
+      *生年月日を選択してください
+    </div>
+    <?php endif; ?>
     <br><br>
 
     <label>出身地</label><br>
@@ -153,24 +270,37 @@
         <option value="<?php echo $v; ?>"><?php echo $v; ?></option>
       <?php endforeach; ?>
     </select>
+    <?php if (isset($errors["birthplace"]) 
+      && $errors["birthplace"] == "blank"): ?>
+      <div class="alert alert-danger">
+        *出身地を選択してください
+      </div>
+    <?php endif; ?>
     <br><br>
+
 
     <label>趣味</label><br>
-    <input type="textbox" name="hobby">
-    <input type="textbox" name="hobby">
-    <input type="textbox" name="hobby">
+    <input type="textbox" name="hobby" placeholder="旅行,読書,器械体操" value="<?php echo $hobby; ?>">
+    <?php if (isset($errors["hobby"]) 
+      && $errors["hobby"] == "blank"): ?>
+        <div class="alert alert-danger">
+          *趣味を入力してください
+        </div>
+    <?php endif; ?>
     <br><br>
 
 
+     <label>自己紹介</label><br>
+     <textarea name="intro" style="width: 300px; height: 80px;" placeholder="自己紹介文と共に、SNSなどのURLを貼っていただくと、他のユーザーがあなたのことをより理解してくれます！" value="<?php echo $intro; ?>"></textarea>
+     <?php if (isset($errors["intro"]) 
+      && $errors["intro"] == "blank"): ?>
+      <div class="alert alert-danger">
+        自己紹介を入力してください！短くても構いません！
+      </div>
+    <?php endif; ?>
+     <br><br>
 
-    <label>自己PR</label><br>
-    <input type="textarea" name="intro" value="<?php echo $intro; ?>">
-    <br><br>
-
-    <label>SNS</label><br>
-twitter
-FB
-insta
+     <input type="submit" value="内容を変更する">
 
 
 
@@ -179,4 +309,5 @@ insta
 
 </body>
 </html>
+
 

@@ -42,7 +42,7 @@
 
   </div>
   <br>
-  <form method="POST" action="top.php">
+  <form method="POST" action="">
     <input type="submit" value="ユーザー登録">
   </form>
   <br>
