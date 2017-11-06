@@ -4,7 +4,7 @@
 	// echo "</pre>";
 	session_start();
 
-	if(!isset($_SESSION['user_info']['id'])){
+	if(!isset($_SESSION['login_user']['id'])){
 		header('Location: index.php');
 		exit();
 }
@@ -21,7 +21,7 @@
 <body>
 
 <h3>マイページ</h3>
-	ようこそ。<?php echo $_SESSION['user_info']['nickname'] ?>さん。
+	ようこそ。<?php echo $_SESSION['login_user']['nickname'] ?>さん。
 
 	<a href="logout.php" class="btn btn-danger">ログアウト</a>
 

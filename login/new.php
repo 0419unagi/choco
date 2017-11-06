@@ -23,9 +23,9 @@
     $username = htmlspecialchars($_POST["username"]);
     $nickname = htmlspecialchars($_POST["nickname"]);
     $email = htmlspecialchars($_POST["email"]);
-    $course = htmlspecialchars($_POST["course"]);
-    $course_p = htmlspecialchars($_POST["$course_p"]);
-    $course_e = htmlspecialchars($_POST["$course_e"]);
+    if(isset($_POST["course"])){
+      $course = htmlspecialchars($_POST["course"]); 
+    }
     $datepicker = htmlspecialchars($_POST["datepicker"]);
     $datepicker2 = htmlspecialchars($_POST["datepicker2"]);
     $password = htmlspecialchars($_POST["password"]);
@@ -69,15 +69,16 @@
     if (empty($errors)) {
       echo "エラーなし！ok！";
 
-      $_SESSION["user_info"]["username"] = $username;
-      $_SESSION["user_info"]["nickname"] = $nickname;
-      $_SESSION["user_info"]["email"] = $email;
-      $_SESSION["user_info"]["course"] = $course;
-      $_SESSION["user_info"]["course_p"] = $course_p;
-      $_SESSION["user_info"]["course_e"] = $course_e;
-      $_SESSION["user_info"]["datepicker"] = $datepicker;
-      $_SESSION["user_info"]["datepicker2"] = $datepicker2;
-      $_SESSION["user_info"]["password"] = $password;
+      $_SESSION["login_user"]["id"] = 1;
+      $_SESSION["login_user"]["username"] = $username;
+      $_SESSION["login_user"]["nickname"] = $nickname;
+      $_SESSION["login_user"]["email"] = $email;
+      $_SESSION["login_user"]["course"] = $course;
+      $_SESSION["login_user"]["course_p"] = $course_p;
+      $_SESSION["login_user"]["course_e"] = $course_e;
+      $_SESSION["login_user"]["datepicker"] = $datepicker;
+      $_SESSION["login_user"]["datepicker2"] = $datepicker2;
+      $_SESSION["login_user"]["password"] = $password;
 
       $sql = 'INSERT INTO `batch_users` SET `username` = ?, `nickname` = ?, `email` =? , `course` =? , `datepicker` =? , `datepicker2` =? , `password` = ?,`create` = NOW()';
 
@@ -90,7 +91,6 @@
       }
 
     }
-
 
 ?>
 

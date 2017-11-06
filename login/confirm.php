@@ -7,17 +7,23 @@
       header('Location: index.php');
     exit();
     }
- 
-
-    $username = ($_SESSION["user_info"]['username']);
-    $nickname = ($_SESSION["user_info"]['nickname']);
-    $email = ($_SESSION["user_info"]['email']);
-    $course = ($_SESSION["user_info"]["course"]);
-    $datepicker = ($_SESSION["user_info"]["datepicker"]);
-    $datepicker2 = ($_SESSION["user_info"]["datepicker2"]);
-    $password = ($_SESSION["user_info"]["password"]);
-
     
+    if (!empty($_POST) && empty($errors)) {
+      echo "エラーなし！ok！";
+
+    $username = ($_SESSION["login_user"]['username']);
+    $nickname = ($_SESSION["login_user"]['nickname']);
+    $email = ($_SESSION["login_user"]['email']);
+    $course = ($_SESSION["login_user"]["course"]);
+    $datepicker = ($_SESSION["login_user"]["datepicker"]);
+    $datepicker2 = ($_SESSION["login_user"]["datepicker2"]);
+    $password = ($_SESSION["login_user"]["password"]);
+
+     header("Location:top.php");
+     exit();
+
+   }
+
  ?>
 
 <!DOCTYPE html>
@@ -31,18 +37,18 @@
   <div>
     下記の情報で登録してもよろしいでしょうか。<br>
     <br>
-    ユーザー名 : <?php echo $_SESSION['user_info']['username']; ?> <br>
-    ニックネーム :<?php echo $_SESSION['user_info']['nickname']; ?><br>
-    メールアドレス : <?php echo $_SESSION['user_info']['email']; ?> <br>
-    コース : <?php echo $_SESSION['user_info']['course']; ?> <br>
-    入学日 : <?php echo $_SESSION['user_info']['datepicker']; ?> <br>
-    卒業日:<?php echo $_SESSION['user_info']['datepicker2']; ?><br>
-    パスワード :<?php echo $_SESSION['user_info']['password']; ?> <br>
+    ユーザー名 : <?php echo $_SESSION['login_user']['username']; ?> <br>
+    ニックネーム :<?php echo $_SESSION['login_user']['nickname']; ?><br>
+    メールアドレス : <?php echo $_SESSION['login_user']['email']; ?> <br>
+    コース : <?php echo $_SESSION['login_user']['course']; ?> <br>
+    入学日 : <?php echo $_SESSION['login_user']['datepicker']; ?> <br>
+    卒業日:<?php echo $_SESSION['login_user']['datepicker2']; ?><br>
+    パスワード :<?php echo $_SESSION['login_user']['password']; ?> <br>
 
 
   </div>
   <br>
-  <form method="POST" action="">
+  <form method="POST" action="top.php">
     <input type="submit" value="ユーザー登録">
   </form>
   <br>

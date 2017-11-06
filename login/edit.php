@@ -7,13 +7,13 @@ require('../dbconnect.php');
   session_start();
 //初期値にnew.phpのデータベースから持ってくる？
 
-  $username = ($_SESSION["user_info"]["username"]);
-  $nickname = ($_SESSION["user_info"]['nickname']);
-  $email = ($_SESSION["user_info"]['email']);
-  $course = ($_SESSION["user_info"]["course"]);
-  $datepicker = ($_SESSION["user_info"]["datepicker"]);
-  $datepicker2 = ($_SESSION["user_info"]["datepicker2"]);
-  $password = ($_SESSION["user_info"]["password"]);
+  $username = ($_SESSION["login_user"]["username"]);
+  $nickname = ($_SESSION["login_user"]['nickname']);
+  $email = ($_SESSION["login_user"]['email']);
+  $course = ($_SESSION["login_user"]["course"]);
+  $datepicker = ($_SESSION["login_user"]["datepicker"]);
+  $datepicker2 = ($_SESSION["login_user"]["datepicker2"]);
+  $password = ($_SESSION["login_user"]["password"]);
 
 
   $course_p = "";
@@ -71,10 +71,10 @@ require('../dbconnect.php');
     if ($ext != "jpg" && $ext != "png" && $ext != "gif") {
       $errors["image"] = "extention";
     }
-    else{
+ 
+    }else{
       $errors["image"] = "blank";
     }
-  }
 
 
 
