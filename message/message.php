@@ -54,21 +54,7 @@ while (true) {
 
  ?>
 
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-	<meta charset="utf-8">
-	<title>message</title>
-
-	<!-- cssファイルの読み込み -->
-	<link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="../assets/css/custom.css">
-	<!-- <link rel="stylesheet" type="text/css" href="assets/css/main.css"> -->
-	<link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css">
-
-</head>
-<body>
-
+<?php require('../part/header.php'); ?>
 <script src="../assets/js/jquery-2.1.4.min.js"></script>
 <script src="../assets/js/main.js"></script>
 
