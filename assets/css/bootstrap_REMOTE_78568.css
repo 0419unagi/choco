@@ -1276,6 +1276,7 @@ pre code {
   }
 }
 
+
 @media (min-width: 992px) {
   .container {
     width: 970px;
@@ -7096,3 +7097,4 @@ td.visible-print {
   td.hidden-print {
     display: none !important;
   }
+}

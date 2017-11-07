@@ -1276,6 +1276,10 @@ pre code {
   }
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> maki
 @media (min-width: 992px) {
   .container {
     width: 970px;
@@ -6371,8 +6375,12 @@ button.close {
 }
 
 .carousel {
+<<<<<<< HEAD
+  position: relative;
+=======
  position: relative;
  top: -20px;
+>>>>>>> maki
 }
 
 .carousel-inner {
@@ -7096,3 +7104,8 @@ td.visible-print {
   td.hidden-print {
     display: none !important;
   }
+<<<<<<< HEAD
+}
+=======
+}
+>>>>>>> maki
