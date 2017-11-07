@@ -20,8 +20,8 @@ p {font-family: monospace;}
 		vertical-align: middle;
 		text-align: center;*/
 	 	position: absolute;
-		top: 50%;
-		margin-top: -1.0rem;}
+		top:50%;
+		margin-top: 5rem;}
 
 
 
@@ -63,7 +63,7 @@ p {font-family: monospace;}
 
 .position , .login {
   position: absolute;
-  bottom: 0px;
+  bottom: 20px;
   right: 100px;
 }
 

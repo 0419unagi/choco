@@ -123,7 +123,7 @@
 
       <div class="col-xs-3">
         <div class="batch">
-          <br><br><br><br><br><br><br>
+          <!-- <br><br><br><br><br><br><br> -->
           <img src="../assets/img/ill_hand.png" alt="hand_logo" >
           <h1>BATCH</h1>
           <p>make a history together!</p>
