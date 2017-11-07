@@ -1,0 +1,338 @@
+
+body, html {
+	height: 100%;
+	padding: 0;
+} 
+.container{
+	width: 100%;
+	position: relative;
+	height: auto ;
+	height: 100%;
+	min-height: 100%;
+	padding: 0;
+}
+
+
+.header{
+	/*border: solid 1px;*/
+	height: 15%;
+	width: 100%;
+}
+
+.contents{
+	height: 85%;
+	width: 100%;
+	min-width: 910px;
+}
+
+.contents #mes_head{
+	background-color: #F7F7F7;
+	border: solid 1px #95989A;
+	height: 60px;
+	width: 100%;
+}
+
+/*サイドバー*/
+.sidebar{
+	float: left;
+	height: 100%;
+	width: 20%;
+	min-width: 180px;
+	background-color: #000000;
+	opacity: 0.8;
+}
+/*検索欄	*/
+.sidebar #search {
+	height: 30px;
+	width: 100%;
+	margin-top: 30px;
+	/*下記、なぜか出来ない*/
+	/*border-bottom: : solid 1px #fff;*/
+}
+/*検索欄　アンダーバー*/
+.sidebar #bar{
+	margin-left:10px;
+	border-top: 1px solid #fff;
+	width: 85%;
+	opacity: 0.8;
+}
+
+/*サイドバー履歴表示*/
+
+.sidebar #search #search_icon {
+	font-size: 18px;
+	color: #fff;
+	margin:3px 0 0 14px;
+	display: inline;
+	float: left;
+	width: 15%
+}
+.sidebar #search #mes_search{
+	float: left;
+	display: inline;
+	width: 70%;
+	background-color: transparent;
+	border: none;
+	color: #fff;
+	margin: 2px 0 0 7px;
+	/*違うフォント変更のやり方を調べる*/
+	font-family: Helvetica Neue;
+} 
+
+/*ユーザートーク履歴*/
+.sidebar #talk_history{
+	margin-top:30px;
+	/*border: 1px solid #fff;*/
+	width: 100%;
+	height: 55px;
+}
+/*ユーザーアイコン*/
+.sidebar #talk_history #mes_icon{
+	float: left;
+	width: 45px;
+	height: 45px;
+	margin: 3px 0 0 3px;
+}
+/*ユーザー名*/
+.sidebar #talk_history #his_name{
+	float: left;
+	width: 50px;
+	height: 30px;
+	font-size: 20px;
+	color: #fff;
+	margin: 5px 0 0 15px;
+}
+/*トーク時間*/
+.sidebar #talk_history #his_time{
+	float: right;
+	margin: 10px 5px 0 0;
+	font-size: 15px; 
+}
+/*トーク内容*/
+.sidebar #talk_history #his_comment{
+	bottom: 0;
+	/*position: fixed ;*/
+}
+.content #mes_head {
+	text-align: center;
+	padding-top:11px;
+	font-size: 27px; 
+}
+
+
+
+
+.content {
+	border: solid 1px;
+	float: right;
+	height: 100%;
+	width: 80%;
+}
+
+/*投稿表示欄*/
+/*コメント毎に改行する*/
+.user{
+	clear: both;
+	height: 20px;
+}
+
+.content #talk_content{
+	width: 100%;
+	height: 80%;
+	overflow: scroll;
+	word-break: break-all;
+}
+.content .talking{
+	width: auto;
+	height: 40px;
+	min-height: 30px;
+	border: 1px solid;
+	margin: 10px;
+	padding: 10px;
+	display: inline-block;
+}
+/*自分の投稿内容*/
+.content #talk_content #talking_me{
+	float: right;
+	padding: 3px;
+	display: inline;
+	max-width: 50%;
+	/*margin: 3px;*/
+	border: solid 1px;
+}
+/*相手の投稿内容*/
+.content #talk_content #talking_you{
+	float: left;
+	padding: 3px;
+	display: inline;
+	max-width: 50%;
+	/*margin: 3px;*/
+	border: solid 1px;
+}
+
+
+
+
+/*メッセージバー	*/
+#mes_footer {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	height: 40px;
+	border: solid 0.5px;
+	background-color: #EEEEEE;
+ }
+
+/*メッセージバー　イメージ図挿入ボタン*/
+#mes_footer #image {
+	float: left;
+	width: 5%;
+}
+#mes_footer #image #uplode_image{
+	width: 22px;
+	margin: 8px 0 0 40%;
+}
+
+/*メッセージバー　テキスト入力欄*/
+#mes_footer #text_input{
+	width: 100%;
+	border: none;
+	background-color: transparent;
+}
+#mes_footer #textbox {
+	float: left;
+	width: 67.5%;
+	border: 1px solid ;
+	background-color: #fff;
+	margin: 8px 0 0 15px;
+	border-radius: 10px;
+	border: 1px solid #A3A3A3;
+}
+
+/*メッセージバー　送信ボタン*/
+#mes_footer #push {
+	float: left;
+	width: 5%;
+	margin: ;
+}
+#mes_footer #push #submit{
+	width: 20px;
+	margin: 7px 0 0 35%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*******************************
+* 左からの吹き出し
+********************************/
+.left_balloon {
+    position: relative;
+    background: rgba(218, 218, 218, 0.64);
+    border: 1px solid rgba(119, 119, 119, 0.28);
+    margin: 10px;
+    padding: 10px;
+    border-radius: 15px;
+    margin-right: 20%;
+    clear: both;
+    max-width: 500px;
+    float: left;
+}
+/*.left_balloon:after,
+.left_balloon:before {
+    left: 7.5px;
+    top: -5px;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+.left_balloon:after {
+    border-color: rgba(255, 255, 255, 0);
+    border-bottom-color: #85e249;
+    border-width: 7px;
+    margin-top: -7px;
+}*/
+/*.left_balloon:before {
+    border-color: rgba(0, 0, 0, 0);
+    border-right-color: #000;
+    border-width: 8px;
+    margin-top: -8px;
+}*/
+ 
+/*******************************
+* 右からの吹き出し
+********************************/
+.right_balloon {
+    position: relative;
+    background: #EEEEEE;
+    border: 1px solid #777;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 15px;
+    margin-left: 20%;
+    clear: both;
+    max-width: 500px;
+    float: right;
+}
+.right_balloon:after,
+.right_balloon:before {
+    left: 100%;
+    top: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+.right_balloon:after {
+    border-color: rgba(133, 226, 73, 0);
+    border-left-color: #EEEEEE;
+    border-width: 7px;
+    margin-top: -7px;
+}
+.right_balloon:before {
+    border-color: rgba(119, 119, 119, 0);
+    border-left-color: #777;
+    border-width: 8px;
+    margin-top: -8px;
+}
+ 
+/*******************************
+* 割り込みを解除
+********************************/
+.clear_balloon{
+  clear: both;
+}
+
+
+#talkField{
+	width: 100%;
+	height: 500px;
+	padding: 10px;
+	/*background-color: #7897C5;*/
+	/*border: 1px solid grey;*/
+	/*border-radius: 10px;*/
+	/*overflow: scroll;*/
+	/*word-break: break-all;*/
+}
+
+
+
