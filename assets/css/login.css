@@ -1,0 +1,75 @@
+/*all*/
+#tablecell {text-align: center;
+			background: url(../img/aruaru4.jpg) center center / cover no-repeat fixed;
+			-webkit-background-size: cover;
+			background-size: cover;
+			color: white;}
+
+/*batch*/
+h1 {font-size: 45px;
+    font-family: sans-serif;}
+
+h2 {font-size: 30px;
+	font-family: sans-serif;}
+
+p {font-family: monospace;}
+
+.batch {/*width: 300px;
+		height: 200px;
+		display: table-cell;
+		vertical-align: middle;
+		text-align: center;*/
+	 	position: absolute;
+		top: 50%;
+		margin-top: -1.0rem;}
+
+
+
+/*情報登録*/
+
+.top {font-size: 12px;
+      font-family: sans-serif;
+      }
+
+.text {border: none;
+	   text-align: center;
+	   color: white;
+       line-height: 3.0;
+       border-bottom: 1px solid #333;
+       padding: 0;
+       background: none;
+       border-radius: 0;
+       -webkit-appearance: none;
+       appearance:none;
+       outline: 0;}
+
+/*ログインボタン*/
+
+.login {
+    display: inline-block;
+    padding: 0.3em 1em;
+    text-decoration: none;
+    color: white;
+    background-color: #67c5ff; 
+    border: solid 2px #67c5ff;
+    border-radius: 3px;
+    transition: .4s;
+}
+
+.login:hover {
+    background: white;
+    color: #67c5ff;
+}
+
+.position , .login {
+  position: absolute;
+  bottom: 0px;
+  right: 100px;
+}
+
+/*create account*/
+
+.create {color: white;
+		 font-size: 12px;}
+
+.create:hover {color: #67c5ff;}
