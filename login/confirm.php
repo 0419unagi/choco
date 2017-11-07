@@ -1,6 +1,7 @@
 <?php 
 
     session_start();
+    require('../dbconnect.php');
 
     if (empty($_SESSION)) {
       echo 'データを入力してください。';
@@ -8,8 +9,9 @@
     exit();
     }
     
-    if (!empty($_POST) && empty($errors)) {
+    if (!empty($_POST)) {
       echo "エラーなし！ok！";
+
 
     $username = ($_SESSION["login_user"]['username']);
     $nickname = ($_SESSION["login_user"]['nickname']);
@@ -18,6 +20,12 @@
     $datepicker = ($_SESSION["login_user"]["datepicker"]);
     $datepicker2 = ($_SESSION["login_user"]["datepicker2"]);
     $password = ($_SESSION["login_user"]["password"]);
+
+    $sql = 'INSERT INTO `batch_users` SET `username` = ?, `nickname` = ?, `email` =? , `course` =? , `datepicker` =? , `datepicker2` =? , `password` = ?,`created` = NOW()';
+
+    $data = array($username,$nickname,$email,$course,$datepicker,$datepicker2,$password);
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
 
      header("Location:top.php");
      exit();
@@ -48,7 +56,8 @@
 
   </div>
   <br>
-  <form method="POST" action="top.php">
+  <form method="POST" action="">
+    <input type="hidden" name="aaaa" value="aaaa">
     <input type="submit" value="ユーザー登録">
   </form>
   <br>
