@@ -76,6 +76,7 @@
     <div id="tablecell" >
     <br><br>
     <img src="../assets/img/ill_hand.png" alt="hand_logo" >
+    <br><br>
     <h1>BATCH</h1>
     <p>make a history together !</p>
     <br><br><br><br>
@@ -112,7 +113,7 @@
             echo 'パスワードは4文字以上8文字以内で入力してください。';
         }?>
 
-        <br>
+        <br><br>
         <input class="login" type="submit" value="LOGIN">
     </form> 
 

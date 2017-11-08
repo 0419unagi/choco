@@ -21,11 +21,11 @@ p {font-family: monospace;}
 		text-align: center;*/
 	 	position: absolute;
 		top:50%;
-		margin-top: 5rem;}
+		margin-top: 15rem;}
 
 
 
-/*情報登録*/
+/*情報登録&確認*/
 
 .top {font-size: 12px;
       font-family: sans-serif;
@@ -41,7 +41,12 @@ p {font-family: monospace;}
        border-radius: 0;
        -webkit-appearance: none;
        appearance:none;
-       outline: 0;}
+       outline: 0;
+   	   width:250px;}
+
+.text::-webkit-input-placeholder {
+    color: #CEE3F6; 
+	}
 
 /*ログインボタン*/
 
@@ -54,6 +59,7 @@ p {font-family: monospace;}
     border: solid 2px #67c5ff;
     border-radius: 3px;
     transition: .4s;
+
 }
 
 .login:hover {
@@ -61,7 +67,7 @@ p {font-family: monospace;}
     color: #67c5ff;
 }
 
-.position , .login {
+.position {
   position: absolute;
   bottom: 20px;
   right: 100px;

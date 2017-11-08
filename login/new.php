@@ -134,7 +134,7 @@
   
       <div class="col-xs-3">
         <form method="POST" action="" enctype="multipart/form-data">
-        <br><br>
+        <br>
         <div class="top">FULLNAME</div><br>
         <input class="text" type="text" name="username" placeholder="小川　ともゆき" value="<?php echo $username; ?>">
         <br><br>
