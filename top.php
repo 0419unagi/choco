@@ -177,13 +177,14 @@ $(function(){
 		setElm.css({visibility:'visible'});
 	});
 });
+   
+   
 </script>
 </head>
 
 <body>
 
 <header>
- <div class="container">
   
   <div id="clm_l">
    <div id="prf">
@@ -234,7 +235,6 @@ $(function(){
  </div> 
  
  </div> 
- </div>
  </header>
 
 
