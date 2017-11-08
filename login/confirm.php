@@ -27,7 +27,7 @@
     $stmt = $dbh->prepare($sql);
     $stmt->execute($data);
 
-     header("Location:top.php");
+     header("Location:../top.php");
      exit();
 
    }
@@ -44,14 +44,14 @@
 </head>
 <body>
 
-  <div id="tablecell">
+  <div id="tablecellboke">
   <div class="container">
     <div class="row">
       <div class="col-xs-3"></div>
 
       <div class="col-xs-3">
         <div class="batch">
-          <img src="../assets/img/ill_hand.png" alt="hand_logo" >
+          <img src="../assets/img/logomark.png" alt="hand_logo" >
           <h1>BATCH</h1>
           <p>make a history together!</p>
           <br>

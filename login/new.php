@@ -116,7 +116,7 @@
   <title>新規登録</title>
 </head>
 <body>
-  <div id="tablecell">
+  <div id="tablecellboke">
   <div class="container">
     <div class="row">
       <div class="col-xs-3"></div>
@@ -124,7 +124,7 @@
       <div class="col-xs-3">
         <div class="batch">
           <!-- <br><br><br><br><br><br><br> -->
-          <img src="../assets/img/ill_hand.png" alt="hand_logo" >
+          <img src="../assets/img/logomark.png" alt="hand_logo" >
           <h1>BATCH</h1>
           <p>make a history together!</p>
           <br>
@@ -169,8 +169,8 @@
 
 
         <div class="top">COURSE<br><br>
-        <input type="radio" name="course" value="programming" <?php echo $course_p; ?> >プログラミング(Web/iOS)
-        <input type="radio" name="course" value="english" <?php echo $course_e; ?> >英語
+        <input type="radio" name="course" value="programming" <?php echo $course_p; ?> >Programming
+        <input type="radio" name="course" value="english" <?php echo $course_e; ?> >English
         </div><br><br>
         <?php if (isset($errors["course"]) 
           && $errors["course"] == "blank"): ?>
