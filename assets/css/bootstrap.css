@@ -225,7 +225,7 @@ table {
   }
   a,
   a:visited {
-    text-decoration: underline
+    text-decoration: underline;
   }
   a[href]:after {
     content: " (" attr(href) ")";
@@ -6371,7 +6371,9 @@ button.close {
 }
 
 .carousel {
-  position: relative;
+ position: relative;
+ top: -20px;
+
 }
 
 .carousel-inner {
@@ -7095,4 +7097,6 @@ td.visible-print {
   td.hidden-print {
     display: none !important;
   }
+
 }
+
