@@ -50,7 +50,7 @@
             // echo 'ログインできました。タイムラインへ移動します。<br>';
             // 一致した場合はログインする。
             $_SESSION['login_user'] = $record;
-            header('Location: ../top.php');
+            header('Location: top.php');
             exit();
         }else{
             // ログインできなかった場合

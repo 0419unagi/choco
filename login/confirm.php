@@ -27,7 +27,7 @@
     $stmt = $dbh->prepare($sql);
     $stmt->execute($data);
 
-     header("Location:../top.php");
+     header("Location:top.php");
      exit();
 
    }

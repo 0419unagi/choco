@@ -111,7 +111,7 @@ require('../dbconnect.php');
       $stmt = $dbh->prepare($sql);
       $stmt->execute($data);
 
-      header("Location:edit.php");
+      header("Location:top.php");
       exit();
 
     }
@@ -143,6 +143,7 @@ require('../dbconnect.php');
   <title>マイプロフ編集画面</title>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="/resources/demos/style.css">
+  <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script>
@@ -153,14 +154,12 @@ require('../dbconnect.php');
 
 </head>
 <body>
-
 <div id="tablecellboke">
   <div class="container">
     <div class="row">
 
       <div class="col-xs-3">
        <div class="batch">
-
         <img src="../assets/img/logomark.png" alt="hand_logo" >
         <h1>BATCH</h1>
         <p>make a history together!</p>
@@ -226,7 +225,7 @@ require('../dbconnect.php');
 
 
         <div class="top">COURSE<br><br>
-          <input type="radio" name="course" value="programming" <?php echo $course_p; ?> >Programming
+          <input type="radio" name="course" value="programming" <?php echo $course_p; ?> >Programming&emsp;
           <input type="radio" name="course" value="english" <?php echo $course_e; ?> >English
           </div><br>
           <?php if (isset($errors["course"]) 
@@ -342,6 +341,9 @@ require('../dbconnect.php');
           <?php endif; ?>
           <br><br>
       </div>
+
+      <a class="back" href="top.php"><i class="fa fa-arrow-left" aria-hidden="true"></i>
+</a>
 
       <div class="position">
         <div class="col-xs-3">

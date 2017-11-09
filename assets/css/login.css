@@ -32,7 +32,7 @@ p {font-family: monospace;}
 
 
 
-/*情報登録&確認*/
+/*情報登録&確認&編集*/
 
 .top {font-size: 12px;
       font-family: sans-serif;
@@ -54,6 +54,12 @@ p {font-family: monospace;}
 .text::-webkit-input-placeholder {
     color: #CEE3F6; 
 	}
+
+a.back{
+    position: absolute;
+    top: 30px;
+    left: 50px;
+}
 
 /*ログインボタン*/
 
