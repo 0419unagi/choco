@@ -9,48 +9,52 @@ $record = [
 	'user' => '',
 	'message' =>''
 ];
+$inputValue = [];
 
-// サンプルSQL
-// SELECT
-// NAME AS "name", 
-// CONTENT AS "content",
-// x.image AS "image",
-// batch_users.username AS "other_name" 
-// FROM (
-//     SELECT
-//     batch_users.username AS "NAME",
-//     message.content AS "CONTENT",
-//     message.uplode_image AS"image", 
-//     message.other_id AS other_id 
-//     FROM message
-//     JOIN batch_users 
-//     ON message.user_id = batch_users.id 
-// ) x
-// JOIN batch_users 
-// ON x.other_id = batch_users.id;
-
-$sql = 'SELECT * FROM `message` ORDER BY created_at;';
+$sql = 'SELECT
+		x.user_id AS "user_id",
+		NAME AS "user_name", 
+      	x.other_id AS "other_id",
+		batch_users.username AS "other_name",
+		CONTENT AS "content",
+		x.uplode_image AS "uplode_image"
+		FROM (
+		    SELECT
+         	message.user_id AS "user_id",
+         	message.other_id AS "other_id",
+		    batch_users.username AS "NAME",
+		    message.content AS "CONTENT",
+		    message.uplode_image AS"uplode_image"
+		    FROM message
+		    JOIN batch_users 
+		    ON message.user_id = batch_users.id 
+		) x
+		JOIN batch_users 
+		ON x.other_id = batch_users.id
+		WHERE batch_users.username  = "sample";';
 $data = [];
 $stmt = $dbh->prepare($sql);
 $stmt->execute($data);
+// データベース切断
+$dbh = null;
 
 // セレクト文で実行した結果を取得する
 while (true) {
 	$record = $stmt->fetch(PDO::FETCH_ASSOC);
 
-	//デバッグ
-	// error_log(print_r($record,true),"3","../../../logs/debug.log");
-
 	if ($record == false) {
 		break;
 	}
 
-	//データベースから取得したデータを以下のフォーマットにする
-	$inputValue[] = "<div class='left_balloon'>".$record['message']."</div>";
-	
+	$user_info[] = $record;
 
-	// error_log(print_r($inputValue,true),"3","../../../logs/debug.log");
+	//データベースから取得したデータを以下のフォーマットにする
+	$inputValue[] = "<div class='left_balloon'>".$record['content']."</div>";
+
+	// error_log(print_r($record,true),"3","../../../../../logs/error_log");
 }
+
+	
 
  ?>
 
@@ -79,7 +83,6 @@ while (true) {
 				<p id="his_name">SAM</p>
 				
 				<p id="his_time">15:00</p>
-				<!-- <p id="his_comment">あなた：お疲れ</p> -->
 			</div>
 			
 
@@ -108,49 +111,33 @@ while (true) {
 			<!-- 入力バー -->
 			<!-- 以下検索	 -->
 			<div id="mes_footer">
-				<!-- イメージ図選択ボタン		 -->
-				<!-- <div id="image" >
-					<img src="../assets/img/img_up.png" alt="">
-				</div> -->
-
-	<!-- <label>画像アップロード</label>
-		<input type="file" name="profile_image" accept="image/*">
-		<br>
-		<?php if (isset($errors['profile_image']) && $errors['profile_image']=='blank') { ?>
-			<div class="alert alert-danger">
-				プロフィール画像を選択してください
-			</div>
-		<?php }elseif(isset($errors['profile_image']) && $errors['profile_image']=='extension'){ ?>
-			<div class="alert alert-danger">
-				アップロード使用できる拡張子は、「jpg」または「png」または「gif」のみです。
-			</div>
-		<?php } ?>
-
- -->
 				<!-- テキスト内容 -->
-				<form method="GET" action="message.php">
+				<form id="foo" method="GET" action="message.php">
 					<!-- イメージ図選択ボタン		 -->
 					<div id="image" >
-						<input type="file" id="file" style="display:none;" onchange="$('#fake_input_file').val($(this).val())">
-						<input type="image" src="../assets/img/img_up.png" id="uplode_image" value="ファイル選択" onClick="$('#file').click();">
-						<input id="fake_input_file" readonly type="text" value=""  onClick="$('#file').click();">
+						<input type="file" name="image_uplode" id="file" style="display:none;" onchange="img_up()">
+						<img src="../assets/img/img_up.png" id="uplode_image" name="image_uplode" value="" onClick="$('#file').click();">
 					</div>
-
-
 
 					<div id="textbox" >
+						<!-- 隠しデータで配列を送信する -->
+						<?php foreach ($user_info as $value) { ?>
+							<?php foreach ($value as $k => $v) { ?>
+								<input type="hidden" id="<?php echo $k ?>" value="<?php echo $v ?>">
+							<?php } ?>
+						<?php } ?>
+							
 						<!-- 下記は仮ユーザー -->
-						<input type="hidden" id="user_name" name="user" value="takuya">
+						<!-- 下記のvalueについて確認 -->
 						<input type="text" name="message" id="text_input">
 					</div>
-					
+
 					<!-- 送信ボタン -->
 					<div id="push" >
 						<input type="image" src="../assets/img/post.png"  id="submit">
 					</div>	
 				</form>	
-		</div>
-
+			</div>
 		</div>
 	</div>
 </div>
@@ -158,4 +145,4 @@ while (true) {
 	
 	
 </body>
-</html>
+</html> -->
