@@ -1,137 +1,166 @@
-<?php
-  // var_dump($_POST);
-  // echo "<br><br>";
+<?php 
 
-require('../dbconnect.php');
+require('../dbconnect.php'); 
 
-  session_start();
-//初期値にnew.phpのデータベースから持ってくる？
+    session_start(); 
+    $username = $_SESSION["login_user"]["username"]; 
+    $sql = 'SELECT * FROM `batch_users` WHERE `username`=?'; 
+    $data = array($_SESSION["login_user"]["username"]); 
+    $stmt = $dbh->prepare($sql); 
+    $stmt->execute($data); 
+         
+    $record = $stmt->fetch(PDO::FETCH_ASSOC); 
+    $user_info = $record; 
 
-  $username = ($_SESSION["login_user"]["username"]);
-  $nickname = ($_SESSION["login_user"]['nickname']);
-  $email = ($_SESSION["login_user"]['email']);
-  $course = ($_SESSION["login_user"]["course"]);
-  $datepicker = ($_SESSION["login_user"]["datepicker"]);
-  $datepicker2 = ($_SESSION["login_user"]["datepicker2"]);
-  $password = ($_SESSION["login_user"]["password"]);
-
-
-  $course_p = "";
-  $course_e = "";
-  $image = "";
-  $year = "";
-  $birthplace = "";
-  $hobby = "";
-  $intro = "";
-
-    if ($course =="programming"){
-        $course_p = "checked";
-    }
-    elseif($course =="english"){
-        $course_e = "checked";
-    }
-
-  if (!empty($_POST)) {
-    $username = htmlspecialchars($_POST["username"]);
-    $nickname = htmlspecialchars($_POST['nickname']);
-    $email = htmlspecialchars($_POST['email']);
-    $course = htmlspecialchars($_POST["course"]);
-    $datepicker = htmlspecialchars($_POST["datepicker"]);
-    $datepicker2 = htmlspecialchars($_POST["datepicker2"]);
-    $password = htmlspecialchars($_POST["password"]);
-    $year = htmlspecialchars($_POST["year"]);
-    $birthplace = htmlspecialchars($_POST["birthplace"]);
-    $hobby = htmlspecialchars($_POST["hobby"]);
-    $intro = htmlspecialchars($_POST["intro"]);
-
-    $errors = array();
-
-
-    if ($course =="programming"){
-        $course_p = "checked";
-    }
-    elseif($course =="english"){
-        $course_e = "checked";
-    }
-    if ($year == "") {
-      $errors["year"] = "blank";
-    }
-    if ($birthplace == "") {
-      $errors["birthplace"] = "blank";
-    }
-    if ($hobby == "") {
-      $errors["hobby"] = "blank";
-    }
-    if ($intro == "") {
-      $errors["intro"] = "blank";
-    }
-
-
-
-    $fileName = $_FILES["image"]["name"];
-
-    if (!empty($fileName)) {
-      $ext = substr($fileName,-3);
-      $ext = strtolower($ext);
-      echo "拡張子は" . $ext . "です<br>";
-
-    if ($ext != "jpg" && $ext != "png" && $ext != "gif") {
-      $errors["image"] = "extention";
-    }
  
-    }else{
-      $errors["image"] = "blank";
+    $username = $user_info['username']; 
+    $nickname = $user_info['nickname']; 
+    $email = $user_info['email']; 
+    $course = $user_info['course']; 
+    $course_p = $user_info['course'];
+    $course_e = $user_info['course'];
+    $datepicker = $user_info['datepicker']; 
+    $datepicker2 = $user_info['datepicker2']; 
+    $password = $user_info['password']; 
+    $image = $user_info['image']; 
+    $year = $user_info['year']; 
+    $month = $user_info['month']; 
+    $day = $user_info['day']; 
+    $birthplace = $user_info['birthplace']; 
+    $hobby = $user_info['hobby']; 
+    $intro = $user_info['intro']; 
+
+
+    if ($course =="programming"){
+        $course_p = "checked";
+    }
+    elseif($course =="english"){
+        $course_e = "checked";
     }
 
+    if (!empty($_POST)) { 
+        $username = $_POST["username"]; 
+        $nickname = $_POST['nickname']; 
+        $email = $_POST['email']; 
+        $course = $_POST["course"]; 
+        $datepicker = $_POST["datepicker"]; 
+        $datepicker2 = $_POST["datepicker2"]; 
+        $password = $_POST["password"]; 
+        $year = $_POST["year"]; 
+        $month = $_POST['month']; 
+        $day = $_POST['day']; 
+        $birthplace = $_POST["birthplace"]; 
+        $hobby = $_POST["hobby"]; 
+        $intro = $_POST["intro"]; 
+// echo "<pre>";
+// var_dump($_POST);
+ 
+        $errors = array(); 
 
+// var_dump($errors);
+        if ($username == "") { 
+            $errors["username"] = "blank"; 
+        } 
 
-    // if (empty($errors)) {
-    //   move_uploaded_file($_FILES["image"]["tmp_name"],"image/" . $username . "_" . $_FILES["image"]["name"]);
-    // }
+        if ($nickname == "") { 
+            $errors["nickname"] = "blank"; 
+        } 
 
+        if ($email == "") { 
+            $errors["email"] = "blank"; 
+        } 
 
-    if (empty($errors)) {
-      echo "エラーなし！ok！";
+        if ($course == "") { 
+            $errors["course"] = "blank"; 
+        } 
 
-      $_SESSION["user_info"]["year"] = $year;
-      $_SESSION["user_info"]["birthplace"] = $birthplace;
-      $_SESSION["user_info"]["hobby"] = $hobby;
-      $_SESSION["user_info"]["intro"] = $intro;
-      $_SESSION["user_info"]["image"] = $username . "_" . $_FILES["image"]["name"];
+        if ($datepicker == "") { 
+            $errors["datepicker"] = "blank"; 
+        } 
 
-      $sql ='UPDATE `batch_users` SET `username`=?,`nickname`=?,`email`=?,`course`=?,`datepicker`=?,`datepicker2`=?,`password`=?,`image`=?,`year`=?,`birthplace`=?,`hobby`=?,`intro`=? WHERE id=26';
+        if ($datepicker2 == "") { 
+            $errors["datepicker2"] = "blank"; 
+        } 
 
-      // $data = array($username,$nickname,$email,$course,$datepicker,$datepicker2,$password,$image,$year,$birthplace,$hobby,$intro);
+        if ($password == "") { 
+            $errors["password"] = "blank"; 
+        }elseif (strlen($password) < 4 ) { 
+            $errors["password"] = "length"; 
+        }elseif (strlen($password) > 8 ) { 
+            $errors["password"] = "length"; 
+        } 
 
-      $data = array($_SESSION["login_user"]["username"],$_SESSION["login_user"]["nickname"],$_SESSION["login_user"]["email"],$_SESSION["login_user"]["course"],$_SESSION["login_user"]["datepicker"],$_SESSION["login_user"]["datepicker2"],$_SESSION["login_user"]["password"],$_SESSION["user_info"]["image"],$_SESSION["user_info"]["year"],$_SESSION["user_info"]["birthplace"],$_SESSION["user_info"]["hobby"],$_SESSION["user_info"]["intro"]);
+        if ($year == "") { 
+            $errors["year"] = "blank"; 
+        } 
 
- // var_dump($_SESSION["login_user"]["username"],$_SESSION["login_user"]["nickname"],$_SESSION["login_user"]["email"],$_SESSION["login_user"]["course"],$_SESSION["login_user"]["datepicker"],$_SESSION["login_user"]["datepicker2"],$_SESSION["login_user"]["password"],$_SESSION["user_info"]["image"],$_SESSION["user_info"]["year"],$_SESSION["user_info"]["birthplace"],$_SESSION["user_info"]["hobby"],$_SESSION["user_info"]["intro"],$_SESSION["login_user"]['id']);exit();
+        if ($month == "") { 
+            $errors["month"] = "blank"; 
+        } 
 
+        if ($day == "") { 
+            $errors["day"] = "blank"; 
+        } 
 
-      $stmt = $dbh->prepare($sql);
-      $stmt->execute($data);
+        if ($birthplace == "") { 
+            $errors["birthplace"] = "blank"; 
+        } 
 
-      header("Location:top.php");
-      exit();
+        if ($hobby == "") { 
+            $errors["hobby"] = "blank"; 
+        } 
 
-    }
+        if ($intro == "") { 
+            $errors["intro"] = "blank"; 
+        } 
 
-  }
+        if (empty($errors)) { 
+            $fileName = $_FILES['image']['name']; 
 
+            if(!empty($fileName)){ 
+                // var_dump($fileName); 
+             
+                $ext = substr($fileName,-3); 
 
-  function optionLoop($start, $end , $value = null){
-    for ($i = $start; $i <= $end; $i++) { 
-      if (isset($value) && $value == $i) {
-        echo"<option value=\"{$i}\" selected=\"selected\">{$i}</option>";}
-      else{
-        echo"<option value=\"{$i}\">{$i}</option>";}
-      }
-    }
+                $ext = strtolower($ext); 
+                if ($ext != "jpg" && $ext != "png" && $ext != "gif") { 
+                    $errors["image"] = "extention"; 
+                  }
+             
+                move_uploaded_file($_FILES["image"]["tmp_name"],'../image/'.$fileName); 
+                // イメージのフォルダの中にファイルを保存する
 
-  $pref = ['1'=>'北海道','2'=>'青森県','3'=>'岩手県','4'=>'宮城県','5'=>'秋田県','6'=>'山形県','7'=>'福島県','8'=>'茨城県','9'=>'栃木県','10'=>'群馬県','11'=>'埼玉県','12'=>'千葉県','13'=>'東京都','14'=>'神奈川県','15'=>'新潟県','16'=>'富山県','17'=>'石川県','18'=>'福井県','19'=>'山梨県','20'=>'長野県','21'=>'岐阜県','22'=>'静岡県','23'=>'愛知県','24'=>'三重県','25'=>'滋賀県','26'=>'京都府','27'=>'大阪府','28'=>'兵庫県','29'=>'奈良県','30'=>'和歌山県','31'=>'鳥取県','32'=>'島根県','33'=>'岡山県','34'=>'広島県','35'=>'山口県','36'=>'徳島県','37'=>'香川県','38'=>'愛媛県','39'=>'高知県','40'=>'福岡県','41'=>'佐賀県','42'=>'長崎県','43'=>'熊本県','44'=>'大分県','45'=>'宮崎県','46'=>'鹿児島県','47'=>'沖縄県'];
+           
+                $sql ='UPDATE `batch_users` SET `username`=?,`nickname`=?,`email`=?,`course`=?,`datepicker`=?,`datepicker2`=?,`password`=?,`image`=?,`year`=?,`month`=?,`day`=?,`birthplace`=?,`hobby`=?,`intro`=? WHERE id=?'; 
+                $data = array($username,$nickname,$email,$course,$datepicker,$datepicker2,$password,$fileName,$year,$month,$day,$birthplace,$hobby,$intro,$user_info['id']); 
+                $stmt = $dbh->prepare($sql); 
+                $stmt->execute($data); 
+
+                header('Location: top.php');
+                exit();
+
+            }else{ 
+              $errors["image"] = "blank"; 
+            }  
+        } 
+    } 
+
+ 
+function optionLoop($start, $end , $value = null){ 
+    for ($i = $start; $i <= $end; $i++) {  
+        if (isset($value) && $value == $i) { 
+            echo"<option value=\"{$i}\" selected=\"selected\">{$i}</option>"; 
+        }else{ 
+            echo"<option value=\"{$i}\">{$i}</option>"; 
+        } 
+    } 
+} 
+
+$pref = ['1'=>'北海道','2'=>'青森県','3'=>'岩手県','4'=>'宮城県','5'=>'秋田県','6'=>'山形県','7'=>'福島県','8'=>'茨城県','9'=>'栃木県','10'=>'群馬県','11'=>'埼玉県','12'=>'千葉県','13'=>'東京都','14'=>'神奈川県','15'=>'新潟県','16'=>'富山県','17'=>'石川県','18'=>'福井県','19'=>'山梨県','20'=>'長野県','21'=>'岐阜県','22'=>'静岡県','23'=>'愛知県','24'=>'三重県','25'=>'滋賀県','26'=>'京都府','27'=>'大阪府','28'=>'兵庫県','29'=>'奈良県','30'=>'和歌山県','31'=>'鳥取県','32'=>'島根県','33'=>'岡山県','34'=>'広島県','35'=>'山口県','36'=>'徳島県','37'=>'香川県','38'=>'愛媛県','39'=>'高知県','40'=>'福岡県','41'=>'佐賀県','42'=>'長崎県','43'=>'熊本県','44'=>'大分県','45'=>'宮崎県','46'=>'鹿児島県','47'=>'沖縄県']; 
+
+  
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="ja">
