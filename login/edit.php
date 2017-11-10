@@ -32,6 +32,13 @@ require('../dbconnect.php');
     }
 
   if (!empty($_POST)) {
+    $username = htmlspecialchars($_POST["username"]);
+    $nickname = htmlspecialchars($_POST['nickname']);
+    $email = htmlspecialchars($_POST['email']);
+    $course = htmlspecialchars($_POST["course"]);
+    $datepicker = htmlspecialchars($_POST["datepicker"]);
+    $datepicker2 = htmlspecialchars($_POST["datepicker2"]);
+    $password = htmlspecialchars($_POST["password"]);
     $year = htmlspecialchars($_POST["year"]);
     $birthplace = htmlspecialchars($_POST["birthplace"]);
     $hobby = htmlspecialchars($_POST["hobby"]);
@@ -78,9 +85,9 @@ require('../dbconnect.php');
 
 
 
-    if (empty($errors)) {
-      move_uploaded_file($_FILES["image"]["tmp_name"],"image/" . $username . "_" . $_FILES["image"]["name"]);
-    }
+    // if (empty($errors)) {
+    //   move_uploaded_file($_FILES["image"]["tmp_name"],"image/" . $username . "_" . $_FILES["image"]["name"]);
+    // }
 
 
     if (empty($errors)) {
@@ -92,16 +99,19 @@ require('../dbconnect.php');
       $_SESSION["user_info"]["intro"] = $intro;
       $_SESSION["user_info"]["image"] = $username . "_" . $_FILES["image"]["name"];
 
-      $sql ='UPDATE `batch_users` SET `username`=?,`nickname`=?,`email`=?,`course`=?,`datepicker`=?,`datepicker2`=?,`password`=?,`image`=?,`year`=?,`birthplace`=?,`hobby`=?,`intro`=?,`created`=?,`modified`=NOW() WHERE 1';
+      $sql ='UPDATE `batch_users` SET `username`=?,`nickname`=?,`email`=?,`course`=?,`datepicker`=?,`datepicker2`=?,`password`=?,`image`=?,`year`=?,`birthplace`=?,`hobby`=?,`intro`=? WHERE id=26';
 
       // $data = array($username,$nickname,$email,$course,$datepicker,$datepicker2,$password,$image,$year,$birthplace,$hobby,$intro);
 
       $data = array($_SESSION["login_user"]["username"],$_SESSION["login_user"]["nickname"],$_SESSION["login_user"]["email"],$_SESSION["login_user"]["course"],$_SESSION["login_user"]["datepicker"],$_SESSION["login_user"]["datepicker2"],$_SESSION["login_user"]["password"],$_SESSION["user_info"]["image"],$_SESSION["user_info"]["year"],$_SESSION["user_info"]["birthplace"],$_SESSION["user_info"]["hobby"],$_SESSION["user_info"]["intro"]);
 
+ // var_dump($_SESSION["login_user"]["username"],$_SESSION["login_user"]["nickname"],$_SESSION["login_user"]["email"],$_SESSION["login_user"]["course"],$_SESSION["login_user"]["datepicker"],$_SESSION["login_user"]["datepicker2"],$_SESSION["login_user"]["password"],$_SESSION["user_info"]["image"],$_SESSION["user_info"]["year"],$_SESSION["user_info"]["birthplace"],$_SESSION["user_info"]["hobby"],$_SESSION["user_info"]["intro"],$_SESSION["login_user"]['id']);exit();
+
+
       $stmt = $dbh->prepare($sql);
       $stmt->execute($data);
 
-      header("Location:edit.php");
+      header("Location:top.php");
       exit();
 
     }
@@ -133,6 +143,7 @@ require('../dbconnect.php');
   <title>マイプロフ編集画面</title>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="/resources/demos/style.css">
+  <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script>
@@ -143,15 +154,13 @@ require('../dbconnect.php');
 
 </head>
 <body>
-
-<div id="tablecell">
+<div id="tablecellboke">
   <div class="container">
     <div class="row">
 
       <div class="col-xs-3">
        <div class="batch">
-
-        <img src="../assets/img/ill_hand.png" alt="hand_logo" >
+        <img src="../assets/img/logomark.png" alt="hand_logo" >
         <h1>BATCH</h1>
         <p>make a history together!</p>
         <br>
@@ -216,8 +225,8 @@ require('../dbconnect.php');
 
 
         <div class="top">COURSE<br><br>
-          <input type="radio" name="course" value="programming" <?php echo $course_p; ?> >プログラミング(Web/iOS)
-          <input type="radio" name="course" value="english" <?php echo $course_e; ?> >英語
+          <input type="radio" name="course" value="programming" <?php echo $course_p; ?> >Programming&emsp;
+          <input type="radio" name="course" value="english" <?php echo $course_e; ?> >English
           </div><br>
           <?php if (isset($errors["course"]) 
       && $errors["course"] == "blank"): ?>
@@ -332,6 +341,9 @@ require('../dbconnect.php');
           <?php endif; ?>
           <br><br>
       </div>
+
+      <a class="back" href="top.php"><i class="fa fa-arrow-left" aria-hidden="true"></i>
+</a>
 
       <div class="position">
         <div class="col-xs-3">

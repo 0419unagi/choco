@@ -58,8 +58,6 @@ header {
  font-size: 12px;
  letter-spacing: 2px;
  border-bottom: 1px solid #E8E8E8;
-}
-header .container {
  display: flex;
  justify-content: space-between;
  border-bottom-width: 1px;
@@ -93,7 +91,7 @@ header #clm_l #logo img {
 }
 
 header #clm_r {
- 
+ margin-right: 50px;
 }
 header #clm_r #tBox {
  display: flex;

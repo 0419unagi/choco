@@ -74,12 +74,12 @@
 <body>
 
     <div id="tablecell" >
-    <br><br>
-    <img src="../assets/img/ill_hand.png" alt="hand_logo" >
+    <br><br><br>
+    <img src="../assets/img/logomark.png" alt="hand_logo" >
     <br><br>
     <h1>BATCH</h1>
     <p>make a history together !</p>
-    <br><br><br><br>
+    <br><br><br>
 
 
 
@@ -115,14 +115,11 @@
 
         <br><br>
         <input class="login" type="submit" value="LOGIN">
+        　　<a class="create" href="new.php">CREATE ACCOUNT</a>
     </form> 
+    <br><br><br>
 
-    <!-- 新規登録 -->
     <br>
-    <form method="POST" action="" >
-        <a class="create" href="new.php">CREATE ACCOUNT</a>
-        <br><br><br><br>
-    </form>
     </div>
 
 

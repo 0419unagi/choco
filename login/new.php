@@ -103,6 +103,7 @@
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="/resources/demos/style.css">
   <link rel="stylesheet" href="../assets/css/login.css">
+  <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script>
@@ -116,7 +117,7 @@
   <title>新規登録</title>
 </head>
 <body>
-  <div id="tablecell">
+  <div id="tablecellboke">
   <div class="container">
     <div class="row">
       <div class="col-xs-3"></div>
@@ -124,7 +125,7 @@
       <div class="col-xs-3">
         <div class="batch">
           <!-- <br><br><br><br><br><br><br> -->
-          <img src="../assets/img/ill_hand.png" alt="hand_logo" >
+          <img src="../assets/img/logomark.png" alt="hand_logo" >
           <h1>BATCH</h1>
           <p>make a history together!</p>
           <br>
@@ -169,8 +170,8 @@
 
 
         <div class="top">COURSE<br><br>
-        <input type="radio" name="course" value="programming" <?php echo $course_p; ?> >プログラミング(Web/iOS)
-        <input type="radio" name="course" value="english" <?php echo $course_e; ?> >英語
+        <input type="radio" name="course" value="programming" <?php echo $course_p; ?> >Programming
+        <input type="radio" name="course" value="english" <?php echo $course_e; ?> >English
         </div><br><br>
         <?php if (isset($errors["course"]) 
           && $errors["course"] == "blank"): ?>
@@ -225,7 +226,8 @@
           <br><br>
         <?php endif; ?>
       </div>
-      
+      <a class="back" href="index.php"><i class="fa fa-arrow-left" aria-hidden="true"></i>
+</a>
       <div class="position">
       <div class="col-xs-3">
         <input class="login" type="submit" value="CHECK PAGE"><br>

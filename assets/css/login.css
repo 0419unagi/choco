@@ -5,6 +5,12 @@
 			background-size: cover;
 			color: white;}
 
+#tablecellboke {text-align: center;
+      background: url(../img/aruaru4boke.jpg) center center / cover no-repeat fixed;
+      -webkit-background-size: cover;
+      background-size: cover;
+      color: white;}
+
 /*batch*/
 h1 {font-size: 45px;
     font-family: sans-serif;}
@@ -21,19 +27,20 @@ p {font-family: monospace;}
 		text-align: center;*/
 	 	position: absolute;
 		top:50%;
-		margin-top: 15rem;}
+		margin-top: 15rem;
+    }
 
 
 
-/*情報登録&確認*/
+/*情報登録&確認&編集*/
 
 .top {font-size: 12px;
       font-family: sans-serif;
       }
 
 .text {border: none;
-	   text-align: center;
-	   color: white;
+	     text-align: center;
+	     color: white;
        line-height: 3.0;
        border-bottom: 1px solid #333;
        padding: 0;
@@ -47,6 +54,12 @@ p {font-family: monospace;}
 .text::-webkit-input-placeholder {
     color: #CEE3F6; 
 	}
+
+a.back{
+    position: absolute;
+    top: 30px;
+    left: 50px;
+}
 
 /*ログインボタン*/
 
