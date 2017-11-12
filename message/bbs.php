@@ -4,16 +4,13 @@ require('dbconnect.php');
 	
 //初期値の設定
 $user_id = '';
-$user_name = '';
 $other_id = '';
-$other_name ='';
 $content = '';
 $uplode_image = null;
 $errors = [];
 $input_data = "";
 
 $record = [
-	'user_name' => '',
 	'content' =>''
 ];
 
@@ -25,9 +22,7 @@ $record = [
 if ($_GET['mode']=="0") {
 	//main.jsから取得した配列をそれぞれの変数へ格納
 	$user_id = $_GET['user_id'];
-	$user_name = $_GET['user_name'];
 	$other_id = $_GET['other_id'];
-	$other_name = $_GET['user_name'];
 	$content = $_GET['content'];
 	$uplode_image = 'NULL';
 
@@ -38,7 +33,7 @@ if ($_GET['mode']=="0") {
 
 
 	//データベースから取得したデータを以下のフォーマットにする
-	$input_data = "<div class='left_balloon'>".$content."</div>";
+	$input_data = "<div class='right_balloon'>".$content."</div>";
 
  
 	$sql = 'INSERT INTO `message` SET `user_id`=?,
@@ -48,12 +43,10 @@ if ($_GET['mode']=="0") {
 							          `created_at`=NOW()';
 
 	$data = [$user_id,$other_id,$content,$uplode_image];
-
 	$stmt = $dbh->prepare($sql);
 	$result = $stmt->execute($data);
 
 	echo $input_data;
-
 }
 
 

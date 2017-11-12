@@ -16,6 +16,36 @@ $record = [
 ];
 $inputValue = [];
 
+//main.jsに情報を渡すためのクエリを作成
+$sql = 'SELECT
+		 x.user_id AS "user_id",
+		 NAME AS "user_name",
+		 x.other_id AS "other_id",
+		 batch_users.username AS "other_name"
+		 FROM ( 
+		 	SELECT 
+		 	message.user_id AS "user_id",
+		 	message.other_id AS "other_id",
+		 	batch_users.username AS "NAME"
+		 	FROM message 
+		 	JOIN batch_users 
+		 	ON message.user_id = batch_users.id 
+		 	WHERE message.user_id = ? 
+		 	AND message.other_id = ?
+		 ) x 
+		 JOIN batch_users 
+		 ON x.other_id = batch_users.id
+		;';
+$data = [$user_id,$other_id];
+$stmt = $dbh->prepare($sql);
+$stmt->execute($data);
+$user_info = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// echo "<pre>";
+// var_dump($user_info);
+
+
+
 $sql = 'SELECT
 		 x.user_id AS "user_id",
 		 NAME AS "user_name",
@@ -55,14 +85,10 @@ $dbh = null;
 // セレクト文で実行した結果を取得する
 while (true) {
 	$record = $stmt->fetch(PDO::FETCH_ASSOC);
-
 	if ($record == false) {
 		break;
 	}
 
-	$user_info[] = $record;
-
-	
 	// 投稿は画像かコメントか
 	if ($record['content'] !== 'NULL') {	
 		//投稿はログインユーザーかチェック
@@ -86,10 +112,6 @@ while (true) {
 
 // echo "<pre>";
 // var_dump($user_info);
-
-
-	
-
  ?>
 
 <?php require('../part/header.php'); ?>
@@ -114,7 +136,7 @@ while (true) {
 			<!-- ユーザー履歴一覧	 -->
 			<div id="talk_history">
 				<img src="../assets/img/icon.png" alt="icon" id="mes_icon">
-				<p id="his_name">SAM</p>
+				<p id="his_name"><?php echo $user_info['other_name']; ?></p>
 				
 				<p id="his_time">15:00</p>
 			</div>
@@ -125,7 +147,7 @@ while (true) {
 		<div class="content">
 			<!-- トーク中のユーザー名表示 -->
 			<div id="mes_head">
-				Sam
+				<?php echo $user_info['other_name']; ?>
 			</div>
 
 			<!-- トーク内容 -->
@@ -156,10 +178,8 @@ while (true) {
 					<div id="textbox" >
 						<!-- 隠しデータで配列を送信する -->
 						<?php if (!empty($user_info)): ?>
-							<?php foreach ($user_info as $value) { ?>
-								<?php foreach ($value as $k => $v) { ?>
-									<input type="hidden" id="<?php echo $k ?>" value="<?php echo $v ?>">
-								<?php } ?>
+							<?php foreach ($user_info as $k => $v) { ?>
+								<input type="hidden" id="<?php echo $k ?>" value="<?php echo $v ?>">
 							<?php } ?>
 						<?php endif ; ?>
 							

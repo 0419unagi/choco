@@ -17,15 +17,13 @@ $(function(){
         //bbs.phpへgetリクエストで配列を送信している
         $.get('bbs.php', {
             user_id: $('#user_id').val(),
-            user_name: $('#user_name').val(),
             other_id: $('#other_id').val(),
-            other_name: $('#other_name').val(),
             content: $('#text_input').val(),
             uplode_image: "NULL",
             mode: "0" // 書き込み
         },function(data){
             $('#result').append(data);
-            // scrollDown();
+            scrollDown();
         });
     });
 });
@@ -52,9 +50,7 @@ function insertDateImg() {
 
     var user_data = {
         "user_id": $('#user_id').val(),
-        "user_name": $('#user_name').val(),
         "other_id": $('#other_id').val(),
-        "other_name": $('#other_name').val(),
         "content": "NULL",
         "uplode_image": $('#file').val(),
         "mode": "3" // 画像送信モード
@@ -78,8 +74,8 @@ function insertDateImg() {
       .done(function(data) {                
         console.log('done');
         console.log(data);
-        // $('#result').append(data);
-
+        $('#result').append(data);
+        scrollDown();
      }).fail(function(data) {                
         console.log('fail');
 
