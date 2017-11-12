@@ -17,6 +17,8 @@ $record = [
 	'content' =>''
 ];
 
+	
+
 //テキストの場合
 //インサート文作成
 //mode = 0 の場合にcreatを実行
@@ -32,6 +34,8 @@ if ($_GET['mode']=="0") {
 	//ファイル名を取得する際に、不要な文字列が付くので、削除
 	//(再考)ファイルパスを指定
 	$uplode_image = mb_substr($_GET['uplode_image'],12);
+	error_log(print_r('success',true),"3","../../../../../logs/error_log");
+
 
 	//データベースから取得したデータを以下のフォーマットにする
 	$input_data = "<div class='left_balloon'>".$content."</div>";

@@ -52,10 +52,18 @@ while (true) {
 	// 以下のinputValueの配列に入れる作業を、画像とテキストに応じて別ける
 	// 'NULL'の方を表示しない
 	//データベースから取得したデータを以下のフォーマットにする
-	$inputValue[] = "<div class='left_balloon'>".$record['content']."</div>";
+	if ($record['content'] !== 'NULL') {
+		$inputValue[] = "<div class='left_balloon'>".$record['content']."</div>";	
+	}else{
+		$inputValue[] = "<img src=image_uplode/".$record['uplode_image']." class='left_img_uplode'>";
+	}
 
-	// error_log(print_r($record,true),"3","../../../../../logs/error_log");
+
+	error_log(print_r($inputValue,true),"3","../../../../../logs/error_log");
 }
+
+// echo "<pre>";
+// var_dump($user_info);
 
 
 	
