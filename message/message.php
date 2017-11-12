@@ -57,6 +57,7 @@ while (true) {
 	// error_log(print_r($record,true),"3","../../../../../logs/error_log");
 }
 
+
 	
 
  ?>
@@ -115,13 +116,13 @@ while (true) {
 			<!-- 以下検索	 -->
 			<div id="mes_footer">				
 				<!-- イメージ図選択ボタン		 -->
-				<div id="image" >
-					<input type="file" name="image_uplode" id="file" style="display:none;" onchange="img_up()">
-					<img src="../assets/img/img_up.png" id="uplode_image" name="image_uplode" value="" onClick="$('#file').click();">
-				</div>
 
 				<!-- テキスト内容 -->
 				<form id="foo" method="GET" action="message.php">
+					<div id="image" >
+						<input type="file" name="image_uplode" id="file" style="display:none;" onchange="img_up()">
+						<img src="../assets/img/img_up.png" id="uplode_image" name="image_uplode" value="" onClick="$('#file').click();">
+					</div>
 					<div id="textbox" >
 						<!-- 隠しデータで配列を送信する -->
 						<?php if (!empty($user_info)): ?>

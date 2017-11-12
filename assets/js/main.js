@@ -33,12 +33,15 @@ $(function(){
 
 // 画像送信ボタンが押された時に以下の関数を実行
 function img_up(){
+    // 画像送信ボタンが押された時に、データベースへインサート
         insertDateImg();
-
+    // 画像を指定のディレクトリへ移動させるため
         makeImg();
 
         return false;
 }
+
+
 
 
 // 画像送信ボタンが押された時に、データベースへインサート
@@ -46,8 +49,6 @@ function insertDateImg() {
     //ここのやり方を見直す
     // 1.上記指定の配列を1度、JSONにする
     // 2.ajaxでbbs.phpに落とす
-
-    console.log( $('#file').val());
 
     var user_data = {
         "user_id": $('#user_id').val(),
@@ -63,7 +64,7 @@ function insertDateImg() {
 
     $.ajax({
       type: 'GET',
-      url: "bbs_img.php",
+      url: "bbs_img_insert.php",
       data: user_data,
       processData: false,
       contentType: false,
@@ -78,6 +79,7 @@ function insertDateImg() {
         console.log('done');
         console.log(data);
         // $('#result').append(data);
+
      }).fail(function(data) {                
         console.log('fail');
 
@@ -92,21 +94,16 @@ function makeImg(){
     $(function(data){
             // 画像オブジェクトを作成        
             var fd = new FormData($('#foo').get(0));
+            console.log(fd);
             $.ajax({
                 url: "bbs_img.php",
                 type: "POST",
                 data: fd,
                 processData: false,
                 contentType: false,
-                error : function(XMLHttpRequest, textStatus, errorThrown) {
-                console.log("ajax通信に失敗しました");
-                console.log("XMLHttpRequest : " + XMLHttpRequest.status);
-                console.log("textStatus     : " + textStatus);
-                console.log("errorThrown    : " + errorThrown.message);
-        },
             })
             .done(function(data) {                
-                $('#result').text(data.width + "x" + data.height);
+                // $('#result').text(data.width + "x" + data.height);
                 
                 console.log('done');
                 console.log(data);
@@ -117,7 +114,6 @@ function makeImg(){
             }).always(function(data) {                
                 console.log('always');
             });
-
             // メッセージ内容ページの最下層を表示
             scrollDown();
         });
