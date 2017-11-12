@@ -10,7 +10,21 @@
     exit();
 }
 
-$sql = 'SELECT * FROM `batch_users` ORDER BY `datepicker` DESC';
+public function some_function() {
+    // ...
+    $allArticles = $this->Article->find('all');
+    $pending = $this->Article->find('all', array(
+        'conditions' => array('Article.status' => 'pending')
+    ));
+    $allAuthors = $this->Article->User->find('all');
+    $allPublishedAuthors = $this->Article->User->find('all', array(
+        'conditions' => array('Article.status !=' => 'pending')
+    ));
+    // ...
+}
+
+
+$sql = 'SELECT `nickname`,`image`,`datepicker` FROM `batch_users` GROUP BY `datepicker` DESC';
 $data = array();
 $stmt = $dbh->prepare($sql);
 $stmt->execute($data);
@@ -22,8 +36,11 @@ while(true){
   if(!$data){
     break;
   }
+
   $userdata[] = $data;
-  // var_dump($data);
+  echo '<pre>';
+  var_dump($data);
+  echo '</pre>';
 }
 
  ?>
@@ -267,17 +284,14 @@ $(function(){
    <div class="carousel">
 <ul>
 
-
-<?php  foreach($userdata as $data) { ?>
  <li>
   <a href="#">
    <div class="frame_b">
     <img src="../assets/img/yousuke2.jpg" width="100%" height="auto" alt=""/>
    </div>
    <p class="name"><?php echo $data['nickname'] ?></p>
-  </a>  
+  </a>
   </li>
- <?php  } ?>
 </ul>
 </div>
 
