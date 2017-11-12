@@ -1276,6 +1276,7 @@ pre code {
   }
 }
 
+
 @media (min-width: 992px) {
   .container {
     width: 970px;
@@ -6373,7 +6374,6 @@ button.close {
 .carousel {
  position: relative;
  top: -20px;
-
 }
 
 .carousel-inner {
@@ -7098,4 +7098,3 @@ td.visible-print {
     display: none !important;
   }
 }
-
