@@ -6371,9 +6371,7 @@ button.close {
 }
 
 .carousel {
- position: relative;
- top: -20px;
-
+  position: relative;
 }
 
 .carousel-inner {
@@ -7098,4 +7096,3 @@ td.visible-print {
     display: none !important;
   }
 }
-
