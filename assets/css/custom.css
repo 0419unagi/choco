@@ -259,12 +259,12 @@ body, html {
 }
 .right_img_uplode{
 	position: relative;
-    margin: 10px 0 0 10px; 
-    border-radius: 15px;
-    margin-right: 20%;
+    margin: 10px 10px 0 0; 
+    border-radius: 15px;;
+    margin-left: 20%;
     clear: both;
     max-width: 425px;
-    float: left;
+    float: right;
 }
 
  

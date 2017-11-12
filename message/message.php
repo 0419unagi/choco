@@ -2,6 +2,11 @@
 // データベース呼び出し
 require('dbconnect.php');
 
+//仮想的にSESSIONからユーザー取得
+//	想定：$user_id = $_SESSION['id'] ;
+$user_id = 1 ; //ユーザー名：takuya
+$other_id = 2; //ユーザー名：sample
+
 //初期値の設定
 $user = '';
 $message = '';
@@ -12,27 +17,36 @@ $record = [
 $inputValue = [];
 
 $sql = 'SELECT
-		x.user_id AS "user_id",
-		NAME AS "user_name", 
-      	x.other_id AS "other_id",
-		batch_users.username AS "other_name",
-		CONTENT AS "content",
-		x.uplode_image AS "uplode_image"
-		FROM (
-		    SELECT
-         	message.user_id AS "user_id",
-         	message.other_id AS "other_id",
-		    batch_users.username AS "NAME",
-		    message.content AS "CONTENT",
-		    message.uplode_image AS"uplode_image"
-		    FROM message
-		    JOIN batch_users 
-		    ON message.user_id = batch_users.id 
-		) x
-		JOIN batch_users 
-		ON x.other_id = batch_users.id
-		WHERE batch_users.username  = "sample";';
-$data = [];
+		 x.user_id AS "user_id",
+		 NAME AS "user_name",
+		 x.other_id AS "other_id",
+		 batch_users.username AS "other_name",
+		 CONTENT AS "content",
+		 x.uplode_image AS "uplode_image"
+		 FROM ( 
+		 	SELECT 
+		 	message.user_id AS "user_id",
+		 	message.other_id AS "other_id",
+		 	batch_users.username AS "NAME",
+		 	message.content AS "CONTENT",
+		 	message.uplode_image AS"uplode_image" 
+		 	FROM message 
+		 	JOIN batch_users 
+		 	ON message.user_id = batch_users.id 
+		 	WHERE (
+		 			message.user_id = ? 
+		 			AND message.other_id = ?
+		 		  ) 
+		 	OR (
+		 			message.user_id = ? 
+		 			AND message.other_id = ?
+		 		  )
+		 ) x 
+		 JOIN batch_users 
+		 ON x.other_id = batch_users.id
+		;';
+			
+$data = [$user_id,$other_id,$other_id,$user_id];
 $stmt = $dbh->prepare($sql);
 $stmt->execute($data);
 // データベース切断
@@ -48,14 +62,22 @@ while (true) {
 
 	$user_info[] = $record;
 
-	//(To DO)
-	// 以下のinputValueの配列に入れる作業を、画像とテキストに応じて別ける
-	// 'NULL'の方を表示しない
-	//データベースから取得したデータを以下のフォーマットにする
-	if ($record['content'] !== 'NULL') {
-		$inputValue[] = "<div class='left_balloon'>".$record['content']."</div>";	
+	
+	// 投稿は画像かコメントか
+	if ($record['content'] !== 'NULL') {	
+		//投稿はログインユーザーかチェック
+		if ($user_id == $record['user_id']) {
+			$inputValue[] = "<div class='right_balloon'>".$record['content']."</div>";		
+		}else{
+			$inputValue[] = "<div class='left_balloon'>".$record['content']."</div>";		
+		}
 	}else{
-		$inputValue[] = "<img src=image_uplode/".$record['uplode_image']." class='left_img_uplode'>";
+		//投稿はログインユーザーかチェック
+		if ($user_id == $record['user_id']) {
+			$inputValue[] = "<img src=image_uplode/".$record['uplode_image']." class='right_img_uplode'>";		
+		}else{
+			$inputValue[] = "<img src=image_uplode/".$record['uplode_image']." class='left_img_uplode'>";
+		}
 	}
 
 
