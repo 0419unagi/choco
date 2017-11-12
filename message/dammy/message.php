@@ -35,8 +35,7 @@ $sql = 'SELECT
 $data = [];
 $stmt = $dbh->prepare($sql);
 $stmt->execute($data);
-// データベース切断
-$dbh = null;
+
 
 // セレクト文で実行した結果を取得する
 while (true) {
@@ -47,10 +46,10 @@ while (true) {
 	}
 
 	$user_info[] = $record;
+	// echo "<pre>";
+	// var_dump($user_info);
+	// echo "</pre>";
 
-	//(To DO)
-	// 以下のinputValueの配列に入れる作業を、画像とテキストに応じて別ける
-	// 'NULL'の方を表示しない
 	//データベースから取得したデータを以下のフォーマットにする
 	$inputValue[] = "<div class='left_balloon'>".$record['content']."</div>";
 
@@ -113,36 +112,39 @@ while (true) {
 
 			<!-- 入力バー -->
 			<!-- 以下検索	 -->
-			<div id="mes_footer">				
-				<!-- イメージ図選択ボタン		 -->
-				<div id="image" >
-					<input type="file" name="image_uplode" id="file" style="display:none;" onchange="img_up()">
-					<img src="../assets/img/img_up.png" id="uplode_image" name="image_uplode" value="" onClick="$('#file').click();">
-				</div>
-
+			<div id="mes_footer">
 				<!-- テキスト内容 -->
 				<form id="foo" method="GET" action="message.php">
+					<!-- イメージ図選択ボタン		 -->
+					<div id="image" >
+						<input type="file" name="image_uplode" id="file" style="display:none;" onchange="aaa()">
+						<img src="../assets/img/img_up.png" id="uplode_image" name="image_uplode" value="" onClick="$('#file').click();">
+						<!-- <input type="image" src="../assets/img/img_up.png" id="uplode_image" value="ファイル選" onClick="$('#file').click();"> -->
+						<!-- <input id="fake_input_file" readonly type="hidden" value=""  onClick="$('#file').click();"> -->
+
+					</div>
+
 					<div id="textbox" >
 						<!-- 隠しデータで配列を送信する -->
-						<?php if (!empty($user_info)): ?>
-							<?php foreach ($user_info as $value) { ?>
-								<?php foreach ($value as $k => $v) { ?>
-									<input type="hidden" id="<?php echo $k ?>" value="<?php echo $v ?>">
-								<?php } ?>
+						<?php foreach ($user_info as $value) { ?>
+							<?php foreach ($value as $k => $v) { ?>
+								<input type="hidden" id="<?php echo $k ?>" value="<?php echo $v ?>">
 							<?php } ?>
-						<?php endif ; ?>
+						<?php } ?>
 							
 						<!-- 下記は仮ユーザー -->
 						<!-- 下記のvalueについて確認 -->
 						<input type="text" name="message" id="text_input">
 					</div>
-
+					
 					<!-- 送信ボタン -->
+
 					<div id="push" >
 						<input type="image" src="../assets/img/post.png"  id="submit">
 					</div>	
 				</form>	
-			</div>
+		</div>
+
 		</div>
 	</div>
 </div>

@@ -12,10 +12,8 @@ $(document).ready(function(){
 $(function(){
     //submitをクリックすると以下のコードを実行する
     $('#submit').click(function(){
-        
         //フォームに何も入力されていない場合は、そのままreturn
         if(!$('#text_input').val()) return;
-
         //bbs.phpへgetリクエストで配列を送信している
         $.get('bbs.php', {
             user_id: $('#user_id').val(),
@@ -26,53 +24,104 @@ $(function(){
             uplode_image: "NULL",
             mode: "0" // 書き込み
         },function(data){
-            console.log(data);
-            $('#result').append("<div class='left_balloon'>" + content + "</div>");
-            scrollDown();
+            $('#result').append(data);
+            // scrollDown();
         });
     });
 });
 
+
+// 画像送信ボタンが押された時に以下の関数を実行
 function img_up(){
-        // console.log("aaaaaaa");
+        insertDateImg();
 
-        //bbs.phpへgetリクエストで配列を送信している
-        $.get('bbs.php', {
-            user_id: $('#user_id').val(),
-            user_name: $('#user_name').val(),
-            other_id: $('#other_id').val(),
-            other_name: $('#other_name').val(),
-            content: "NULL",
-            uplode_image: $('#uplode_image').val(),
-            mode: "3" // 画像送信モード
-        },function(data){
-            console.log(data);
-            // 画像オブジェクトを作成        
-            var fd = new FormData($('#foo').get(0));
-            $.ajax({
-                url: "bbs.php",
-                type: "POST",
-                data: fd,
-                processData: false,
-                contentType: false,
-                dataType: 'json'
-            })
-            .done(function(data) {
-                $('#result').text(data.width + "x" + data.height);
-            });
-            // bbs.phpでリターンした要素を変数dataへ引数と渡して、
-            // #resultへ要素を追加したい
-            console.log('data_sample');
-            console.log(data);
-            $('#result').append(data);
-
-            scrollDown();
-        });
+        makeImg();
 
         return false;
 }
 
 
+// 画像送信ボタンが押された時に、データベースへインサート
+function insertDateImg() {
+    //ここのやり方を見直す
+    // 1.上記指定の配列を1度、JSONにする
+    // 2.ajaxでbbs.phpに落とす
+
+    console.log( $('#file').val());
+
+    var user_data = {
+        "user_id": $('#user_id').val(),
+        "user_name": $('#user_name').val(),
+        "other_id": $('#other_id').val(),
+        "other_name": $('#other_name').val(),
+        "content": "NULL",
+        "uplode_image": $('#file').val(),
+        "mode": "3" // 画像送信モード
+    };
+
+    var user_data = JSON.stringify(user_data);
+
+    $.ajax({
+      type: 'GET',
+      url: "bbs_img.php",
+      data: user_data,
+      processData: false,
+      contentType: false,
+      error : function(XMLHttpRequest, textStatus, errorThrown) {
+        console.log("ajax通信に失敗しました");
+        console.log("XMLHttpRequest : " + XMLHttpRequest.status);
+        console.log("textStatus     : " + textStatus);
+        console.log("errorThrown    : " + errorThrown.message);
+    },
+    })
+      .done(function(data) {                
+        console.log('done');
+        console.log(data);
+        // $('#result').append(data);
+     }).fail(function(data) {                
+        console.log('fail');
+
+     }).always(function(data) {                
+        console.log('always');
+     });
+}
+
+// 画像オブジェクトを作成
+// 画像を指定のディレクトリへ移動させるため
+function makeImg(){
+    $(function(data){
+            // 画像オブジェクトを作成        
+            var fd = new FormData($('#foo').get(0));
+            $.ajax({
+                url: "bbs_img.php",
+                type: "POST",
+                data: fd,
+                processData: false,
+                contentType: false,
+                error : function(XMLHttpRequest, textStatus, errorThrown) {
+                console.log("ajax通信に失敗しました");
+                console.log("XMLHttpRequest : " + XMLHttpRequest.status);
+                console.log("textStatus     : " + textStatus);
+                console.log("errorThrown    : " + errorThrown.message);
+        },
+            })
+            .done(function(data) {                
+                $('#result').text(data.width + "x" + data.height);
+                
+                console.log('done');
+                console.log(data);
+
+            }).fail(function(data) {                
+                console.log('fail');
+
+            }).always(function(data) {                
+                console.log('always');
+            });
+
+            // メッセージ内容ページの最下層を表示
+            scrollDown();
+        });
+}
 
 
 // メッセージ内容ページの最下層を表示
