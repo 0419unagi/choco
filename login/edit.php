@@ -148,6 +148,7 @@ require('../dbconnect.php');
                 if(!empty($fileName)){
                   move_uploaded_file($_FILES["image"]["tmp_name"],'../image/'.$fileName); 
                 }
+                
                 // イメージのフォルダの中にファイルを保存する
 }
            
