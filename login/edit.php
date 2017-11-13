@@ -3,16 +3,18 @@
 require('../dbconnect.php'); 
 
     session_start(); 
-    $username = $_SESSION["login_user"]["username"]; 
-    $sql = 'SELECT * FROM `batch_users` WHERE `username`=?'; 
-    $data = array($_SESSION["login_user"]["username"]); 
+    $user_id = $_SESSION["login_user"]["id"]; 
+    // $id = $_SESSION["login_user"]["id"];
+    $sql = 'SELECT * FROM `batch_users` WHERE `id`=?'; 
+    $data = array($_SESSION["login_user"]["id"]); 
     $stmt = $dbh->prepare($sql); 
     $stmt->execute($data); 
          
     $record = $stmt->fetch(PDO::FETCH_ASSOC); 
     $user_info = $record; 
 
- 
+    
+    $id = $user_info["id"];
     $username = $user_info['username']; 
     $nickname = $user_info['nickname']; 
     $email = $user_info['email']; 
@@ -30,6 +32,8 @@ require('../dbconnect.php');
     $hobby = $user_info['hobby']; 
     $intro = $user_info['intro']; 
 
+
+    // $_SESSION['login_user']['id'] = $id;
 
     if ($course =="programming"){
         $course_p = "checked";
@@ -52,12 +56,10 @@ require('../dbconnect.php');
         $birthplace = $_POST["birthplace"]; 
         $hobby = $_POST["hobby"]; 
         $intro = $_POST["intro"]; 
-// echo "<pre>";
-// var_dump($_POST);
+
  
         $errors = array(); 
 
-// var_dump($errors);
         if ($username == "") { 
             $errors["username"] = "blank"; 
         } 
@@ -114,36 +116,56 @@ require('../dbconnect.php');
             $errors["intro"] = "blank"; 
         } 
 
-        if (empty($errors)) { 
+
+            // ファイル名を取得する（アップロードされなければ空）
             $fileName = $_FILES['image']['name']; 
+            // フラグを立てる
+            $f_flag=false;
+            if(empty($fileName) && !empty($_SESSION["login_user"]['image'])){
+                $f_flag=true;
+            }
 
-            if(!empty($fileName)){ 
-                // var_dump($fileName); 
-             
-                $ext = substr($fileName,-3); 
-
-                $ext = strtolower($ext); 
-                if ($ext != "jpg" && $ext != "png" && $ext != "gif") { 
-                    $errors["image"] = "extention"; 
-                  }
-             
-                move_uploaded_file($_FILES["image"]["tmp_name"],'../image/'.$fileName); 
+            //　アップロードされた、または過去にアップロードしてたら
+            if(!empty($fileName) || $f_flag==true ){
+                // アップロードしてたらファイルの拡張子チェック
+                if(!empty($fileName)){
+                    $ext = substr($fileName,-3); 
+    
+                    $ext = strtolower($ext); 
+                    if ($ext != "jpg" && $ext != "png" && $ext !=    "gif") { 
+                        $errors["image"] = "extention"; 
+                      }
+                      else{
+                        $errors['image'] = "blank";
+                      }
+                }else{
+                  //アップロードしてなかったら、現在の画像を選択
+                  $fileName=$_SESSION["login_user"]['image'];
+                }
+             // エラーが空の時
+             if (empty($errors)) {
+             // 画像を保存する
+                if(!empty($fileName)){
+                  move_uploaded_file($_FILES["image"]["tmp_name"],'../image/'.$username.'_'.$fileName); 
+                }
                 // イメージのフォルダの中にファイルを保存する
-
+}
            
                 $sql ='UPDATE `batch_users` SET `username`=?,`nickname`=?,`email`=?,`course`=?,`datepicker`=?,`datepicker2`=?,`password`=?,`image`=?,`year`=?,`month`=?,`day`=?,`birthplace`=?,`hobby`=?,`intro`=? WHERE id=?'; 
-                $data = array($username,$nickname,$email,$course,$datepicker,$datepicker2,$password,$fileName,$year,$month,$day,$birthplace,$hobby,$intro,$user_info['id']); 
+                $data = array($username,$nickname,$email,$course,$datepicker,$datepicker2,$password,$fileName,$year,$month,$day,$birthplace,$hobby,$intro,$id); 
                 $stmt = $dbh->prepare($sql); 
                 $stmt->execute($data); 
-
-                header('Location: top.php');
+                // セッションデータを更新する select?
+                $_SESSION['login_user']['image']=$fileName;
+                header('Location: top.php?id=' . $_SESSION['login_user']['id']);
                 exit();
+
 
             }else{ 
               $errors["image"] = "blank"; 
             }  
         } 
-    } 
+    
 
  
 function optionLoop($start, $end , $value = null){ 
@@ -156,9 +178,9 @@ function optionLoop($start, $end , $value = null){
     } 
 } 
 
-$pref = ['1'=>'北海道','2'=>'青森県','3'=>'岩手県','4'=>'宮城県','5'=>'秋田県','6'=>'山形県','7'=>'福島県','8'=>'茨城県','9'=>'栃木県','10'=>'群馬県','11'=>'埼玉県','12'=>'千葉県','13'=>'東京都','14'=>'神奈川県','15'=>'新潟県','16'=>'富山県','17'=>'石川県','18'=>'福井県','19'=>'山梨県','20'=>'長野県','21'=>'岐阜県','22'=>'静岡県','23'=>'愛知県','24'=>'三重県','25'=>'滋賀県','26'=>'京都府','27'=>'大阪府','28'=>'兵庫県','29'=>'奈良県','30'=>'和歌山県','31'=>'鳥取県','32'=>'島根県','33'=>'岡山県','34'=>'広島県','35'=>'山口県','36'=>'徳島県','37'=>'香川県','38'=>'愛媛県','39'=>'高知県','40'=>'福岡県','41'=>'佐賀県','42'=>'長崎県','43'=>'熊本県','44'=>'大分県','45'=>'宮崎県','46'=>'鹿児島県','47'=>'沖縄県']; 
+$pref = ['1'=>'北海道','2'=>'青森県','3'=>'岩手県','4'=>'宮城県','5'=>'秋田県','6'=>'山形県','7'=>'福島県','8'=>'茨城県','9'=>'栃木県','10'=>'群馬県','11'=>'埼玉県','12'=>'千葉県','13'=>'東京都','14'=>'神奈川県','15'=>'新潟県','16'=>'富山県','17'=>'石川県','18'=>'福井県','19'=>'山梨県','20'=>'長野県','21'=>'岐阜県','22'=>'静岡県','23'=>'愛知県','24'=>'三重県','25'=>'滋賀県','26'=>'京都府','27'=>'大阪府','28'=>'兵庫県','29'=>'奈良県','30'=>'和歌山県','31'=>'鳥取県','32'=>'島根県','33'=>'岡山県','34'=>'広島県','35'=>'山口県','36'=>'徳島県','37'=>'香川県','38'=>'愛媛県','39'=>'高知県','40'=>'福岡県','41'=>'佐賀県','42'=>'長崎県','43'=>'熊本県','44'=>'大分県','45'=>'宮崎県','46'=>'鹿児島県','47'=>'沖縄県'];
 
-  
+// var_dump($user_info['birthplace']);
 
 ?>
 
@@ -182,6 +204,8 @@ $pref = ['1'=>'北海道','2'=>'青森県','3'=>'岩手県','4'=>'宮城県','5'
   </script>
 
 </head>
+
+
 <body>
 <div id="tablecellboke">
   <div class="container">
@@ -198,7 +222,11 @@ $pref = ['1'=>'北海道','2'=>'青森県','3'=>'岩手県','4'=>'宮城県','5'
         <form method="POST" action="" enctype="multipart/form-data">
         <br>
         <div class="top"></div><br>
+
+
         <input type="file" name="image" accept="image/*">
+        <img src="../image/<?php echo $image; ?>" width="80px">
+
         <br><br>
 
         <?php if (isset($errors["image"])
@@ -214,6 +242,7 @@ $pref = ['1'=>'北海道','2'=>'青森県','3'=>'岩手県','4'=>'宮城県','5'
         </div>
 
         <?php } ?>
+
         </div>
       </div>
 
@@ -235,7 +264,7 @@ $pref = ['1'=>'北海道','2'=>'青森県','3'=>'岩手県','4'=>'宮城県','5'
           <input class="text" type="text" name="nickname" placeholder="tomtom" value="<?php echo $nickname; ?>">
           <br><br>
           <?php if (isset($errors["nickname"]) 
-    && $errors["nickname"] == "blank"): ?>
+      && $errors["nickname"] == "blank"): ?>
           <div>
             *ニックネームを入力してください
           </div>
@@ -305,12 +334,12 @@ $pref = ['1'=>'北海道','2'=>'青森県','3'=>'岩手県','4'=>'宮城県','5'
           <?php endif; ?>
 
           <?php if(isset($errors["password"]) 
-    && $errors["password"] == "length"): ?>
+      && $errors["password"] == "length"): ?>
           <div>
             *パスワードは4文字以上8文字以内で入力してください
           </div>
           <?php endif; ?>
-      </div>
+        </div>
 
 
 
@@ -318,28 +347,38 @@ $pref = ['1'=>'北海道','2'=>'青森県','3'=>'岩手県','4'=>'宮城県','5'
         <br><br>
         <div class="top">BIRTH DAY</div><br>
           <select name="year">
-            <?php optionLoop("1950" , "2020" , "1980");?>
+            <?php optionLoop("1950" , "2020" , $year);?>
+// 第一引数、第二引数、第三引数（1st argument, 2nd argument, 3rd argument)
           </select>
           <select name="month">
-            <?php optionLoop("1" , "12" , "1");?>
+            <?php optionLoop("1" , "12" , $month);?>
           </select>
           <select name="day">
-            <?php optionLoop("1" , "31" , "1");?>
+            <?php optionLoop("1" , "31" , $day);?>
           </select>
           <?php if(isset($errors["year"]) 
-    && $errors["year"] == "blank"): ?>
+        && $errors["year"] == "blank"): ?>
           <div>
             *生年月日を選択してください
           </div>
           <?php endif; ?>
           <br><br>
 
-        <div class="top">PLACE</div><br>
-          <select name="birthplace">
-            <?php foreach ($pref as $v): ?>
-            <option value="<?php echo $v; ?>"><?php echo $v; ?></option>
-            <?php endforeach; ?>
-          </select>
+      <div class="top">PLACE</div><br>
+
+
+<select name ="birthplace">
+    <?php foreach ($pref as $v):?>  
+        <option value = "<?php echo $v; ?>" <?php echo $v == $birthplace ? 'selected': '';?> >
+        <?php echo $v; ?> 
+        </option>
+
+        <?php var_dump($value); ?>
+        <br>
+        <?php var_dump($birthplace); ?>
+
+     <?php endforeach;?>
+</select>
           <?php if (isset($errors["birthplace"]) 
       && $errors["birthplace"] == "blank"): ?>
           <div>
@@ -361,7 +400,8 @@ $pref = ['1'=>'北海道','2'=>'青森県','3'=>'岩手県','4'=>'宮城県','5'
 
 
         <div class="top">INTRODUCE</div><br>
-          <textarea class="text" name="intro" style="width: 300px; height: 320px;" placeholder="自己紹介文と共に、SNSなどのURLを貼っていただくと、他のユーザーがあなたのことをより理解してくれます！" value="<?php echo $intro; ?>"></textarea>
+          <!-- <?php var_dump($intro); ?> -->
+          <textarea class="text" name="intro" style="width: 300px; height: 320px;" placeholder="自己紹介文と共に、SNSなどのURLを貼っていただくと、他のユーザーがあなたのことをより理解してくれます！" value="<?php echo $intro; ?>"><?php echo $intro; ?></textarea>
           <?php if (isset($errors["intro"]) 
       && $errors["intro"] == "blank"): ?>
           <div>
