@@ -127,7 +127,7 @@ require('../dbconnect.php');
                     $errors["image"] = "extention"; 
                   }
              
-                move_uploaded_file($_FILES["image"]["tmp_name"],'../image/'.$fileName); 
+                move_uploaded_file($_FILES["image"]["tmp_name"],'../image/'.$username.'_'.$fileName); 
                 // イメージのフォルダの中にファイルを保存する
 
            

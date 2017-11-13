@@ -10,21 +10,9 @@
     exit();
 }
 
-public function some_function() {
-    // ...
-    $allArticles = $this->Article->find('all');
-    $pending = $this->Article->find('all', array(
-        'conditions' => array('Article.status' => 'pending')
-    ));
-    $allAuthors = $this->Article->User->find('all');
-    $allPublishedAuthors = $this->Article->User->find('all', array(
-        'conditions' => array('Article.status !=' => 'pending')
-    ));
-    // ...
-}
 
 
-$sql = 'SELECT `nickname`,`image`,`datepicker` FROM `batch_users` GROUP BY `datepicker` DESC';
+$sql = 'SELECT `nickname`,`image`,`datepicker` FROM `batch_users` ORDER BY `datepicker` DESC';
 $data = array();
 $stmt = $dbh->prepare($sql);
 $stmt->execute($data);
@@ -38,10 +26,37 @@ while(true){
   }
 
   $userdata[] = $data;
-  echo '<pre>';
-  var_dump($data);
-  echo '</pre>';
+  // echo '<pre>';
+  // var_dump($data);
+  // echo '</pre>';
+  
 }
+
+
+$sql = 'SELECT `datepicker` FROM `batch_users` GROUP BY `datepicker` DESC';
+$data = array();
+$stmt = $dbh->prepare($sql);
+$stmt->execute($data);
+
+
+$gdata = array();
+while(true){
+  $data = $stmt->fetch(PDO::FETCH_ASSOC);
+  if(!$data){
+    break;
+  }
+
+  $gdata[] = $data;
+  
+}
+
+  // echo '<pre>';
+  // var_dump($userdata);
+  // echo '</pre>';
+  // echo '<pre>';
+  // var_dump($gdata);
+  // echo '</pre>';
+  
 
  ?>
 
@@ -275,28 +290,37 @@ $(function(){
   
 <main id="topPg">
  <div class="line_tate"></div>
+
+ <?php error_log(print_r($userdata,true),"3","../../../../../logs/error_log"); ?>
  
  <section>
-  <?php foreach($userdata as $data) { ?>
-   <p class="date wow flipInY"><?php echo $data['datepicker'] ?></p>
-   <img class="fuki" src="../assets/img/fuki.png" width="7" height="6" alt=""/>
-<div class="line_yoko"></div>
-   <div class="carousel">
-<ul>
+	<?php foreach($gdata as $data) { ?>
+	<!-- 入学日 -->
+		<p class="date wow flipInY"><?php echo $data['datepicker'] ?></p>
+		<img class="fuki" src="../assets/img/fuki.png" width="7" height="6" alt=""/>
+		<div class="line_yoko"></div>
+		<div class="carousel">
+			<ul>
+			 <li>
+			 	<?php foreach($userdata as $data1){?>
+				 	<?php if($data1['datepicker']==$data['datepicker']){ ?>
+					<!-- プロフィール画像 -->
+					  <a href="#">
+						  <div class="frame_b">
+						  	<img src="../image/<?php echo $data1['image'];?>" width="100%" height="auto" alt=""/>
+						  </div>
+					   	<!-- ユーザーネーム -->
+					  	<p class="name"><?php echo $data1['nickname'];?></p>
+					  </a>
+				  <?php } ?>
+			  <?php } ?>
+			 </li>
+			</ul>
+		</div>
 
- <li>
-  <a href="#">
-   <div class="frame_b">
-    <img src="../assets/img/yousuke2.jpg" width="100%" height="auto" alt=""/>
-   </div>
-   <p class="name"><?php echo $data['nickname'] ?></p>
-  </a>
-  </li>
-</ul>
-</div>
-
+	<?php } ?>
 <img class="arrow" src="../assets/img/arrow.png" width="58" height="29" alt=""/>
-<?php } ?>
+
 </section>
 
 </main>
