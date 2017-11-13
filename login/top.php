@@ -306,6 +306,9 @@ $(function(){
 				 	<?php if($data1['datepicker']==$data['datepicker']){ ?>
 					<!-- プロフィール画像 -->
 					  <a href="#">
+					  	<!-- 色を変えたい -->
+					  	<!-- プログラミング生の時、青色表示 -->
+					  	<!-- 英語生の時、黄色表示 -->
 						  <div class="frame_b">
 						  	<img src="../image/<?php echo $data1['image'];?>" width="100%" height="auto" alt=""/>
 						  </div>
