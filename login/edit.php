@@ -128,29 +128,33 @@ require('../dbconnect.php');
             //　アップロードされた、または過去にアップロードしてたら
             if(!empty($fileName) || $f_flag==true ){
                 // アップロードしてたらファイルの拡張子チェック
+
                 if(!empty($fileName)){
                     $ext = substr($fileName,-3); 
     
                     $ext = strtolower($ext); 
-                    if ($ext != "jpg" && $ext != "png" && $ext !=    "gif") { 
+                    if ($ext != "jpg" && $ext != "png" && $ext != "gif") { 
                         $errors["image"] = "extention"; 
                       }
-                      else{
-                        $errors['image'] = "blank";
-                      }
+                      // else{
+                      //   $errors['image'] = "blank";
+                      // }
                 }else{
                   //アップロードしてなかったら、現在の画像を選択
                   $fileName=$_SESSION["login_user"]['image'];
                 }
-             // エラーが空の時
-             if (empty($errors)) {
-             // 画像を保存する
-                if(!empty($fileName)){
-                  move_uploaded_file($_FILES["image"]["tmp_name"],'../image/'.$fileName); 
-                }
-                
-                // イメージのフォルダの中にファイルを保存する
-}
+               // エラーが空の時
+                error_log(print_r($errors,true),"3","../../../../../logs/error_log");
+               if (empty($errors['image'])) {
+
+               // 画像を保存する
+                  if(!empty($fileName)){
+              
+                    move_uploaded_file($_FILES["image"]["tmp_name"],'../image/'.$fileName); 
+                  }
+                  
+                  // イメージのフォルダの中にファイルを保存する
+              }
            
                 $sql ='UPDATE `batch_users` SET `username`=?,`nickname`=?,`email`=?,`course`=?,`datepicker`=?,`datepicker2`=?,`password`=?,`image`=?,`year`=?,`month`=?,`day`=?,`birthplace`=?,`hobby`=?,`intro`=? WHERE id=?'; 
                 $data = array($username,$nickname,$email,$course,$datepicker,$datepicker2,$password,$fileName,$year,$month,$day,$birthplace,$hobby,$intro,$id); 

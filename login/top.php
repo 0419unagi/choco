@@ -12,7 +12,7 @@
 
 
 
-$sql = 'SELECT `nickname`,`image`,`datepicker` FROM `batch_users` ORDER BY `datepicker` DESC';
+$sql = 'SELECT `nickname`,`image`,`datepicker`,`course` FROM `batch_users` ORDER BY `datepicker` DESC';
 $data = array();
 $stmt = $dbh->prepare($sql);
 $stmt->execute($data);
@@ -291,7 +291,7 @@ $(function(){
 <main id="topPg">
  <div class="line_tate"></div>
 
- <?php error_log(print_r($userdata,true),"3","../../../../../logs/error_log"); ?>
+ 
  
  <section>
 	<?php foreach($gdata as $data) { ?>
@@ -302,16 +302,24 @@ $(function(){
 		<div class="carousel">
 			<ul>
 			 <li>
+			 	
 			 	<?php foreach($userdata as $data1){?>
+			 	<?php error_log(print_r($data1,true),"3","../../../../../logs/error_log"); ?>
 				 	<?php if($data1['datepicker']==$data['datepicker']){ ?>
 					<!-- プロフィール画像 -->
 					  <a href="#">
 					  	<!-- 色を変えたい -->
+					  	<?php if($data1['course']=='programming'){ ?>
 					  	<!-- プログラミング生の時、青色表示 -->
-					  	<!-- 英語生の時、黄色表示 -->
-						  <div class="frame_b">
+ 						  <div class="frame_b">
 						  	<img src="../image/<?php echo $data1['image'];?>" width="100%" height="auto" alt=""/>
 						  </div>
+						<?php }else { ?>
+					  	<!-- 英語生の時、黄色表示 -->
+						  <div class="frame_y">
+						  	<img src="../image/<?php echo $data1['image'];?>" width="100%" height="auto" alt=""/>
+						  </div>
+						  <?php } ?>
 					   	<!-- ユーザーネーム -->
 					  	<p class="name"><?php echo $data1['nickname'];?></p>
 					  </a>
