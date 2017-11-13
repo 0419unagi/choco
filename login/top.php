@@ -232,7 +232,7 @@ $(function(){
 </head>
 
 <body>
-
+<?php //require('../part/header.php') ;?>
 <header>
   
   <div id="clm_l">
