@@ -170,7 +170,6 @@ $(function(){
 
 <body>
 <header>
- <div class="container">
   
   <div id="clm_l">
    <div id="prf">
@@ -181,37 +180,27 @@ $(function(){
    </div>
   
   <div id="logo" class="wow pulse" data-wow-duration="0.5s">
-   <a href="#">
-   <img src="assets/img/logo.png" width="120" height="45" alt=""/>
+   <a href="top.php">
+   <img src="../assets/img/logo.png" width="120" height="45" alt=""/>
    </a>
   </div>
  </div>
   
  <div id="clm_r">
    <div id="tBox">
-   <div id="reserch">
+ <!--   <div id="reserch">
     <i class="fa fa-search" aria-hidden="true"></i><input type="text" value="Search BATCH" size="30">
-   </div>
+   </div> -->
   
-  <ul id="tab">
-   <li><a href="#">MY PAGE</a></li>
-   <li><a href="#">LOGOUT</a></li>
-  </ul>
-  </div>
-  
-  <div class="bBox">
+ <div class="bBox">
   <ul id="icon">
    <li>
-    <a href="#"><img class="roll" src="../assets/img/nenpyo.png" width="21" height="13" alt=""/>
-    <p>MEMBER</p></a>
+    <a href="top.php"><img class="roll" src="../assets/img/nenpyo.png" width="21" height="13" alt=""/>
+    <p>TOP PAGE</p></a>
    </li>
    <li>
     <a href="#"><img class="roll" src="../assets/img/time.png" width="13" height="13" alt=""/>
     <p>TIME LINE</p></a>
-   </li>
-   <li>
-    <a href="#"><img class="roll" src="../assets/img/badge.png" width="13" height="16" alt=""/>
-    <p>FOLLOW</p></a>
    </li>
    <li>
     <a href="#"><img class="roll" src="../assets/img/message.png" width="17" height="13" alt=""/>
@@ -219,7 +208,13 @@ $(function(){
    </li>
   </ul>
  </div> 
+
+  <ul id="tab">
+   <li><a href="edit.php">EDIT</a></li>
+   <li> <a href="logout.php">LOGOUT</a></li>
+  </ul>
+  </div>
+
  
  </div> 
- </div>
  </header>

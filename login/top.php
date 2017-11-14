@@ -232,8 +232,8 @@ $(function(){
 </head>
 
 <body>
-<?php //require('../part/header.php') ;?>
-<header>
+<?php require('../part/header.php') ;?>
+<!-- <header>
   
   <div id="clm_l">
    <div id="prf">
@@ -244,7 +244,7 @@ $(function(){
    </div>
   
   <div id="logo" class="wow pulse" data-wow-duration="0.5s">
-   <a href="#">
+   <a href="top.php">
    <img src="../assets/img/logo.png" width="120" height="45" alt=""/>
    </a>
   </div>
@@ -266,7 +266,7 @@ $(function(){
   <div class="bBox">
   <ul id="icon">
    <li>
-    <a href="#"><img class="roll" src="../assets/img/nenpyo.png" width="21" height="13" alt=""/>
+    <a href="top.php"><img class="roll" src="../assets/img/nenpyo.png" width="21" height="13" alt=""/>
     <p>TOP PAGE</p></a>
    </li>
    <li>
@@ -286,7 +286,7 @@ $(function(){
  
  </div> 
  </header>
-
+ -->
   
 <main id="topPg">
  <div class="line_tate"></div>
@@ -299,35 +299,37 @@ $(function(){
 		<p class="date wow flipInY"><?php echo $data['datepicker'] ?></p>
 		<img class="fuki" src="../assets/img/fuki.png" width="7" height="6" alt=""/>
 		<div class="line_yoko"></div>
-		<div class="carousel">
-			<ul>
-			 <li>
+		
 			 	
 			 	<?php foreach($userdata as $data1){?>
 			 	<?php error_log(print_r($data1,true),"3","../../../../../logs/error_log"); ?>
 				 	<?php if($data1['datepicker']==$data['datepicker']){ ?>
-					<!-- プロフィール画像 -->
-					  <a href="#">
-					  	<!-- 色を変えたい -->
-					  	<?php if($data1['course']=='programming'){ ?>
-					  	<!-- プログラミング生の時、青色表示 -->
- 						  <div class="frame_b">
-						  	<img src="../image/<?php echo $data1['image'];?>" width="100%" height="auto" alt=""/>
-						  </div>
-						<?php }else { ?>
-					  	<!-- 英語生の時、黄色表示 -->
-						  <div class="frame_y">
-						  	<img src="../image/<?php echo $data1['image'];?>" width="100%" height="auto" alt=""/>
-						  </div>
-						  <?php } ?>
-					   	<!-- ユーザーネーム -->
-					  	<p class="name"><?php echo $data1['nickname'];?></p>
-					  </a>
-				  <?php } ?>
-			  <?php } ?>
-			 </li>
-			</ul>
-		</div>
+				 		<div class="carousel">
+							<ul>
+							 <li>
+								<!-- プロフィール画像 -->
+								  <a href="#">
+								  	<!-- 色を変えたい -->
+								  	<?php if($data1['course']=='programming'){ ?>
+								  	<!-- プログラミング生の時、青色表示 -->
+			 						  <div class="frame_b">
+									  	<img src="../image/<?php echo $data1['image'];?>" width="100%" height="auto" alt=""/>
+									  </div>
+									<?php }else { ?>
+								  	<!-- 英語生の時、黄色表示 -->
+									  <div class="frame_y">
+									  	<img src="../image/<?php echo $data1['image'];?>" width="100%" height="auto" alt=""/>
+									  </div>
+									<?php } ?>
+								   	<!-- ユーザーネーム -->
+								  	<p class="name"><?php echo $data1['nickname'];?></p>
+								  </a>
+							 </li>
+							</ul>
+						</div>
+				 	<?php } ?>
+			  	<?php } ?>
+			
 
 	<?php } ?>
 <img class="arrow" src="../assets/img/arrow.png" width="58" height="29" alt=""/>

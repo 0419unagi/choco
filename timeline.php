@@ -1,36 +1,13 @@
 <?php 
-// 投稿フォーム
-
-
-
-
- // $fileName = $_FILES['image']['name'];
-
-
- //    if(!empty($fileName)){
- //        $ext = substr($fileName,-3);
- //        $ext = strtolower($ext);
- //        echo '拡張子は'. $ext .'です<br>';
- //        if($ext != 'jpg' && $ext != 'png' && $ext != 'gif'){
- //            $errors['image'] = 'extension';
- //        }
-
-
-
-
 // データベース接続
-// require('dbconnect.php');
 
-// if(!empty($_POST)){
 
-//       $content = $_POST['content'];
-      
-//       $sql = 'INSERT INTO `post` SET `content` = ?, `image` =?, `create` =NOW()';
+// セッションスタート
 
-//       $data = array($content,$image);
-//       $stmt = $dbh->prepare($sql);
-//       $stmt->execute($data);
-//     }
+
+// セッションでSESSION[login_user']['id]がなければログインページへお帰りいただく。
+
+
 
 
  ?>
