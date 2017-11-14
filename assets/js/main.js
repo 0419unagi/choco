@@ -1,6 +1,38 @@
 // メッセージ内容ページの最新コメントを表示
 $(document).ready(function(){
     scrollDown();
+
+    $("div.tom").click(function(){
+        var other_id = $(this).attr("value");
+        console.log(other_id);
+        $.ajax({
+          type: 'GET',
+          url: "message.php",
+           data: {
+                    other_id: other_id,
+                },
+          error : function(XMLHttpRequest, textStatus, errorThrown) {
+            console.log("ajax通信に失敗しました");
+            console.log("XMLHttpRequest : " + XMLHttpRequest.status);
+            console.log("textStatus     : " + textStatus);
+            console.log("errorThrown    : " + errorThrown.message);
+        },
+        })
+          .done(function(data) {                
+            console.log('done');
+            console.log(other_id);
+            // $('#result').append(data);
+            changeTalk(other_id);
+            
+         }).fail(function(data) {                
+            console.log('fail');
+
+         }).always(function(data) {                
+            console.log('always');
+         });         
+    });
+    
+
 });
 
 //メッセージ送信ボタンをクリックすると
@@ -29,6 +61,47 @@ $(function(){
 });
 
 
+
+function changeTalk(data){
+    console.log('ok');
+        var other_id = data;
+        console.log(other_id);
+        $.ajax({
+          type: 'GET',
+          url: "model/update_talk.php",
+           data: {
+                    other_id: other_id,
+                },
+          error : function(XMLHttpRequest, textStatus, errorThrown) {
+            console.log("ajax通信に失敗しました");
+            console.log("XMLHttpRequest : " + XMLHttpRequest.status);
+            console.log("textStatus     : " + textStatus);
+            console.log("errorThrown    : " + errorThrown.message);
+        },
+        })
+          .done(function(data) { 
+            console.log('done');
+            // console.log(data);
+            var test = $.parseJSON(data);
+            // 返り値の最後にユーザーネームを付けているので、取得する
+            var user_name = test[test.length - 1];
+            // ユーザーネーム取得後、最後の要素を削除する
+            test.pop();
+            // console.log(test);
+            var logs = test.join('');
+            $("#result").html(logs);
+            scrollDown();
+            console.log(user_name);
+            $("#mes_head").html(user_name);
+
+         }).fail(function(data) {                
+            console.log('fail');
+
+         }).always(function(data) {                
+            console.log('always');
+         });         
+}
+
 // 画像送信ボタンが押された時に以下の関数を実行
 function img_up(){
     // 画像送信ボタンが押された時に、データベースへインサート
@@ -38,9 +111,6 @@ function img_up(){
 
         return false;
 }
-
-
-
 
 // 画像送信ボタンが押された時に、データベースへインサート
 function insertDateImg() {
