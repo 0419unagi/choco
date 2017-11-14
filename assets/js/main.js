@@ -1,42 +1,189 @@
 // メッセージ内容ページの最新コメントを表示
 $(document).ready(function(){
     scrollDown();
+
+    $("div.tom").click(function(){
+        var other_id = $(this).attr("value");
+        console.log(other_id);
+        $.ajax({
+          type: 'GET',
+          url: "message.php",
+           data: {
+                    other_id: other_id,
+                },
+          error : function(XMLHttpRequest, textStatus, errorThrown) {
+            console.log("ajax通信に失敗しました");
+            console.log("XMLHttpRequest : " + XMLHttpRequest.status);
+            console.log("textStatus     : " + textStatus);
+            console.log("errorThrown    : " + errorThrown.message);
+        },
+        })
+          .done(function(data) {                
+            console.log('done');
+            console.log(other_id);
+            // $('#result').append(data);
+            changeTalk(other_id);
+            
+         }).fail(function(data) {                
+            console.log('fail');
+
+         }).always(function(data) {                
+            console.log('always');
+         });         
+    });
+    
+
 });
-
-
 
 //メッセージ送信ボタンをクリックすると
 // 1.データベースへデータを反映する
 // 2.HTMLの要素を追加する
+// ※メッセージが送信される場合は、uplodeキーにNULL値を設定する
 
 // 1.データベースへデータを反映する
 $(function(){
     //submitをクリックすると以下のコードを実行する
     $('#submit').click(function(){
-        console.log('success');
-        
         //フォームに何も入力されていない場合は、そのままreturn
-    	if(!$('#text_input').val()) return;
-
-        // 初期値の設定
-        var user = $('#user_name').val();
-        var message =  $('#text_input').val();
-        //部分スクロールの元の高さを取得
-        // var height = $('#talkField').get(0).scrollHeight;
-
+        if(!$('#text_input').val()) return;
         //bbs.phpへgetリクエストで配列を送信している
         $.get('bbs.php', {
-            //userキーに対して、ID'user'に入力された値
-        	user: $('#user_name').val(),
-            //messageキーに対して、ID'message'に入力された値
-        	message: $('#text_input').val(),
-        	mode: "0" // 書き込み
+            user_id: $('#user_id').val(),
+            other_id: $('#other_id').val(),
+            content: $('#text_input').val(),
+            uplode_image: "NULL",
+            mode: "0" // 書き込み
         },function(data){
-            $('#result').append("<div class='left_balloon'>" + message + "</div>");
+            $('#result').append(data);
             scrollDown();
         });
     });
 });
+
+
+
+function changeTalk(data){
+    console.log('ok');
+        var other_id = data;
+        console.log(other_id);
+        $.ajax({
+          type: 'GET',
+          url: "model/update_talk.php",
+           data: {
+                    other_id: other_id,
+                },
+          error : function(XMLHttpRequest, textStatus, errorThrown) {
+            console.log("ajax通信に失敗しました");
+            console.log("XMLHttpRequest : " + XMLHttpRequest.status);
+            console.log("textStatus     : " + textStatus);
+            console.log("errorThrown    : " + errorThrown.message);
+        },
+        })
+          .done(function(data) { 
+            console.log('done');
+            // console.log(data);
+            var test = $.parseJSON(data);
+            // 返り値の最後にユーザーネームを付けているので、取得する
+            var user_name = test[test.length - 1];
+            // ユーザーネーム取得後、最後の要素を削除する
+            test.pop();
+            // console.log(test);
+            var logs = test.join('');
+            $("#result").html(logs);
+            scrollDown();
+            console.log(user_name);
+            $("#mes_head").html(user_name);
+
+         }).fail(function(data) {                
+            console.log('fail');
+
+         }).always(function(data) {                
+            console.log('always');
+         });         
+}
+
+// 画像送信ボタンが押された時に以下の関数を実行
+function img_up(){
+    // 画像送信ボタンが押された時に、データベースへインサート
+        insertDateImg();
+    // 画像を指定のディレクトリへ移動させるため
+        makeImg();
+
+        return false;
+}
+
+// 画像送信ボタンが押された時に、データベースへインサート
+function insertDateImg() {
+    //ここのやり方を見直す
+    // 1.上記指定の配列を1度、JSONにする
+    // 2.ajaxでbbs.phpに落とす
+
+    var user_data = {
+        "user_id": $('#user_id').val(),
+        "other_id": $('#other_id').val(),
+        "content": "NULL",
+        "uplode_image": $('#file').val(),
+        "mode": "3" // 画像送信モード
+    };
+
+    var user_data = JSON.stringify(user_data);
+
+    $.ajax({
+      type: 'GET',
+      url: "bbs_img_insert.php",
+      data: user_data,
+      processData: false,
+      contentType: false,
+      error : function(XMLHttpRequest, textStatus, errorThrown) {
+        console.log("ajax通信に失敗しました");
+        console.log("XMLHttpRequest : " + XMLHttpRequest.status);
+        console.log("textStatus     : " + textStatus);
+        console.log("errorThrown    : " + errorThrown.message);
+    },
+    })
+      .done(function(data) {                
+        console.log('done');
+        console.log(data);
+        $('#result').append(data);
+        scrollDown();
+     }).fail(function(data) {                
+        console.log('fail');
+
+     }).always(function(data) {                
+        console.log('always');
+     });
+}
+
+// 画像オブジェクトを作成
+// 画像を指定のディレクトリへ移動させるため
+function makeImg(){
+    $(function(data){
+            // 画像オブジェクトを作成        
+            var fd = new FormData($('#foo').get(0));
+            console.log(fd);
+            $.ajax({
+                url: "bbs_img.php",
+                type: "POST",
+                data: fd,
+                processData: false,
+                contentType: false,
+            })
+            .done(function(data) {                
+                // $('#result').text(data.width + "x" + data.height);
+                
+                console.log('done');
+                console.log(data);
+
+            }).fail(function(data) {                
+                console.log('fail');
+
+            }).always(function(data) {                
+                console.log('always');
+            });
+            // メッセージ内容ページの最下層を表示
+            scrollDown();
+        });
+}
 
 
 // メッセージ内容ページの最下層を表示
@@ -51,18 +198,18 @@ function scrollDown(){
 
 // ログをロードする
 function loadLog(){
-	$.get('bbs.php', {
-		mode: "1" // 読み込み
+    $.get('bbs.php', {
+        mode: "1" // 読み込み
     }, function(data){
-    	$('#result').html(data);
-    	// scTarget();
+        $('#result').html(data);
+        // scTarget();
     });
 }
 
 // 一定間隔でログをリロードする
 function logAll(){
-	setTimeout(function(){
-		// loadLog();
-		logAll();
-	},5000); //リロード時間はここで調整
+    setTimeout(function(){
+        // loadLog();
+        logAll();
+    },5000); //リロード時間はここで調整
 }

@@ -181,6 +181,7 @@ $(function(){
   
   <div id="logo" class="wow pulse" data-wow-duration="0.5s">
    <a href="top.php">
+
    <img src="../assets/img/logo.png" width="120" height="45" alt=""/>
    </a>
   </div>

@@ -75,7 +75,7 @@ body, html {
 /*ユーザートーク履歴*/
 .sidebar #talk_history{
 	margin-top:30px;
-	/*border: 1px solid #fff;*/
+	border: 1px solid #fff;
 	width: 100%;
 	height: 55px;
 }
@@ -217,19 +217,6 @@ body, html {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*******************************
 * 左からの吹き出し
 ********************************/
@@ -245,36 +232,22 @@ body, html {
     max-width: 500px;
     float: left;
 }
-/*.left_balloon:after,
-.left_balloon:before {
-    left: 7.5px;
-    top: -5px;
-    border: solid transparent;
-    content: " ";
-    height: 0;
-    width: 0;
-    position: absolute;
-    pointer-events: none;
+.left_img_uplode{
+	position: relative;
+    margin: 10px 0 0 10px; 
+    border-radius: 15px;
+    margin-right: 20%;
+    clear: both;
+    max-width: 425px;
+    float: left;
 }
-.left_balloon:after {
-    border-color: rgba(255, 255, 255, 0);
-    border-bottom-color: #85e249;
-    border-width: 7px;
-    margin-top: -7px;
-}*/
-/*.left_balloon:before {
-    border-color: rgba(0, 0, 0, 0);
-    border-right-color: #000;
-    border-width: 8px;
-    margin-top: -8px;
-}*/
  
 /*******************************
 * 右からの吹き出し
 ********************************/
 .right_balloon {
     position: relative;
-    background: #EEEEEE;
+    background: #97C8E2;
     border: 1px solid #777;
     margin: 10px;
     padding: 10px;
@@ -284,29 +257,16 @@ body, html {
     max-width: 500px;
     float: right;
 }
-.right_balloon:after,
-.right_balloon:before {
-    left: 100%;
-    top: 50%;
-    border: solid transparent;
-    content: " ";
-    height: 0;
-    width: 0;
-    position: absolute;
-    pointer-events: none;
+.right_img_uplode{
+	position: relative;
+    margin: 10px 10px 0 0; 
+    border-radius: 15px;;
+    margin-left: 20%;
+    clear: both;
+    max-width: 425px;
+    float: right;
 }
-.right_balloon:after {
-    border-color: rgba(133, 226, 73, 0);
-    border-left-color: #EEEEEE;
-    border-width: 7px;
-    margin-top: -7px;
-}
-.right_balloon:before {
-    border-color: rgba(119, 119, 119, 0);
-    border-left-color: #777;
-    border-width: 8px;
-    margin-top: -8px;
-}
+
  
 /*******************************
 * 割り込みを解除

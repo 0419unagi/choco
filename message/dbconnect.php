@@ -1,6 +1,6 @@
 <?php 
 // MySQLの接続情報
-$dsn = 'mysql:dbname=oneline_bbs;host=localhost';
+$dsn = 'mysql:dbname=batch_sns;host=localhost';
 $user = 'root';
 $password = '';
 $dbh = new PDO($dsn,$user,$password);
