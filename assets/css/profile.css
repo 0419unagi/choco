@@ -162,7 +162,8 @@ main {
 }
 #profilePg {
 }
-#profilePg section {
+#profilePg .wrp {
+ align-items:stretch;
 }
 #profilePg .prfClm {
  background-image: url(../img/prf_img.jpg);
@@ -170,58 +171,89 @@ main {
  background-size: 100% auto;
  background-color: #000000;
 }
-#profilePg .prfClm ul {
-}
-#profilePg .prfClm ul li {
-}
-#profilePg .prfClm div {
+#profilePg .prfClm .prfBox {
  background-color: rgba(255,255,255,0.85);
  border-radius: 10px;
- padding-top: 50px;
+ padding-top: 70px;
  padding-right: 25px;
  padding-bottom: 50px;
  padding-left: 25px;
  text-align: center;
- margin-top: 200px;
+ margin-top: 300px;
  margin-bottom: 30px;
  letter-spacing: 1px;
 }
-#profilePg .prfClm div p {
+#profilePg .prfBox p {
  font-size: 12px;
  line-height: 18px;
+ margin-bottom: 0px;
 }
-#profilePg .prfClm .nickname {
+#profilePg .prfBox .nickname {
  font-size: 40px;
  font-weight: bold;
- margin-bottom: 10px;
+ margin-bottom: 20px;
 }
-#profilePg .prfClm .name {
+#profilePg .prfBox .name {
  letter-spacing: 2px;
  margin-bottom: 40px;
 }
-#profilePg .prfClm .study {
+#profilePg .prfBox .study {
  border-bottom: 1px solid #000000;
  font-weight: bold;
+ font-size: 15px;
+ display: inline;
+ padding-left: 10px;
+ padding-right: 10px;
 }
-#profilePg .prfClm .course {
+#profilePg .prfBox .course {
+ margin-bottom: 30px;
+ margin-top: 20px;
+}
+#profilePg .prfBox .birthday {
+}
+#profilePg .prfBox .from {
+}
+#profilePg .prfBox .hobby {
  margin-bottom: 30px;
 }
-#profilePg .prfClm .birthday {
-}
-#profilePg .prfClm .from {
-}
-#profilePg .prfClm .hobby {
- margin-bottom: 30px;
-}
-#profilePg .prfClm .cmm {
+#profilePg .prfBox .cmm {
  line-height: 22px;
+ margin-bottom: 50px;
 }
-#profilePg .prfClm span {
+#profilePg .prfBox span {
  font-weight: bold;
+}
+#profilePg .prfClm .message {
+ color: #FFFFFF;
+ background-color: #000000;
+ padding-top: 5px;
+ padding-bottom: 5px;
+ padding-left: 20px;
+ padding-right: 20px;
 }
 
 #profilePg .feedClm {
 }
+
+#profilePg .feedClm #contributeBox {
+ margin-bottom: 100px;
+ margin-top: 50px;
+}
+#profilePg .feedClm #contributeBox form {
+ border-bottom: 1px solid #DBDBDB;
+ margin-bottom: 5px;
+}
+#profilePg .feedClm #contributeBox form textarea {
+ border-style: none;
+}
+#profilePg .feedClm #contributeBox ul {
+ display: flex;
+ justify-content:space-between;
+}
+#profilePg .feedClm #contributeBox ul li {
+ margin-right: 15px;
+}
+
 #profilePg .feedClm section {
  border: 1px solid #B0B0B0;
  padding-top: 70px;
@@ -238,16 +270,41 @@ main {
  text-align: center;
  padding-top: 5px;
  padding-bottom: 5px;
- display: inline;
+ display: inline-block;
  padding-left: 20px;
  padding-right: 20px;
  letter-spacing: 3px;
  position: absolute;
  top: -20px;
+ margin-left: auto;
+ margin-right: auto;
 }
+#profilePg .feedClm .nameBox {
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ margin-bottom: 20px;
+}
+#profilePg .feedClm .nameBox .selfClm {
+ font-weight: bold;
+}
+#profilePg .feedClm .nameBox .selfClm img {
+ border-radius: 50px;
+ margin-right: 5px;
+}
+#profilePg .feedClm .nameBox .badgeClm {
+ font-weight: bold;
+}
+#profilePg .feedClm .nameBox .badgeClm img {
+ margin-right: 5px;
+}
+
 #profilePg .feedClm .picClm {
 }
 #profilePg .feedClm .picClm img {
+ width: 100%;
+  height: 300px;
+  object-fit: cover;
 }
 #profilePg .feedClm .txtClm {
 }
@@ -265,9 +322,7 @@ main {
 }
 #profilePg .feedClm .txtClm .commentBox img {
  margin-right: 10px;
- margin-bottom: 0px;
- position: relative;
- top: -2px;
+ border-radius: 20px;
 }
 #profilePg .feedClm .txtClm .commentBox .txt {
  background-color: #EAEAEA;
@@ -278,10 +333,8 @@ main {
  padding-top: 5px;
  padding-bottom: 3px;
  margin-right: 10px;
- margin-top: 5px;
-}
-#profilePg .feedClm .txtClm .commentBox .by {
- font-size: 11px;
+ position: relative;
+ top: 5px;
 }
 #profilePg .feedClm .txtClm .commentBox .by span {
  font-weight: bold;
@@ -296,9 +349,7 @@ main {
 }
 #profilePg .feedClm .txtClm .postBox img {
  margin-right: 10px;
- margin-bottom: 0px;
- position: relative;
- top: -2px;
+ border-radius: 20px;
 }
 #profilePg .feedClm .txtClm .postBox .txt {
  background-color: #EAEAEA;
@@ -310,6 +361,8 @@ main {
  padding-bottom: 3px;
  margin-right: 10px;
  margin-top: 5px;
+ position: relative;
+ top: 5px;
 }
 
 

@@ -33,6 +33,10 @@ $(function(){
 	});
 });
 </script>
+
+
+<link rel="stylesheet" href="assets/css/lightbox.css">
+<script src="assets/js/lightbox.js"></script>
 </head>
 
 <body>
@@ -93,15 +97,10 @@ $(function(){
 
 <main id="profilePg">
 <div class="container">
-<section>
+<div id="wrp">
 <div class="prfClm col-xs-4">
- <ul>
-  <li><img src="assets/img/badge.png" width="20" height="25" alt=""/><br>000
-</li>
-  <li><img src="assets/img/message.png" width="17" height="13" alt=""/></li>
- </ul>
  
- <div>
+ <div class="prfBox">
  <p class="nickname">TOMTOM</p>
  <p class="name">Tomoyuki Ogawa</p>
  <p class="study">2017.9.18 ~ 2017.12.8</p>
@@ -110,45 +109,55 @@ $(function(){
  <p class="from"><span>from : </span>tokyo</p>
  <p class="hobby"><span>hobby : </span>scuva diving , shopping</p>
  <p class="cmm">ここにテキストが入ります。文字数・行間・フォントなどご確認ください。この文章はダミーです。</p>
+ <a href="#"><div class="message"><img src="assets/img/message_w.png" width="17" height="13" alt=""/> メッセージを送る</div></a>
  </div>
 </div>
 
  <div class="feedClm col-xs-8">
+    <!-- 以下のコードはログインユーザーのプロフィール画面の場合に表示   -->
+     <div id="contributeBox">
+     <form method="" action="">
+      <textarea rows="7" cols="89%" placeholder="ここから投稿します"></textarea>
+     </form>
+     <ul>
+      <li><i class="fa fa-picture-o" aria-hidden="true"></i></li>
+      <li><i class="fa fa-pencil" aria-hidden="true"></i></li>
+     </ul>
+     </div>
+     <!-- ここまで -->
 
  <section>
  <p class="date">2017.9.18</p>
+ <div class="nameBox">
+  <a href="#">
+  <div class="selfClm"><img src="assets/img/profile.jpg" width="80" height="80" alt=""/>
+  nickname</div></a>
+  <div class="badgeClm"><img src="assets/img/badge.png" width="13" height="16" alt=""/>000</div>
+ </div>
  <div class="row">
  <div class="picClm col-xs-6">
  <div class="slider">
-  <img src="assets/img/img_damy1.jpg" width="100%" height="auto" alt=""/>
-  <img src="assets/img/img_damy2.jpg" width="100%" height="auto" alt=""/>
-  <img src="assets/img/img_damy3.jpg" width="100%" height="auto" alt=""/>
+  <a class="example-image-link" href="assets/img/img_damy1.jpg" data-lightbox="example">
+  <img class="example-image" src="assets/img/img_damy1.jpg" width="100%" height="auto" alt=""/></a>
+  <a class="example-image-link" href="assets/img/img_damy2.jpg" data-lightbox="example">
+  <img class="example-image" src="assets/img/img_damy2.jpg" width="100%" height="auto" alt=""/></a>
+  <a class="example-image-link" href="assets/img/img_damy3.jpg" data-lightbox="example">
+  <img class="example-image" src="assets/img/img_damy3.jpg" width="100%" height="auto" alt=""/></a>
  </div>
  </div>
- 
+
  <div class="txtClm col-xs-6">
  <p class="sentence">ここにテキストが入ります。文字数・行間・フォントなどご確認ください。この文章はダミーです。ここにテキストが入ります。文字数・行間・フォントなどご確認ください。この文章はダミーです。ここにテキストが入ります。文字数・行間・フォントなどご確認ください。この文章はダミーです。</p>
  
   <div class="commentBox">
-   <img src="assets/img/stamp_1.png" width="25" height="25" alt=""/>
+   <a href="#"><img src="assets/img/profile.jpg" width="35" height="35" alt=""/></a>
    <p class="txt">コメント</p>
-   <p class="by">by. <span><a href="#">name</a></span></p>
-  </div>
-  <div class="commentBox">
-   <img src="assets/img/stamp_2.png" width="25" height="25" alt=""/>
-   <p class="txt">コメント</p>
-   <p class="by">by. <span><a href="#">name</a></span></p>
-  </div>
-  <div class="commentBox">
-   <img src="assets/img/stamp_3.png" width="25" height="25" alt=""/>
-   <p class="txt">コメント</p>
-   <p class="by">by. <span><a href="#">name</a></span></p>
   </div>
   
   <div class="postBox">
-   <img src="assets/img/stamp_base.png" width="25" height="25" alt=""/>
+   <a href="#"><img src="assets/img/profile.jpg" width="35" height="35" alt=""/></a>
    <p class="txt">コメント</p>
-   <img src="assets/img/send.png" width="16" height="24" alt=""/> </div>
+   <i class="fa fa-pencil" aria-hidden="true"></i> </div>
  </div>
 </div>
 </section>
@@ -160,7 +169,7 @@ $(function(){
  
  
 </div>
-</section>
+</div>
  </div>
 
 </main>
