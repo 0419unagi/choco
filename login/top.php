@@ -2,13 +2,13 @@
   // echo "<pre>";
   // var_dump($_POST);
   // echo "</pre>";
-  session_start();
-  require('../dbconnect.php');
+  // session_start();
+  // require('../dbconnect.php');
 
   if(!isset($_SESSION['login_user']['id'])){
     header('Location: index.php');
     exit();
-}
+	}
 
 
 
