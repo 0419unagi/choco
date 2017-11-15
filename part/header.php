@@ -1,3 +1,32 @@
+<?php 
+
+session_start();
+// データベースの接続情報
+require('../dbconnect.php');
+
+// PHPでDBへアクセスして、SQLを実行する
+/// $data = array($_SESSION['login_user']['id']);
+// $stmt = $dbh->prepare($sql);
+// $stmt->execute($data);
+
+// $userdata = array();
+// while(true){
+//   $data = $stmt->fetch(PDO::FETCH_ASSOC);
+//   if(!$data){
+//     break;
+//   }
+
+//   $userdata[] = $data;
+  // echo '<pre>';
+  // var_dump($data);
+  // echo '</pre>';
+  
+// }S
+
+
+ ?>
+
+
 <!doctype html>
 <html lang="ja">
 <head>
@@ -31,7 +60,7 @@ new WOW().init();
    <div id="prf">
     <a href="#">
     <img id="ill" class="wow slideInDown" data-wow-duration="0.8s" src="../assets/img/ill_hand.png" width="133" alt=""/>
-    <img id="pic" src="../assets/img/profile.jpg" width="70" height="70" alt=""/>
+    <img id="pic" src="../image/<?php echo $_SESSION['login_user']['image']; ?>" width="70" height="70" alt=""/>
     </a>
    </div>
   
