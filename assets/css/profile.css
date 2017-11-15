@@ -162,8 +162,7 @@ main {
 }
 #profilePg {
 }
-#profilePg .wrp {
- align-items:stretch;
+#profilePg section {
 }
 #profilePg .prfClm {
  background-image: url(../img/prf_img.jpg);
