@@ -85,7 +85,7 @@ new WOW().init();
     <p>TOP PAGE</p></a>
    </li>
    <li>
-    <a href="#"><img class="roll" src="../assets/img/time.png" width="13" height="13" alt=""/>
+    <a href="../timeline.php"><img class="roll" src="../assets/img/time.png" width="13" height="13" alt=""/>
     <p>TIME LINE</p></a>
    </li>
    <li>

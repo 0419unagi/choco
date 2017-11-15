@@ -1,14 +1,18 @@
 <?php
   // セッションを呼び出す 
   session_start();
-  // データベース呼び出す
+  // データベース
   require('dbconnect.php');
+  
+
+  // require('part/header.php');
 
   // セッションデータがなければお帰りいただく
   if(!isset($_SESSION['login_user']['id'])){
     header('Location: index.php');
     exit();
   }
+
 
   //ユーザーデータをSELECTする
   $sql = 'SELECT * FROM `batch_users` WHERE id=?';
@@ -79,13 +83,14 @@ $(function(){
 </head>
 
 <body>
-
  
  <?php foreach($userdata as $data) {?>
 <main id="profilePg">
 <div class="container">
 <div id="wrp">
 <div class="prfClm col-xs-4">
+  <!-- 　写真 -->
+  <p style="background-image: <?php echo $data['image'] ;?>;"></p>
  <div class="prfBox">
   <!-- ニックネーム -->
  <p class="nickname"><?php echo $data['nickname'] ;?></p>

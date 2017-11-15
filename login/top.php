@@ -4,6 +4,7 @@
   // echo "</pre>";
   // session_start();
   // require('../dbconnect.php');
+	require('../part/header.php');
 
   if(!isset($_SESSION['login_user']['id'])){
     header('Location: index.php');
@@ -232,7 +233,7 @@ $(function(){
 </head>
 
 <body>
-<?php require('../part/header.php') ;?>
+
   
 <main id="topPg">
  <div class="line_tate"></div>
