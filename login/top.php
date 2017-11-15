@@ -233,60 +233,6 @@ $(function(){
 
 <body>
 <?php require('../part/header.php') ;?>
-<!-- <header>
-  
-  <div id="clm_l">
-   <div id="prf">
-    <a href="#">
-    <img id="ill" class="wow slideInDown" data-wow-duration="0.8s" src="../assets/img/ill_hand.png" width="133" alt=""/>
-    <img id="pic" src="../assets/img/profile.jpg" width="70" height="70" alt=""/>
-    </a>
-   </div>
-  
-  <div id="logo" class="wow pulse" data-wow-duration="0.5s">
-   <a href="top.php">
-   <img src="../assets/img/logo.png" width="120" height="45" alt=""/>
-   </a>
-  </div>
- </div>
-  
- <div id="clm_r">
-   <div id="tBox">
-   <div id="reserch">
-    <i class="fa fa-search" aria-hidden="true"></i><input type="text" value="Search BATCH" size="30">
-   </div>
-  
-  <ul id="tab">
-   <li><a href="edit.php">EDIT</a></li>
-   <li> <a href="logout.php">LOGOUT</a>
-</li>
-  </ul>
-  </div>
-  
-  <div class="bBox">
-  <ul id="icon">
-   <li>
-    <a href="top.php"><img class="roll" src="../assets/img/nenpyo.png" width="21" height="13" alt=""/>
-    <p>TOP PAGE</p></a>
-   </li>
-   <li>
-    <a href="#"><img class="roll" src="../assets/img/time.png" width="13" height="13" alt=""/>
-    <p>TIME LINE</p></a>
-   </li>
-   <li>
-    <a href="#"><img class="roll" src="../assets/img/badge.png" width="13" height="16" alt=""/>
-    <p>FOLLOW</p></a>
-   </li>
-   <li>
-    <a href="#"><img class="roll" src="../assets/img/message.png" width="17" height="13" alt=""/>
-    <p>MESSAGE</p></a>
-   </li>
-  </ul>
- </div> 
- 
- </div> 
- </header>
- -->
   
 <main id="topPg">
  <div class="line_tate"></div>

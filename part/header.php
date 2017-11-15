@@ -180,7 +180,7 @@ $(function(){
    </div>
   
   <div id="logo" class="wow pulse" data-wow-duration="0.5s">
-   <a href="top.php">
+   <a href="../login/top.php">
 
    <img src="../assets/img/logo.png" width="120" height="45" alt=""/>
    </a>
@@ -196,7 +196,7 @@ $(function(){
  <div class="bBox">
   <ul id="icon">
    <li>
-    <a href="top.php"><img class="roll" src="../assets/img/nenpyo.png" width="21" height="13" alt=""/>
+    <a href="../login/top.php"><img class="roll" src="../assets/img/nenpyo.png" width="21" height="13" alt=""/>
     <p>TOP PAGE</p></a>
    </li>
    <li>

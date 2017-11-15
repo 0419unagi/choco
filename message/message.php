@@ -1,7 +1,7 @@
 <?php 
 session_start();
 // データベース呼び出し
-require('dbconnect.php');
+require('../dbconnect.php');
 
 //仮想的にSESSIONからユーザー取得
 //	想定：$user_id = $_SESSION['id'] ;
