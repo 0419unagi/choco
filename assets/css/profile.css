@@ -1,0 +1,377 @@
+@charset "UTF-8";
+html {
+ width: 100%;
+ height: 100%;
+ font-size: 62.5%;
+}
+body {
+ width: 100%;
+ height: 100%;
+ font-family: "Helvetica Neue";
+ color: #000000;
+ letter-spacing: 0px;
+ font-size: 1.6rem;
+}
+
+
+/* --------------------------------------------------------------------------------------
+ 擬似クラス
+--------------------------------------------------------------------------------------- */
+a {
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+/*未訪問のリンク*/
+a:link {
+	text-decoration: none;
+	transition: color 0.3s, border-color 0.3s;
+	color: #5C5C5C;
+}
+/*訪問済みのリンク*/
+a:visited {
+	color: #303030;
+	text-decoration: none;
+}
+/*マウスオン*/
+a:hover {
+ color: #FFBB00;
+}
+
+::selection {
+    background: #F4B5CA;
+    color: #fff;
+}
+::-moz-selection {
+    background: #F4B5CA;
+    color: #fff;
+}
+
+
+
+.container{
+}
+
+header {
+ position: relative;
+ font-family: "Helvetica Neue";
+ font-size: 12px;
+ letter-spacing: 2px;
+ border-bottom: 1px solid #E8E8E8;
+ display: flex;
+ justify-content: space-between;
+ border-bottom-width: 1px;
+}
+header #clm_l {
+}
+header #clm_l #prf {
+ position: relative;
+}
+header #clm_l #prf #ill {
+ position: absolute;
+ border-left: 1px solid #DCDCDC;
+ padding-top: 5px;
+ padding-bottom: 212px;
+}
+header #clm_l #prf #pic {
+ position: absolute;
+ left: 63px;
+ top: 6px;
+ z-index: -5;
+ border-radius: 35px;
+ padding-right: 0px;
+}
+
+header #clm_l #logo {
+ margin-left: 150px;
+ margin-top: 25px;
+ margin-bottom: 15px;
+}
+header #clm_l #logo img {
+}
+
+header #clm_r {
+ margin-right: 50px;
+}
+header #clm_r #tBox {
+ display: flex;
+ align-items: flex-end;
+ justify-content: space-between;
+ margin-bottom: 8px;
+ margin-top: 10px;
+}
+header #clm_r #reserch {
+ margin-bottom: 10px;
+ border-bottom: 1px solid #000000;
+}
+header #clm_r #reserch i {
+ margin-right: 5px;
+}
+header #clm_r #reserch input {
+ letter-spacing: 1px;
+ color: #C1C1C1;
+ border-style: none;
+ padding-bottom: 3px;
+}
+
+header #clm_r #tab {
+ display: flex;
+ font-size: 12px;
+ letter-spacing: 2px;
+ font-weight: bold;
+ margin-left: 15px;
+}
+header #clm_r #tab li a {
+ text-align: center;
+ padding-top: 8px;
+ padding-right: 20px;
+ padding-bottom: 8px;
+ padding-left: 20px;
+ margin-left: 10px;
+ border: 1px solid #000000;
+ display: block;
+}
+header #clm_r #tab li a:link,
+header #clm_r #tab li a:visited {
+ color: #000000;
+}
+header #clm_r #tab li a:hover {
+ color: #FFFFFF;
+ background-color: #000000;
+}
+
+header #clm_r #icon {
+ display: flex;
+ justify-content: flex-end;
+}
+header #clm_r #icon li {
+ margin-left: 20px;
+}
+header #clm_r #icon img {
+ margin-right: 1px;
+}
+header #clm_r #icon p {
+ display: inline;
+ font-weight: bold;
+ font-size: 10px;
+}
+
+
+main {
+ position: relative;
+}
+#profilePg {
+}
+#profilePg section {
+}
+#profilePg .prfClm {
+ background-image: url(../img/prf_img.jpg);
+ background-repeat: no-repeat;
+ background-size: 100% auto;
+ background-color: #000000;
+}
+#profilePg .prfClm .prfBox {
+ background-color: rgba(255,255,255,0.85);
+ border-radius: 10px;
+ padding-top: 70px;
+ padding-right: 25px;
+ padding-bottom: 50px;
+ padding-left: 25px;
+ text-align: center;
+ margin-top: 300px;
+ margin-bottom: 30px;
+ letter-spacing: 1px;
+}
+#profilePg .prfBox p {
+ font-size: 12px;
+ line-height: 18px;
+ margin-bottom: 0px;
+}
+#profilePg .prfBox .nickname {
+ font-size: 40px;
+ font-weight: bold;
+ margin-bottom: 20px;
+}
+#profilePg .prfBox .name {
+ letter-spacing: 2px;
+ margin-bottom: 40px;
+}
+#profilePg .prfBox .study {
+ border-bottom: 1px solid #000000;
+ font-weight: bold;
+ font-size: 15px;
+ display: inline;
+ padding-left: 10px;
+ padding-right: 10px;
+}
+#profilePg .prfBox .course {
+ margin-bottom: 30px;
+ margin-top: 20px;
+}
+#profilePg .prfBox .birthday {
+}
+#profilePg .prfBox .from {
+}
+#profilePg .prfBox .hobby {
+ margin-bottom: 30px;
+}
+#profilePg .prfBox .cmm {
+ line-height: 22px;
+ margin-bottom: 50px;
+}
+#profilePg .prfBox span {
+ font-weight: bold;
+}
+#profilePg .prfClm .message {
+ color: #FFFFFF;
+ background-color: #000000;
+ padding-top: 5px;
+ padding-bottom: 5px;
+ padding-left: 20px;
+ padding-right: 20px;
+}
+
+#profilePg .feedClm {
+}
+
+#profilePg .feedClm #contributeBox {
+ margin-bottom: 100px;
+ margin-top: 50px;
+}
+#profilePg .feedClm #contributeBox form {
+ border-bottom: 1px solid #DBDBDB;
+ margin-bottom: 5px;
+}
+#profilePg .feedClm #contributeBox form textarea {
+ border-style: none;
+}
+#profilePg .feedClm #contributeBox ul {
+ display: flex;
+ justify-content:space-between;
+}
+#profilePg .feedClm #contributeBox ul li {
+ margin-right: 15px;
+}
+
+#profilePg .feedClm section {
+ border: 1px solid #B0B0B0;
+ padding-top: 70px;
+ padding-right: 40px;
+ padding-bottom: 40px;
+ padding-left: 40px;
+ margin-bottom: 50px;
+ letter-spacing: 1px;
+ position: relative;
+}
+#profilePg .feedClm .date {
+ background-color: #000000;
+ color: #FFFFFF;
+ text-align: center;
+ padding-top: 5px;
+ padding-bottom: 5px;
+ display: inline-block;
+ padding-left: 20px;
+ padding-right: 20px;
+ letter-spacing: 3px;
+ position: absolute;
+ top: -20px;
+ margin-left: auto;
+ margin-right: auto;
+}
+#profilePg .feedClm .nameBox {
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ margin-bottom: 20px;
+}
+#profilePg .feedClm .nameBox .selfClm {
+ font-weight: bold;
+}
+#profilePg .feedClm .nameBox .selfClm img {
+ border-radius: 50px;
+ margin-right: 5px;
+}
+#profilePg .feedClm .nameBox .badgeClm {
+ font-weight: bold;
+}
+#profilePg .feedClm .nameBox .badgeClm img {
+ margin-right: 5px;
+}
+
+#profilePg .feedClm .picClm {
+}
+#profilePg .feedClm .picClm img {
+ width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+#profilePg .feedClm .txtClm {
+}
+#profilePg .feedClm .txtClm .sentence {
+ font-size: 13px;
+ line-height: 25px;
+ padding-bottom: 30px;
+ margin-bottom: 30px;
+ border-bottom: 1px solid #B4B4B4;
+}
+#profilePg .feedClm .txtClm .commentBox {
+ display: flex;
+ align-items: center;
+ margin-right: 10px;
+}
+#profilePg .feedClm .txtClm .commentBox img {
+ margin-right: 10px;
+ border-radius: 20px;
+}
+#profilePg .feedClm .txtClm .commentBox .txt {
+ background-color: #EAEAEA;
+ border-radius: 20px;
+ padding-left: 10px;
+ padding-right: 10px;
+ font-size: 12px;
+ padding-top: 5px;
+ padding-bottom: 3px;
+ margin-right: 10px;
+ position: relative;
+ top: 5px;
+}
+#profilePg .feedClm .txtClm .commentBox .by span {
+ font-weight: bold;
+}
+#profilePg .feedClm .txtClm .postBox {
+ padding-top: 20px;
+ margin-top: 20px;
+ border-top: 1px dotted #E5E5E5;
+ display: flex;
+ align-items: center;
+ margin-right: 10px;
+}
+#profilePg .feedClm .txtClm .postBox img {
+ margin-right: 10px;
+ border-radius: 20px;
+}
+#profilePg .feedClm .txtClm .postBox .txt {
+ background-color: #EAEAEA;
+ border-radius: 20px;
+ padding-left: 10px;
+ padding-right: 10px;
+ font-size: 12px;
+ padding-top: 5px;
+ padding-bottom: 3px;
+ margin-right: 10px;
+ margin-top: 5px;
+ position: relative;
+ top: 5px;
+}
+
+
+
+footer {
+ background-color: #D5D5D5;
+ text-align: center;
+ color: #FFFFFF;
+ position: relative;
+ bottom: 0px;
+ padding-bottom: 5px;
+ letter-spacing: 2px;
+}
