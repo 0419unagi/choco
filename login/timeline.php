@@ -1,11 +1,11 @@
 <?php
   // セッションを呼び出す 
-  session_start();
-  // データベース
-  require('dbconnect.php');
+  // session_start();
+  // // データベース
+  // require('dbconnect.php');
   
 
-  // require('part/header.php');
+  require('../part/header.php');
 
   // セッションデータがなければお帰りいただく
   if(!isset($_SESSION['login_user']['id'])){
@@ -46,24 +46,24 @@
 <head>
 <meta charset="UTF-8">
 <title>TOP</title>
-  <link href="assets/css/reset.css" rel="stylesheet">
-  <link href="assets/css/bootstrap.css" rel="stylesheet">
-  <link href="assets/css/font-awesome.min.css" rel="stylesheet">
-  <link href="assets/css/profile.css" rel="stylesheet" type="text/css">
+  <link href="../assets/css/reset.css" rel="stylesheet">
+  <link href="../assets/css/bootstrap.css" rel="stylesheet">
+  <link href="../assets/css/font-awesome.min.css" rel="stylesheet">
+  <link href="../assets/css/profile.css" rel="stylesheet" type="text/css">
   
   <!-- アニメーション --> 
-  <link href="assets/css/animate.css" rel="stylesheet">
-<script src="assets/js/wow.min.js"></script>
+  <link href="../assets/css/animate.css" rel="stylesheet">
+<script src="../assets/js/wow.min.js"></script>
 <script>
 new WOW().init();
 </script>
   
   <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-  <script src="assets/js/chart.js"></script>
+  <script src="../assets/js/chart.js"></script>
   
-  <link href="assets/css/jquery.bxslider.css" rel="stylesheet" type="text/css">
-  <script src="assets/js/jquery.bxslider.js"></script>
-  <script src="assets/js/jquery.easing.1.3.js"></script>
+  <link href="../assets/css/jquery.bxslider.css" rel="stylesheet" type="text/css">
+  <script src="../assets/js/jquery.bxslider.js"></script>
+  <script src="../assets/js/jquery.easing.1.3.js"></script>
   <script type="text/javascript">
 $(function(){
 	$('.slider').bxSlider({
@@ -78,8 +78,8 @@ $(function(){
 </script>
 
 
-<link rel="stylesheet" href="assets/css/lightbox.css">
-<script src="assets/js/lightbox.js"></script>
+<link rel="stylesheet" href="../assets/css/lightbox.css">
+<script src="../assets/js/lightbox.js"></script>
 </head>
 
 <body>
@@ -90,7 +90,7 @@ $(function(){
 <div id="wrp">
 <div class="prfClm col-xs-4">
   <!-- 　写真 -->
-  <p style="background-image: <?php echo $data['image'] ;?>;"></p>
+  <p style="background-image: ../image/<?php echo $data['image'] ;?>;"></p>
  <div class="prfBox">
   <!-- ニックネーム -->
  <p class="nickname"><?php echo $data['nickname'] ;?></p>
@@ -110,7 +110,7 @@ $(function(){
  <!-- 自己紹介 -->
  <p class="cmm"><?php echo $data['intro'] ;?></p>
  <!-- メッセージ -->
- <a href="#"><div class="message"><img src="assets/img/message_w.png" width="17" height="13" alt=""/> メッセージを送る</div></a>
+ <a href="#"><div class="message"><img src="../assets/img/message_w.png" width="17" height="13" alt=""/> メッセージを送る</div></a>
  </div>
 </div>
 <?php } ?>
@@ -135,19 +135,19 @@ $(function(){
  <p class="date">2017.9.18</p>
  <div class="nameBox">
   <a href="#">
-  <div class="selfClm"><img src="assets/img/profile.jpg" width="80" height="80" alt=""/>
+  <div class="selfClm"><img src="../assets/img/profile.jpg" width="80" height="80" alt=""/>
   nickname</div></a>
-  <div class="badgeClm"><img src="assets/img/badge.png" width="13" height="16" alt=""/>000</div>
+  <div class="badgeClm"><img src="../assets/img/badge.png" width="13" height="16" alt=""/>000</div>
  </div>
  <div class="row">
  <div class="picClm col-xs-6">
  <div class="slider">
-  <a class="example-image-link" href="assets/img/img_damy1.jpg" data-lightbox="example">
-  <img class="example-image" src="assets/img/img_damy1.jpg" width="100%" height="auto" alt=""/></a>
-  <a class="example-image-link" href="assets/img/img_damy2.jpg" data-lightbox="example">
-  <img class="example-image" src="assets/img/img_damy2.jpg" width="100%" height="auto" alt=""/></a>
-  <a class="example-image-link" href="assets/img/img_damy3.jpg" data-lightbox="example">
-  <img class="example-image" src="assets/img/img_damy3.jpg" width="100%" height="auto" alt=""/></a>
+  <a class="example-image-link" href="../assets/img/img_damy1.jpg" data-lightbox="example">
+  <img class="example-image" src="../assets/img/img_damy1.jpg" width="100%" height="auto" alt=""/></a>
+  <a class="example-image-link" href="../assets/img/img_damy2.jpg" data-lightbox="example">
+  <img class="example-image" src="../assets/img/img_damy2.jpg" width="100%" height="auto" alt=""/></a>
+  <a class="example-image-link" href="../assets/img/img_damy3.jpg" data-lightbox="example">
+  <img class="example-image" src="../assets/img/img_damy3.jpg" width="100%" height="auto" alt=""/></a>
  </div>
  </div>
 
@@ -155,12 +155,12 @@ $(function(){
  <p class="sentence">ここにテキストが入ります。文字数・行間・フォントなどご確認ください。この文章はダミーです。ここにテキストが入ります。文字数・行間・フォントなどご確認ください。この文章はダミーです。ここにテキストが入ります。文字数・行間・フォントなどご確認ください。この文章はダミーです。</p>
  
   <div class="commentBox">
-   <a href="#"><img src="assets/img/profile.jpg" width="35" height="35" alt=""/></a>
+   <a href="#"><img src="../assets/img/profile.jpg" width="35" height="35" alt=""/></a>
    <p class="txt">コメント</p>
   </div>
   
   <div class="postBox">
-   <a href="#"><img src="assets/img/profile.jpg" width="35" height="35" alt=""/></a>
+   <a href="#"><img src="../assets/img/profile.jpg" width="35" height="35" alt=""/></a>
    <p class="txt">コメント</p>
    <i class="fa fa-pencil" aria-hidden="true"></i> </div>
  </div>
