@@ -165,7 +165,7 @@ main {
 #profilePg section {
 }
 #profilePg .prfClm {
- /*background-image: url(<?php echo $data['image'] ;?>);*/
+ /*background-image: url(../image/<?php echo $data['image'] ;?>);*/
  background-repeat: no-repeat;
  background-size: 100% auto;
  background-color: #000000;

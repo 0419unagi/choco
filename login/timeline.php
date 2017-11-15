@@ -29,9 +29,9 @@
 
     $userdata[] = $data;
 
-    echo '<pre>';
-    var_dump($data);
-    echo '</pre>';
+    // echo '<pre>';
+    // var_dump($data);
+    // echo '</pre>';
 
 
   }
@@ -88,9 +88,9 @@ $(function(){
 <main id="profilePg">
 <div class="container">
 <div id="wrp">
-<div class="prfClm col-xs-4">
+<div class="prfClm col-xs-4"
   <!-- 　写真 -->
-  <p style="background-image: ../image/<?php echo $data['image'] ;?>;"></p>
+    <img src="../image/<?php echo $data['image'];?>" width="100%" height="auto" alt=""/>
  <div class="prfBox">
   <!-- ニックネーム -->
  <p class="nickname"><?php echo $data['nickname'] ;?></p>
@@ -100,7 +100,6 @@ $(function(){
  <p class="study"><?php echo $data['datepicker'] ;?>~<?php echo $data['datepicker2'] ;?></p>
  <!-- コース -->
  <p class="course"><?php echo $data['course'] ;?></p>
-
  <!-- 誕生日 -->
  <p class="birthday"><span>Birthday : </span><?php echo $data['year'] ;?>/<?php echo $data['month'] ;?>/<?php echo $data['day'] ;?></p>
  <!-- 出身 -->
