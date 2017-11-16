@@ -46,6 +46,9 @@ while (true) {
 	$stmt->execute($data);
 	$res_1 = $stmt->fetch(PDO::FETCH_ASSOC);
 
+	// error_log(print_r($other_id,true),"3","../../../../../logs/error_log");
+
+
 	$query_2 = 'SELECT `id`,`username` FROM `batch_users` WHERE `id` = ?';
 	$data = [$other_id];
 	$stmt = $dbh->prepare($query_2);
@@ -57,9 +60,10 @@ while (true) {
 		'other_id' => $res_2['id'],
 		'other_name' => $res_2['username']
 	];
+// error_log(print_r($user_info,true),"3","../../../../../logs/error_log");
 
 
-
+//トーク履歴を表示するためのクエリ
 
 $sql = 'SELECT
 		 x.user_id AS "user_id",

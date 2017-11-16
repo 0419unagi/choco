@@ -4,14 +4,14 @@ session_start();
 
 $user_id = $_SESSION['user_id'];
 $other_id = $_GET['other_id'];
-	error_log(print_r($user_id,true),"3","../../../../../../logs/error_log");
+	// error_log(print_r($user_id,true),"3","../../../../../../logs/error_log");
 
 $query = 'SELECT `id`,`username` FROM `batch_users` WHERE `id` = ?';
 $data = [$other_id];
 $stmt = $dbh->prepare($query);
 $stmt->execute($data);
 $res = $stmt->fetch(PDO::FETCH_ASSOC);
-error_log(print_r($res,true),"3","../../../../../../logs/error_log");
+// error_log(print_r($res,true),"3","../../../../../../logs/error_log");
 
 $other_name = $res['username'];
 

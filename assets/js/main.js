@@ -1,17 +1,22 @@
 // メッセージ内容ページの最新コメントを表示
 $(document).ready(function(){
     scrollDown();
+    //imgタグのsubmitのIDをタブキーで指定出来るようにする
+    $('#submit').attr("tabindex", "0");
+    $('#uplode_image').attr("tabindex", "0");
+
 
     $("div.tom").click(function(){
+        //サイドバーでクリックされたユーザーIDを取得
         var other_id = $(this).attr("value");
-        console.log(other_id);
+        // console.log(other_id);
         $.ajax({
           type: 'GET',
           url: "message.php",
            data: {
                     other_id: other_id,
                 },
-          error : function(XMLHttpRequest, textStatus, errorThrown) {
+            error : function(XMLHttpRequest, textStatus, errorThrown) {
             console.log("ajax通信に失敗しました");
             console.log("XMLHttpRequest : " + XMLHttpRequest.status);
             console.log("textStatus     : " + textStatus);
@@ -19,20 +24,34 @@ $(document).ready(function(){
         },
         })
           .done(function(data) {                
-            console.log('done');
-            console.log(other_id);
-            // $('#result').append(data);
+            // console.log('done');
+            //以下のIDにthisが設定されていないので、想定しない値を取得しているのでは？
+            // var user_data = {
+            //     user_id: $('#user_id').val(),
+            //     other_id: $('#other_id').val(),
+            //     content: $('#text_input').val()
+            // };
+            // console.log(user_data);
+            
+            //指定されたユーザーIDとのトーク履歴を表示する
             changeTalk(other_id);
+
+            //コメント送信ボタンのother_idのvalue値を上で定義したother_id
+            //がセットされた要素を上書きする
+            $('#other_id').val(other_id);
+
+
+            // var update_other_id = $('#other_id').val();
+            // update_other_id.html(other_id);
+            console.log($('#other_id').val());
             
          }).fail(function(data) {                
-            console.log('fail');
+            // console.log('fail');
 
          }).always(function(data) {                
-            console.log('always');
+            // console.log('always');
          });         
     });
-    
-
 });
 
 //メッセージ送信ボタンをクリックすると
@@ -42,11 +61,25 @@ $(document).ready(function(){
 
 // 1.データベースへデータを反映する
 $(function(){
-    //submitをクリックすると以下のコードを実行する
-    $('#submit').click(function(){
+    
+
+
+
+
+
+
+
+    //#submitにenterキーを押すると以下のコードを実行する
+    $('#submit').keypress(function(){
+        console.log('//////////////////////////////');
+        console.log($('#other_id').val());
+        // console.log(user_data);
         //フォームに何も入力されていない場合は、そのままreturn
         if(!$('#text_input').val()) return;
         //bbs.phpへgetリクエストで配列を送信している
+        // var w = $('#user_id').val();
+        // var t = $('#other_id').val();
+        // var e = $('#text_input').val();
         $.get('bbs.php', {
             user_id: $('#user_id').val(),
             other_id: $('#other_id').val(),
@@ -56,9 +89,32 @@ $(function(){
         },function(data){
             $('#result').append(data);
             scrollDown();
-        });
+            // 入力後にテキストボックスを空にする
+            $('#text_input').val('');
+        }); 
     });
 });
+
+
+// //フォームから入力された情報を初期値としてセット
+// function insertScript(user_info){
+//     console.log(user_info);
+//     $('#submit').click(function(){
+//         // フォームに何も入力されていない場合は、そのままreturn
+//         if(!$('#text_input').val()) return;
+//         //bbs.phpへgetリクエストで配列を送信している
+//         $.get('bbs.php', {
+//             user_id: user_info['user_id'],
+//             other_id: user_info['other_id'],
+//             content: user_info['content'],
+//             uplode_image: "NULL",
+//             mode: "0" // 書き込み
+//         },function(data){
+//             $('#result').append(data);
+//             scrollDown();
+//         });
+//     });
+// }
 
 
 
@@ -80,7 +136,7 @@ function changeTalk(data){
         },
         })
           .done(function(data) { 
-            console.log('done');
+            // console.log('done');
             // console.log(data);
             var test = $.parseJSON(data);
             // 返り値の最後にユーザーネームを付けているので、取得する
@@ -91,14 +147,14 @@ function changeTalk(data){
             var logs = test.join('');
             $("#result").html(logs);
             scrollDown();
-            console.log(user_name);
+            // console.log(user_name);
             $("#mes_head").html(user_name);
 
          }).fail(function(data) {                
-            console.log('fail');
+            // console.log('fail');
 
          }).always(function(data) {                
-            console.log('always');
+            // console.log('always');
          });         
 }
 
