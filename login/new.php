@@ -3,9 +3,7 @@
   // echo"<br>";
 
   session_start();
-
-
-
+  require('../dbconnect.php');
 
 
   // 初期値
@@ -32,6 +30,17 @@
 
     $errors = array();
 
+
+    $sql = 'SELECT `email` FROM `batch_users` WHERE email=?';
+    $data = array($email);
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+
+    // $userdata = array();
+    // while(true){
+    $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
     if ($username == "") {
       $errors["username"] = "blank";
     }
@@ -40,6 +49,8 @@
     }
     if ($email == "") {
       $errors["email"] = "blank";
+    }elseif($email == $data['email']){
+      $errors["email"] = "SAME";
     }
     if ($course == "") {
       $errors["course"] = "blank";
@@ -161,12 +172,17 @@
         <div class="top">EMAIL ADDRESS</div><br>
         <input class="text" type="email" name="email" placeholder="seed@com" value="<?php echo $email; ?>">
         <br><br>
-        <?php if (isset($errors["email"]) 
-          && $errors["email"] == "blank"): ?>
-          <div>
-            *メールアドレスを入力してください
-          </div><br>
-        <?php endif; ?>
+          <?php if (isset($errors["email"]) && $errors["email"] == "blank"){ ?>
+            <div>
+              *メールアドレスを入力してください
+            </div><br>
+              <?php }elseif(isset($errors['email']) && $errors['email'] == "SAME"){ ?>
+            <div>
+              <?php echo $data['email'] ;?>というアドレスは使えません。
+            </div>
+          <?php } ?>
+        
+
 
 
         <div class="top">COURSE<br><br>

@@ -27,8 +27,15 @@
     $stmt = $dbh->prepare($sql);
     $stmt->execute($data);
 
-     header("Location:top.php");
-     exit();
+    $sql = 'SELECT * FROM `batch_users` WHERE email=?';
+    $data = array($_SESSION['login_user']['email']);
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+    
+    $data = $stmt->fetch(PDO::FETCH_ASSOC);
+    $_SESSION['login_user']['id']=$data['id'];
+       header("Location:top.php");
+       exit();
 
    }
 

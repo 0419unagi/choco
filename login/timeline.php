@@ -13,6 +13,13 @@
     exit();
   }
 
+ // $login_user =  $_SESSION['login_user']['id'];
+ // $view_user =  $_SESSION['view_user']['id'];
+
+
+
+
+
 
   //ユーザーデータをSELECTする
   $sql = 'SELECT * FROM `batch_users` WHERE id=?';
@@ -88,9 +95,7 @@ $(function(){
 <main id="profilePg">
 <div class="container">
 <div id="wrp">
-<div class="prfClm col-xs-4"
-  <!-- 　写真 -->
-    <img src="../image/<?php echo $data['image'];?>" width="100%" height="auto" alt=""/>
+<div class="prfClm col-xs-4" style="background-image: url(../image/<?php echo $data['image'] ;?>);">
  <div class="prfBox">
   <!-- ニックネーム -->
  <p class="nickname"><?php echo $data['nickname'] ;?></p>
@@ -110,6 +115,7 @@ $(function(){
  <p class="cmm"><?php echo $data['intro'] ;?></p>
  <!-- メッセージ -->
  <a href="#"><div class="message"><img src="../assets/img/message_w.png" width="17" height="13" alt=""/> メッセージを送る</div></a>
+</div>
  </div>
 </div>
 <?php } ?>
@@ -118,18 +124,8 @@ $(function(){
 
 
  <div class="feedClm col-xs-8">
-    <!-- 以下のコードはログインユーザーのプロフィール画面の場合に表示   -->
-     <div id="contributeBox">
-     <form method="" action="">
-      <textarea rows="7" cols="89%" placeholder="ここから投稿します"></textarea>
-     </form>
-     <ul>
-      <li><i class="fa fa-picture-o" aria-hidden="true"></i></li>
-      <li><i class="fa fa-pencil" aria-hidden="true"></i></li>
-     </ul>
-     </div>
-     <!-- ここまで -->
-
+<h1 style="text-align: center;">All TIMELINE</h1>
+<br><br>
  <section>
  <p class="date">2017.9.18</p>
  <div class="nameBox">

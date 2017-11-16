@@ -3,7 +3,9 @@
 require('../dbconnect.php'); 
 
     session_start(); 
-    $user_id = $_SESSION["login_user"]["id"]; 
+
+
+    $user_id = $_SESSION['login_user']['id']; 
     // $id = $_SESSION["login_user"]["id"];
     $sql = 'SELECT * FROM `batch_users` WHERE `id`=?'; 
     $data = array($_SESSION["login_user"]["id"]); 
@@ -125,7 +127,7 @@ require('../dbconnect.php');
                 $f_flag=true;
             }
 
-            //　アップロードされた、または過去にアップロードしてたら
+            //アップロードされた、または過去にアップロードしてたら
             if(!empty($fileName) || $f_flag==true ){
                 // アップロードしてたらファイルの拡張子チェック
 
@@ -135,7 +137,7 @@ require('../dbconnect.php');
                     $ext = strtolower($ext); 
                     if ($ext != "jpg" && $ext != "png" && $ext != "gif") { 
                         $errors["image"] = "extention"; 
-                      }
+                    }
                       // else{
                       //   $errors['image'] = "blank";
                       // }
@@ -144,15 +146,17 @@ require('../dbconnect.php');
                   $fileName=$_SESSION["login_user"]['image'];
                 }
                // エラーが空の時
-                error_log(print_r($errors,true),"3","../../../../../logs/error_log");
                if (empty($errors['image'])) {
+             
 
                // 画像を保存する
                   if(!empty($fileName)){
-              
+                    // echo$fileName;
                     move_uploaded_file($_FILES["image"]["tmp_name"],'../image/'.$fileName); 
-                  }
+                       error_log(print_r('$fileName',true),"3","../../../../../logs/error_log");
                   
+                  }
+                
                   // イメージのフォルダの中にファイルを保存する
               }
            
@@ -255,7 +259,7 @@ $pref = ['1'=>'北海道','2'=>'青森県','3'=>'岩手県','4'=>'宮城県','5'
   
       <div class="col-xs-3"><br><br>
         <div class="top">FULLNAME</div><br>
-          <input class="text" type="text" name="username" placeholder="小川　ともゆき" value="<?php echo $username; ?>">
+          <input class="text" type="text" name="username" placeholder="小川ともゆき" value="<?php echo $username; ?>">
           <br><br>
           <?php if (isset($errors["username"]) 
       && $errors["username"] == "blank"): ?>

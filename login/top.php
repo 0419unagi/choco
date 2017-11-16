@@ -249,13 +249,12 @@ $(function(){
 		
 			 	
 			 	<?php foreach($userdata as $data1){?>
-			 	<?php error_log(print_r($data1,true),"3","../../../../../logs/error_log"); ?>
 				 	<?php if($data1['datepicker']==$data['datepicker']){ ?>
 				 		<div class="carousel">
 							<ul>
 							 <li>
+							 	<a href="#">
 								<!-- プロフィール画像 -->
-								  <!-- <a href="#"> -->
 								  	<!-- 色を変えたい -->
 								  	<?php if($data1['course']=='programming'){ ?>
 								  	<!-- プログラミング生の時、青色表示 -->
