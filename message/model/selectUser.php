@@ -17,7 +17,7 @@ $sql = 'SELECT
 		 	FROM message 
 		 	JOIN batch_users 
 		 	ON message.user_id = batch_users.id
-         	WHERE message.user_id =1
+         	WHERE message.user_id = ?
 			GROUP BY message.other_id DESC
 		 ) x 
 		 JOIN batch_users 

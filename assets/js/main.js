@@ -1,11 +1,11 @@
 // メッセージ内容ページの最新コメントを表示
 $(document).ready(function(){
     scrollDown();
-    //imgタグのsubmitのIDをタブキーで指定出来るようにする
+    //画像選択ボタンと送信ボタンをタブキーで指定出来るようにする
     $('#submit').attr("tabindex", "0");
     $('#uplode_image').attr("tabindex", "0");
 
-
+    // サイドバーでクリックしたユーザーのトーク画面を表示
     $("div.tom").click(function(){
         //サイドバーでクリックされたユーザーIDを取得
         var other_id = $(this).attr("value");
@@ -23,27 +23,14 @@ $(document).ready(function(){
             console.log("errorThrown    : " + errorThrown.message);
         },
         })
-          .done(function(data) {                
-            // console.log('done');
-            //以下のIDにthisが設定されていないので、想定しない値を取得しているのでは？
-            // var user_data = {
-            //     user_id: $('#user_id').val(),
-            //     other_id: $('#other_id').val(),
-            //     content: $('#text_input').val()
-            // };
-            // console.log(user_data);
-            
+          .done(function(data) {            
             //指定されたユーザーIDとのトーク履歴を表示する
             changeTalk(other_id);
 
             //コメント送信ボタンのother_idのvalue値を上で定義したother_id
             //がセットされた要素を上書きする
             $('#other_id').val(other_id);
-
-
-            // var update_other_id = $('#other_id').val();
-            // update_other_id.html(other_id);
-            console.log($('#other_id').val());
+            // console.log($('#other_id').val());
             
          }).fail(function(data) {                
             // console.log('fail');
@@ -54,32 +41,16 @@ $(document).ready(function(){
     });
 });
 
-//メッセージ送信ボタンをクリックすると
-// 1.データベースへデータを反映する
-// 2.HTMLの要素を追加する
-// ※メッセージが送信される場合は、uplodeキーにNULL値を設定する
-
-// 1.データベースへデータを反映する
+//メッセージ送信機能
 $(function(){
-    
-
-
-
-
-
-
-
     //#submitにenterキーを押すると以下のコードを実行する
     $('#submit').keypress(function(){
-        console.log('//////////////////////////////');
-        console.log($('#other_id').val());
-        // console.log(user_data);
+        // console.log('//////////////////////////////');
+        // console.log($('#other_id').val());
+
         //フォームに何も入力されていない場合は、そのままreturn
         if(!$('#text_input').val()) return;
         //bbs.phpへgetリクエストで配列を送信している
-        // var w = $('#user_id').val();
-        // var t = $('#other_id').val();
-        // var e = $('#text_input').val();
         $.get('bbs.php', {
             user_id: $('#user_id').val(),
             other_id: $('#other_id').val(),
@@ -96,28 +67,7 @@ $(function(){
 });
 
 
-// //フォームから入力された情報を初期値としてセット
-// function insertScript(user_info){
-//     console.log(user_info);
-//     $('#submit').click(function(){
-//         // フォームに何も入力されていない場合は、そのままreturn
-//         if(!$('#text_input').val()) return;
-//         //bbs.phpへgetリクエストで配列を送信している
-//         $.get('bbs.php', {
-//             user_id: user_info['user_id'],
-//             other_id: user_info['other_id'],
-//             content: user_info['content'],
-//             uplode_image: "NULL",
-//             mode: "0" // 書き込み
-//         },function(data){
-//             $('#result').append(data);
-//             scrollDown();
-//         });
-//     });
-// }
-
-
-
+//サイドバーで選択したユーザーとのトーク画面を表示する
 function changeTalk(data){
     console.log('ok');
         var other_id = data;
@@ -136,8 +86,6 @@ function changeTalk(data){
         },
         })
           .done(function(data) { 
-            // console.log('done');
-            // console.log(data);
             var test = $.parseJSON(data);
             // 返り値の最後にユーザーネームを付けているので、取得する
             var user_name = test[test.length - 1];

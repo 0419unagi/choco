@@ -4,7 +4,6 @@ session_start();
 require('dbconnect.php');
 
 //仮想的にSESSIONからユーザー取得
-//	想定：$user_id = $_SESSION['id'] ;
 $user_id = $_SESSION['user_id'] ; //ユーザー名：takuya
 
 //サイドバーでトークしたいユーザーを選択した場合に、そのユーザーとのトーク履歴を表示する
@@ -108,7 +107,7 @@ require('model/selectUser.php');
 						<img src="../assets/img/img_up.png" id="uplode_image" name="image_uplode" value="" onClick="$('#file').click();">
 					</div>
 
-					<?php error_log(print_r($user_info,true),"3","../../../../../logs/error_log"); ?>
+					<?php //error_log(print_r($user_info,true),"3","../../../../../logs/error_log"); ?>
  					<div id="textbox" >
 						<!-- 隠しデータで配列を送信する -->
 						<?php if (!empty($user_info)): ?>
@@ -124,7 +123,6 @@ require('model/selectUser.php');
 
 					<!-- 送信ボタン -->
 					<div id="push" >
-						<!-- <input type="image" src="../assets/img/post.png"  id="submit"> -->
 						<img src="../assets/img/post.png" id="submit" onClick="$('#submit').click();">
 					</div>	
 
