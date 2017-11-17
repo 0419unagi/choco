@@ -29,11 +29,41 @@ $stmt = $dbh->prepare($sql);
 $stmt->execute($data);
 while (true) {
 	$record = $stmt->fetch(PDO::FETCH_ASSOC);
+	error_log(print_r($record,true),"3","../../../../../logs/error_log");
 	if ($record == false) {
 		break;
 	}
-	$talking_user[] =$record;
+	//時間表記変更
+	foreach ($record as $key => $value) {
+		if ($key =='time') {
+			error_log(print_r($value,true),"3","../../../../../logs/error_log");
+			$time = $value;
+			$month = substr($time,5,2);
+			$day = substr($time,8,2);
+			$time1 = substr($time,11,5);
+			$time_final = $month.'/'.$day.' '.$time1;
+			$record['time'] = $time_final;
+		}
+	}
+	$talking_user[] =$record;	
 }
+
+// $i = 0;
+// foreach ($talking_user as $user) {
+// 	foreach ($user as $key => $value) {
+// 		if ($key == 'time') {
+// 			$time = $value;
+// 			$month = substr($time,5,2);
+// 			$day = substr($time,8,2);
+// 			$time1 = substr($time,11,5);
+// 			$time_final = $month.'/'.$day.' '.$time1;
+
+// 			$talking_user[$i]['time'] = $time_final;
+// 		}
+// 		$i++;
+// 	}
+// }
+
 
 // echo "<pre>";
 // var_dump($talking_user);

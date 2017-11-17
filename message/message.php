@@ -39,6 +39,7 @@ require('model/selectUser.php');
 <?php require('../part/header.php'); ?>
 <script src="../assets/js/jquery-2.1.4.min.js"></script>
 <script src="../assets/js/main.js"></script>
+<script src="../assets/js/dist/jquery.quicksearch.js"></script>
 
 
 <!-- <div id="sampletakuya" value="今日の感想"></div>	

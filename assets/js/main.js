@@ -39,6 +39,13 @@ $(document).ready(function(){
             // console.log('always');
          });         
     });
+
+    $(function(){
+      $('input#mes_search').quicksearch('div p #his_name');
+    });
+
+
+
 });
 
 //メッセージ送信機能
