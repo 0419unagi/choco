@@ -246,12 +246,13 @@ $(function(){
 		<p class="date wow flipInY"><?php echo $data['datepicker'] ?></p>
 		<img class="fuki" src="../assets/img/fuki.png" width="7" height="6" alt=""/>
 		<div class="line_yoko"></div>
-		
+		<div class="carousel">
+					<ul>
 			 	
 		<?php foreach($userdata as $data1){?>
 			<?php if($data1['datepicker']==$data['datepicker']){ ?>
-				<div class="carousel">
-					<ul>
+				<!-- <div class="carousel">
+					<ul> -->
 						<li>
 							<a href="#">
 								<!-- プロフィール画像 -->
@@ -271,11 +272,12 @@ $(function(){
 								  	<p class="name"><?php echo $data1['nickname'];?></p>
 							</a>
 						</li>
-					</ul>
-				</div>
+			<!-- 		</ul>
+				</div> -->
 			<?php } ?>
 		<?php } ?>
-			
+					</ul>
+				</div>
 
 	<?php } ?>
 <img class="arrow" src="../assets/img/arrow.png" width="58" height="29" alt=""/>
