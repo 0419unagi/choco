@@ -31,7 +31,7 @@ require('../dbconnect.php');
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>Message</title>
+<title>BATCH</title>
 
 <!-- cssファイルの読み込み -->
   <link href="../assets/css/reset.css" rel="stylesheet">
