@@ -17,7 +17,7 @@ $sql = 'SELECT
 		 	FROM message 
 		 	JOIN batch_users 
 		 	ON message.user_id = batch_users.id
-         	WHERE message.user_id =1
+         	WHERE message.user_id = ?
 			GROUP BY message.other_id DESC
 		 ) x 
 		 JOIN batch_users 
@@ -29,11 +29,41 @@ $stmt = $dbh->prepare($sql);
 $stmt->execute($data);
 while (true) {
 	$record = $stmt->fetch(PDO::FETCH_ASSOC);
+	error_log(print_r($record,true),"3","../../../../../logs/error_log");
 	if ($record == false) {
 		break;
 	}
-	$talking_user[] =$record;
+	//時間表記変更
+	foreach ($record as $key => $value) {
+		if ($key =='time') {
+			error_log(print_r($value,true),"3","../../../../../logs/error_log");
+			$time = $value;
+			$month = substr($time,5,2);
+			$day = substr($time,8,2);
+			$time1 = substr($time,11,5);
+			$time_final = $month.'/'.$day.' '.$time1;
+			$record['time'] = $time_final;
+		}
+	}
+	$talking_user[] =$record;	
 }
+
+// $i = 0;
+// foreach ($talking_user as $user) {
+// 	foreach ($user as $key => $value) {
+// 		if ($key == 'time') {
+// 			$time = $value;
+// 			$month = substr($time,5,2);
+// 			$day = substr($time,8,2);
+// 			$time1 = substr($time,11,5);
+// 			$time_final = $month.'/'.$day.' '.$time1;
+
+// 			$talking_user[$i]['time'] = $time_final;
+// 		}
+// 		$i++;
+// 	}
+// }
+
 
 // echo "<pre>";
 // var_dump($talking_user);
@@ -46,6 +76,9 @@ while (true) {
 	$stmt->execute($data);
 	$res_1 = $stmt->fetch(PDO::FETCH_ASSOC);
 
+	// error_log(print_r($other_id,true),"3","../../../../../logs/error_log");
+
+
 	$query_2 = 'SELECT `id`,`username` FROM `batch_users` WHERE `id` = ?';
 	$data = [$other_id];
 	$stmt = $dbh->prepare($query_2);
@@ -57,9 +90,10 @@ while (true) {
 		'other_id' => $res_2['id'],
 		'other_name' => $res_2['username']
 	];
+// error_log(print_r($user_info,true),"3","../../../../../logs/error_log");
 
 
-
+//トーク履歴を表示するためのクエリ
 
 $sql = 'SELECT
 		 x.user_id AS "user_id",
