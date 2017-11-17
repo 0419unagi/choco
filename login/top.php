@@ -248,33 +248,33 @@ $(function(){
 		<div class="line_yoko"></div>
 		
 			 	
-			 	<?php foreach($userdata as $data1){?>
-				 	<?php if($data1['datepicker']==$data['datepicker']){ ?>
-				 		<div class="carousel">
-							<ul>
-							 <li>
-							 	<a href="#">
+		<?php foreach($userdata as $data1){?>
+			<?php if($data1['datepicker']==$data['datepicker']){ ?>
+				<div class="carousel">
+					<ul>
+						<li>
+							<a href="#">
 								<!-- プロフィール画像 -->
-								  	<!-- 色を変えたい -->
-								  	<?php if($data1['course']=='programming'){ ?>
+								<!-- 色を変えたい -->
+								<?php if($data1['course']=='programming'){ ?>
 								  	<!-- プログラミング生の時、青色表示 -->
-			 						  <div class="frame_b">
-									  	<img src="../image/<?php echo $data1['image'];?>" width="100%" height="auto" alt=""/>
-									  </div>
-									<?php }else { ?>
+			 						 <div class="frame_b">
+									 <img src="../image/<?php echo $data1['image'];?>" width="100%" height="auto" alt=""/>
+									 </div>
+								<?php }else { ?>
 								  	<!-- 英語生の時、黄色表示 -->
-									  <div class="frame_y">
-									  	<img src="../image/<?php echo $data1['image'];?>" width="100%" height="auto" alt=""/>
-									  </div>
-									<?php } ?>
+									 <div class="frame_y">
+									 <img src="../image/<?php echo $data1['image'];?>" width="100%" height="auto" alt=""/>
+									 </div>
+								<?php } ?>
 								   	<!-- ユーザーネーム -->
 								  	<p class="name"><?php echo $data1['nickname'];?></p>
-								  </a>
-							 </li>
-							</ul>
-						</div>
-				 	<?php } ?>
-			  	<?php } ?>
+							</a>
+						</li>
+					</ul>
+				</div>
+			<?php } ?>
+		<?php } ?>
 			
 
 	<?php } ?>
