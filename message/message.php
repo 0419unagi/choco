@@ -33,13 +33,15 @@ $inputValue = [];
 
 //ユーザーデータ読み出し
 require('model/selectUser.php');
-
  ?>
 
 <?php require('../part/header.php'); ?>
 <script src="../assets/js/jquery-2.1.4.min.js"></script>
 <script src="../assets/js/main.js"></script>
-<script src="../assets/js/dist/jquery.quicksearch.js"></script>
+<!-- <script src="../assets/js/dist/jquery.quicksearch.js"></script> -->
+<script src="../assets/js/dist/jquery.searcher.js"></script>
+<!-- <script src="../assets/js/dist/jquery.searcher.min.js"></script> -->
+
 
 
 <!-- <div id="sampletakuya" value="今日の感想"></div>	
@@ -64,13 +66,16 @@ require('model/selectUser.php');
 			<div id="bar"></div>
 
 			<!-- ユーザー履歴一覧 -->
-			<?php foreach ($talking_user as $user) { ?>
-				<div class="tom" id="talk_history" value="<?php echo $user['other_id']; ?>" >
-					<img src="../assets/img/icon.png" alt="icon" id="mes_icon">
-					<p id="his_name"><?php echo $user['other_name']; ?></p>
-					<p id="his_time"><?php echo $user['time']; ?></p>
-				</div>
-			<?php } ?>
+			<div class="user_list">
+				<?php foreach ($talking_user as $user) { ?>
+					<div class="tom" id="talk_history" value="<?php echo $user['other_id']; ?>" >
+						<img src="../assets/img/icon.png" alt="icon" id="mes_icon">
+						<p id="his_name"><?php echo $user['other_name']; ?></p>
+						<p id="his_time"><?php echo $user['time']; ?></p>
+					</div>
+				<?php } ?>
+			</div>
+			
 		</div>
 
 
