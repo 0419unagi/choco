@@ -1,8 +1,9 @@
 <?php 
-require('../dbconnect.php');
+require('../../dbconnect.php');
 session_start();
 
-$user_id = $_SESSION['user_id'];
+
+$user_id = $_SESSION['login_user']['id'];
 $other_id = $_GET['other_id'];
 	// error_log(print_r($user_id,true),"3","../../../../../../logs/error_log");
 
@@ -11,7 +12,7 @@ $data = [$other_id];
 $stmt = $dbh->prepare($query);
 $stmt->execute($data);
 $res = $stmt->fetch(PDO::FETCH_ASSOC);
-// error_log(print_r($res,true),"3","../../../../../../logs/error_log");
+// error_log(print_r('sample',true),"3","../../../../../../logs/error_log");
 
 $other_name = $res['username'];
 
@@ -56,6 +57,8 @@ $dbh = null;
 
 
 
+
+
 // セレクト文で実行した結果を取得する
 while (true) {
 	$record = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -85,7 +88,7 @@ while (true) {
 $inputValue[] = $other_name;
 
 // $inputValue =['aaa','bbb'];
-// error_log(print_r($inputValue,true),"3","../../../../../../logs/error_log");
+error_log(print_r($inputValue,true),"3","../../../../../../logs/error_log");
 $test = implode('',$inputValue);
 
 

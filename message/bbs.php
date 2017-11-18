@@ -1,6 +1,6 @@
 <?php
 //データベースの読み込み
-require('dbconnect.php');
+require('../dbconnect.php');
 	
 //初期値の設定
 $user_id = '';

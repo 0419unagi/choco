@@ -1,5 +1,5 @@
 <?php 
-require('../dbconnect.php');
+require('../../dbconnect.php');
 session_start();
 
 error_log(print_r('updat.php',true),"3","../../../../../../logs/error_log");

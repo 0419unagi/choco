@@ -1,27 +1,25 @@
 <?php 
-session_start();
+require('../part/header.php');
 // データベース呼び出し
 require('../dbconnect.php');
 
-//仮想的にSESSIONからユーザー取得
-$user_id = $_SESSION['user_id'] ; //ユーザー名：takuya
+$user_id = $_SESSION['login_user']['id'] ;
+$other_id = '';
 
-//サイドバーでトークしたいユーザーを選択した場合に、そのユーザーとのトーク履歴を表示する
-if (isset($_GET['other_id'])) {
-	// error_log(print_r('------->',true),"3","../../../../../logs/error_log");
-	$_SESSION['other_id'] = $_GET['other_id'];
-	echo $_SESSION['other_id'];
-	// header('Location: login.php');
-	// header('Location: message.php');
-	// exit();
-	// error_log(print_r('<-------',true),"3","../../../../../logs/error_log");
+//サイドバーでトークしたいユーザーを選択した場合に、そのユーザーとのトーク履歴を表示する 
+if (isset($_GET['id'])) {
+	$other_id = $_GET['id'];
 }
 
-$other_id = $_SESSION['other_id'];
- // error_log(print_r($other_id,true),"3","../../../../../logs/error_log");
-// error_log(print_r('test',true),"3","../../../../../logs/error_log");
-// error_log(print_r($other_id,true),"3","../../../../../logs/error_log");
-// error_log(print_r('test',true),"3","../../../../../logs/error_log");
+if (isset($_GET['other_id'])) {
+	$_SESSION['other_id'] = $_GET['other_id'];
+	echo $_SESSION['other_id'];
+	$other_id = $_SESSION['other_id'];
+}
+
+
+ // error_log(print_r($user_id,true),"3","../../../../../logs/error_log");
+
 
 
 //初期値の設定
@@ -35,7 +33,8 @@ $inputValue = [];
 require('model/selectUser.php');
  ?>
 
-<?php require('../part/header.php'); ?>
+<?php  ?>
+<link rel="stylesheet" type="text/css" href="../assets/css/custom.css">
 <script src="../assets/js/jquery-2.1.4.min.js"></script>
 <script src="../assets/js/main.js"></script>
 <!-- <script src="../assets/js/dist/jquery.quicksearch.js"></script> -->

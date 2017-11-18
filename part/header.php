@@ -1,6 +1,6 @@
 <?php 
 
-// session_start();
+session_start();
 // データベースの接続情報
 require('../dbconnect.php');
 
@@ -38,7 +38,7 @@ require('../dbconnect.php');
   <link href="../assets/css/bootstrap.css" rel="stylesheet">
   <link href="../assets/css/font-awesome.min.css" rel="stylesheet">
   <link href="../assets/css/top.css" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" type="text/css" href="../assets/css/custom.css">
+
   
   <!-- アニメーション --> 
   <link href="../assets/css/animate.css" rel="stylesheet">

@@ -3,7 +3,7 @@
   // session_start();
   // // データベース
   // require('dbconnect.php');
-  
+  $input_user = $_GET['id'];
 
   require('../part/header.php');
 
@@ -114,7 +114,7 @@ $(function(){
  <!-- 自己紹介 -->
  <p class="cmm"><?php echo $data['intro'] ;?></p>
  <!-- メッセージ -->
- <a href="#"><div class="message"><img src="../assets/img/message_w.png" width="17" height="13" alt=""/> メッセージを送る</div></a>
+ <a href="../message/message.php?id=<?php echo $input_user ?>"><div class="message"><img src="../assets/img/message_w.png" width="17" height="13" alt=""/> メッセージを送る</div></a>
 </div>
  </div>
 </div>

@@ -29,7 +29,7 @@ $stmt = $dbh->prepare($sql);
 $stmt->execute($data);
 while (true) {
 	$record = $stmt->fetch(PDO::FETCH_ASSOC);
-	error_log(print_r($record,true),"3","../../../../../logs/error_log");
+	// error_log(print_r($record,true),"3","../../../../../logs/error_log");
 	if ($record == false) {
 		break;
 	}
@@ -38,11 +38,11 @@ while (true) {
 		if ($key =='time') {
 			error_log(print_r($value,true),"3","../../../../../logs/error_log");
 			$time = $value;
-			$month = substr($time,5,2);
-			$day = substr($time,8,2);
+			// $month = substr($time,5,2);
+			// $day = substr($time,8,2);
 			$time1 = substr($time,11,5);
-			$time_final = $month.'/'.$day.' '.$time1;
-			$record['time'] = $time_final;
+			// $time_final = $month.'/'.$day.' '.$time1;
+			$record['time'] = $time1;
 		}
 	}
 	$talking_user[] =$record;	
@@ -74,7 +74,7 @@ while (true) {
 		'other_id' => $res_2['id'],
 		'other_name' => $res_2['username']
 	];
-// error_log(print_r($user_info,true),"3","../../../../../logs/error_log");
+error_log(print_r($user_info,true),"3","../../../../../logs/error_log");
 
 
 //トーク履歴を表示するためのクエリ

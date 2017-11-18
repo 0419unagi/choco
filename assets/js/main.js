@@ -4,6 +4,7 @@ $(document).ready(function(){
     //画像選択ボタンと送信ボタンをタブキーで指定出来るようにする
     $('#submit').attr("tabindex", "0");
     $('#uplode_image').attr("tabindex", "0");
+    $('.tomo').attr("tabindex", "0");
 
     // サイドバーでクリックしたユーザーのトーク画面を表示
     $("div.tom").click(function(){
@@ -106,6 +107,7 @@ function changeTalk(data){
             // console.log(test);
             var logs = test.join('');
             $("#result").html(logs);
+            // console.log(logs);
             scrollDown();
             // console.log(user_name);
             $("#mes_head").html(user_name);
