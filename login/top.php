@@ -13,7 +13,7 @@
 
 
 
-$sql = 'SELECT `nickname`,`image`,`datepicker`,`course` FROM `batch_users` ORDER BY `datepicker` DESC';
+$sql = 'SELECT `id`,`nickname`,`image`,`datepicker`,`course` FROM `batch_users` ORDER BY `datepicker` DESC';
 $data = array();
 $stmt = $dbh->prepare($sql);
 $stmt->execute($data);
@@ -83,6 +83,77 @@ new WOW().init();
   
   <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
   <script src="../assets/js/chart.js"></script>
+</head>
+
+<body>
+
+  
+<main id="topPg">
+	<div class="line_tate"></div>
+
+ 
+ 
+<?php foreach($gdata as $data) { ?>
+	<section>
+
+		<!-- 入学日 -->
+		<p class="date wow flipInY"><?php echo $data['datepicker'] ?></p>
+		<img class="fuki" src="../assets/img/fuki.png" width="7" height="6" alt=""/>
+		<div class="line_yoko"></div>
+			<div class="carousel">
+				<ul>
+					<?php foreach($userdata as $data1){?>
+						<?php if($data1['datepicker']==$data['datepicker']){ ?>
+							<li>
+								<a href="timeline.php?id=<?php echo $data1['id'] ;?>">
+								<!-- プロフィール画像 -->
+								<!-- もし、$data1のimageが存在していたら以下を表示 -->
+								<?php if(!empty($data1['image'])){ ?>
+
+								<!-- 色を変えたい -->
+								<?php if($data1['course']=='programming'){ ?>
+								  	<!-- プログラミング生の時、青色表示 -->
+			 						 <div class="frame_b">
+									 <img src="../image/<?php echo $data1['image'];?>" width="100%" height="auto" alt=""/>
+									 </div>
+								<?php }else { ?>
+								  	<!-- 英語生の時、黄色表示 -->
+									 <div class="frame_y">
+									 <img src="../image/<?php echo $data1['image'];?>" width="100%" height="auto" alt=""/>
+									 </div>
+								<?php } ?>
+
+								<?php }else{ ?>
+									<?php if($data1['course']=='programming'){ ?>
+								  	<!-- プログラミング生の時、青色表示 -->
+			 						 <div class="frame_b">
+									 <img src="../assets/img/damy.jpg" width="100%" height="auto" alt=""/>
+									 </div>
+								<?php }else { ?>
+								  	<!-- 英語生の時、黄色表示 -->
+									 <div class="frame_y">
+									 <img src="../assets/img/damy.jpg" width="100%" height="auto" alt=""/>
+									 </div>
+								<?php } ?>
+								<?php } ?>
+
+								   	<!-- ユーザーネーム -->
+								  	<p class="name"><?php echo $data1['nickname'];?></p>
+								</a>
+							</li>
+						<?php } ?>
+					<?php } ?>
+				</ul>
+			</div>
+
+		<img class="arrow" src="../assets/img/arrow.png" width="58" height="29" alt=""/>
+	</section>
+<?php } ?>
+
+</main>
+<footer>
+ <small>copyright ©︎chocomallow.All rights reserved.</small>
+</footer>
   <script>
 $(function(){
 	var setElm = $('.carousel'),
@@ -230,66 +301,5 @@ $(function(){
    
    
 </script>
-</head>
-
-<body>
-
-  
-<main id="topPg">
- <div class="line_tate"></div>
-
- 
- 
- <section>
-	<?php foreach($gdata as $data) { ?>
-	<!-- 入学日 -->
-		<p class="date wow flipInY"><?php echo $data['datepicker'] ?></p>
-		<img class="fuki" src="../assets/img/fuki.png" width="7" height="6" alt=""/>
-		<div class="line_yoko"></div>
-		<div class="carousel">
-					<ul>
-			 	
-		<?php foreach($userdata as $data1){?>
-			<?php if($data1['datepicker']==$data['datepicker']){ ?>
-				<!-- <div class="carousel">
-					<ul> -->
-						<li>
-							<a href="#">
-								<!-- プロフィール画像 -->
-								<!-- 色を変えたい -->
-								<?php if($data1['course']=='programming'){ ?>
-								  	<!-- プログラミング生の時、青色表示 -->
-			 						 <div class="frame_b">
-									 <img src="../image/<?php echo $data1['image'];?>" width="100%" height="auto" alt=""/>
-									 </div>
-								<?php }else { ?>
-								  	<!-- 英語生の時、黄色表示 -->
-									 <div class="frame_y">
-									 <img src="../image/<?php echo $data1['image'];?>" width="100%" height="auto" alt=""/>
-									 </div>
-								<?php } ?>
-								   	<!-- ユーザーネーム -->
-								  	<p class="name"><?php echo $data1['nickname'];?></p>
-							</a>
-						</li>
-			<!-- 		</ul>
-				</div> -->
-			<?php } ?>
-		<?php } ?>
-					</ul>
-				</div>
-
-	<?php } ?>
-<img class="arrow" src="../assets/img/arrow.png" width="58" height="29" alt=""/>
-
-</section>
-
-</main>
-
-
-<footer>
- <small>copyright ©︎chocomallow.All rights reserved.</small>
-</footer>
-
 </body>
 </html>
