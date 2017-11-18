@@ -31,7 +31,7 @@ require('../dbconnect.php');
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>Message</title>
+<title>BATCH</title>
 
 <!-- cssファイルの読み込み -->
   <link href="../assets/css/reset.css" rel="stylesheet">
@@ -58,7 +58,7 @@ new WOW().init();
   
   <div id="clm_l">
    <div id="prf">
-    <a href="#">
+    <a href="../login/timeline.php?id=<?php echo $_SESSION['login_user']['id'] ?>">
     <img id="ill" class="wow slideInDown" data-wow-duration="0.8s" src="../assets/img/ill_hand.png" width="133" alt=""/>
     <img id="pic" src="../image/<?php echo $_SESSION['login_user']['image']; ?>" width="70" height="70" alt=""/>
     </a>
