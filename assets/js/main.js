@@ -41,7 +41,7 @@ $(document).ready(function(){
     });
 
 
-    サイドバーのユーザー検索機能    
+    // サイドバーのユーザー検索機能
     $(".user_list").searcher({
                 itemSelector: ".tom",
                 textSelector: "p",
@@ -79,52 +79,11 @@ $(function(){
 
 
 
-// function searchUser(){
-//     $('#mes_search').keypress(function(){
-//         var search_user = $('#mes_search').val();
-//         console.log('//////////////////////////////');
-//         console.log(search_user);
-
-//         $.ajax({
-//           type: 'GET',
-//           url: "bbs_search_user.php",
-//           data: search_user,
-//           error : function(XMLHttpRequest, textStatus, errorThrown) {
-//             console.log("ajax通信に失敗しました");
-//             console.log("XMLHttpRequest : " + XMLHttpRequest.status);
-//             console.log("textStatus     : " + textStatus);
-//             console.log("errorThrown    : " + errorThrown.message);
-//         },
-//         })
-//           .done(function(data) { 
-//             // 選択されたユーザーの要素をJsonから配列にデコードする
-//             var test = $.parseJSON(data);
-//             // console.log(test);
-//             var logs = test.join('');
-//             $("#result").html(logs);
-//             scrollDown();
-//             // console.log(user_name);
-//             $("#mes_head").html(user_name);
-
-//          }).fail(function(data) {                
-//             // console.log('fail');
-
-//          }).always(function(data) {                
-//             // console.log('always');
-//          });         
-
-        
-
-// });
-// }
-
-
 
 //サイドバーで選択したユーザーとのトーク画面を表示する
 function changeTalk(data){
-    console.log('ok');
         var other_id = data;
-        console.log(other_id);
+
         $.ajax({
           type: 'GET',
           url: "model/update_talk.php",
@@ -158,6 +117,57 @@ function changeTalk(data){
             // console.log('always');
          });         
 }
+
+
+//トーク送信時にサイドバーを更新
+// function updateSideBar() {
+
+//     $.ajax({
+//       type: 'GET',
+//       url: "model/update_side_bar.php",
+//       error : function(XMLHttpRequest, textStatus, errorThrown) {
+//         console.log("ajax通信に失敗しました");
+//         console.log("XMLHttpRequest : " + XMLHttpRequest.status);
+//         console.log("textStatus     : " + textStatus);
+//         console.log("errorThrown    : " + errorThrown.message);
+//     },
+//     })
+//       .done(function(data) { 
+//         console.log('done');
+
+
+//         // var test = $.parseJSON(data);
+//         // // 返り値の最後にユーザーネームを付けているので、取得する
+//         // var user_name = test[test.length - 1];
+//         // // ユーザーネーム取得後、最後の要素を削除する
+//         // test.pop();
+//         // // console.log(test);
+//         // var logs = test.join('');
+//         // $("#result").html(logs);
+//         // scrollDown();
+//         // // console.log(user_name);
+//         // $("#mes_head").html(user_name);
+
+//      }).fail(function(data) {                
+//         console.log('fail');
+
+//      }).always(function(data) {                
+//         console.log('always');
+//      });         
+
+// }
+
+
+
+
+
+
+
+
+
+
+
+
 
 // 画像送信ボタンが押された時に以下の関数を実行
 function img_up(){

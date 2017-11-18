@@ -75,18 +75,13 @@ require('model/selectUser.php');
 					</div>
 				<?php } ?>
 			</div>
-			
 		</div>
-
-
 	
 		<div class="content">
 			<!-- トーク中のユーザー名表示 -->
 			<div id="mes_head">
 				<?php echo $user_info['other_name']; ?>
 			</div>
-			
-
 			
 			<!-- トーク内容 -->
 			<div id="talk_content">

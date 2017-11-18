@@ -48,22 +48,6 @@ while (true) {
 	$talking_user[] =$record;	
 }
 
-// $i = 0;
-// foreach ($talking_user as $user) {
-// 	foreach ($user as $key => $value) {
-// 		if ($key == 'time') {
-// 			$time = $value;
-// 			$month = substr($time,5,2);
-// 			$day = substr($time,8,2);
-// 			$time1 = substr($time,11,5);
-// 			$time_final = $month.'/'.$day.' '.$time1;
-
-// 			$talking_user[$i]['time'] = $time_final;
-// 		}
-// 		$i++;
-// 	}
-// }
-
 
 // echo "<pre>";
 // var_dump($talking_user);
