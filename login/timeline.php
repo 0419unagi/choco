@@ -13,9 +13,17 @@
     exit();
   }
 
+ // $login_user =  $_SESSION['login_user']['id'];
+ // $view_user =  $_SESSION['view_user']['id'];
+
+
+
+
+
+
   //ユーザーデータをSELECTする
   $sql = 'SELECT * FROM `batch_users` WHERE id=?';
-  $data = array($_SESSION['login_user']['id']);
+  $data = array($_GET['id']);
   $stmt = $dbh->prepare($sql);
   $stmt->execute($data);
 
@@ -31,32 +39,10 @@
     // echo '<pre>';
     // var_dump($data);
     // echo '</pre>';
-  }
-  // batch_usersとpostをjoin
-  $sql = 'SELECT `post`. * ,`batch_users`.`id`, `batch_users`.`nickname`,`batch_users`.`image`
-          FROM `post`
-          LEFT JOIN `batch_users`
-          ON `post`.`users_id` = `batch_users`.`id`
-          WHERE 1
-          ORDER BY `post`. `created` DESC';
-  $data = array(); 
-  $stmt = $dbh->prepare($sql);
-  $stmt->execute($data);
 
-  $tweets = array();
-  while(true){
-  $data = $stmt->fetch(PDO::FETCH_ASSOC);
-  if(!$data){
-    // ここに入ったらループを止めてあげる
-    break;
-  }
-  $post[] = $data;
-  }
-  // error_log(print_r('$tweets',true),"3","../../../../../logs/error_log");
 
-// echo '<pre>';
-// var_dump($data);
-// echo '</pre>';
+  }
+
  
  ?>
 
@@ -140,45 +126,42 @@ $(function(){
  <div class="feedClm col-xs-8">
 <h1 style="text-align: center;">All TIMELINE</h1>
 <br><br>
-  <?php foreach($post as $content){ ?>
  <section>
- <p class="date"><?php echo $content['created']; ?></p>
+ <p class="date">2017.9.18</p>
  <div class="nameBox">
-  <a href="profile.php?id=<?php echo $content['id'] ;?>">
-  <div class="selfClm"><img src="../image/<?php echo $content['image'];?>" width="80" height="80" alt=""/>
-  <?php echo $content['nickname']; ?></div></a>
+  <a href="#">
+  <div class="selfClm"><img src="../assets/img/profile.jpg" width="80" height="80" alt=""/>
+  nickname</div></a>
   <div class="badgeClm"><img src="../assets/img/badge.png" width="13" height="16" alt=""/>000</div>
  </div>
  <div class="row">
  <div class="picClm col-xs-6">
  <div class="slider">
-  <a class="example-image-link" href="../post_image/<?php echo $content['post_image']?>" data-lightbox="example">
-  <img class="example-image" src="../post_image/<?php echo $content['post_image']?>" width="100%" height="auto" alt=""/></a>
+  <a class="example-image-link" href="../assets/img/img_damy1.jpg" data-lightbox="example">
+  <img class="example-image" src="../assets/img/img_damy1.jpg" width="100%" height="auto" alt=""/></a>
+  <a class="example-image-link" href="../assets/img/img_damy2.jpg" data-lightbox="example">
+  <img class="example-image" src="../assets/img/img_damy2.jpg" width="100%" height="auto" alt=""/></a>
+  <a class="example-image-link" href="../assets/img/img_damy3.jpg" data-lightbox="example">
+  <img class="example-image" src="../assets/img/img_damy3.jpg" width="100%" height="auto" alt=""/></a>
  </div>
  </div>
 
  <div class="txtClm col-xs-6">
- <p class="sentence"><?php echo $content['content']; ?></p>
+ <p class="sentence">ここにテキストが入ります。文字数・行間・フォントなどご確認ください。この文章はダミーです。ここにテキストが入ります。文字数・行間・フォントなどご確認ください。この文章はダミーです。ここにテキストが入ります。文字数・行間・フォントなどご確認ください。この文章はダミーです。</p>
  
   <div class="commentBox">
-   <a href="profile.php?id=<?php echo $content['id'] ;?>"><img src="../image/<?php echo $content['image'];?>" width="35" height="35" alt=""/></a>
-   <p class="txt"><?php echo $content['comment']; ?></p>
+   <a href="#"><img src="../assets/img/profile.jpg" width="35" height="35" alt=""/></a>
+   <p class="txt">コメント</p>
   </div>
   
   <div class="postBox">
-   <a href="profile.php?id=<?php echo $content['id'] ;?>"><img src="../image/<?php echo $_SESSION['login_user']['image'];?>" width="35" height="35" alt=""/></a>
-   <!-- <p class="txt"></p> -->
-  <form method="POST" action="">
-    <input class="text" type="txt" name="comment" placeholder="いいね&一言コメント" value="">
-    <input class="login" type="submit" value="送信"><i class="fa fa-pencil" aria-hidden="true"></i>
-  </form>
-
-
-  </div>
+   <a href="#"><img src="../assets/img/profile.jpg" width="35" height="35" alt=""/></a>
+   <p class="txt">コメント</p>
+   <i class="fa fa-pencil" aria-hidden="true"></i> </div>
  </div>
 </div>
 </section>
- <?php } ?>
+ 
  
  <div>
   

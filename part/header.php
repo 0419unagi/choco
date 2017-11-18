@@ -1,6 +1,6 @@
 <?php 
 
-session_start();
+// session_start();
 // データベースの接続情報
 require('../dbconnect.php');
 
