@@ -162,13 +162,27 @@ main {
 }
 #profilePg {
 }
-#profilePg section {
+#profilePg .wrp {
+ display:flex;
+ flex-wrap:nowrap;
+ justify-content:space-between;
+ align-items:stretch;
 }
 #profilePg .prfClm {
- /*background-image: url(../image/<?php echo $data['image'] ;?>);*/
- background-repeat: no-repeat;
- background-size: 100% auto;
  background-color: #000000;
+ height: 100%;
+ width: 28%;
+}
+#profilePg .prfClm .picBox {
+ position: relative;
+}
+#profilePg .prfClm .picBox .pic {
+ object-fit: cover;
+ height: 300px;
+}
+#profilePg .prfClm .picBox .gra {
+ position: absolute;
+ bottom: 0px;
 }
 #profilePg .prfClm .prfBox {
  background-color: rgba(255,255,255,0.85);
@@ -178,9 +192,11 @@ main {
  padding-bottom: 50px;
  padding-left: 25px;
  text-align: center;
- margin-top: 300px;
- margin-bottom: 30px;
  letter-spacing: 1px;
+ bottom: 0px;
+ margin-left: 15px;
+ margin-right: 15px;
+ margin-bottom: 15px;
 }
 #profilePg .prfBox p {
  font-size: 12px;
@@ -222,7 +238,7 @@ main {
 #profilePg .prfBox span {
  font-weight: bold;
 }
-#profilePg .prfClm .message {
+#profilePg .prfBox .message {
  color: #FFFFFF;
  background-color: #000000;
  padding-top: 5px;
@@ -232,6 +248,7 @@ main {
 }
 
 #profilePg .feedClm {
+ width: 68%;
 }
 
 #profilePg .feedClm #contributeBox {
@@ -262,6 +279,9 @@ main {
  margin-bottom: 50px;
  letter-spacing: 1px;
  position: relative;
+ background-image: url(../img/tate.jpg);
+ background-repeat: repeat-y;
+ background-position: center 0%;
 }
 #profilePg .feedClm .date {
  background-color: #000000;

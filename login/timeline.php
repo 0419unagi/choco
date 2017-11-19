@@ -104,10 +104,10 @@
   
   <!-- アニメーション --> 
   <link href="../assets/css/animate.css" rel="stylesheet">
-<script src="../assets/js/wow.min.js"></script>
-<script>
-new WOW().init();
-</script>
+    <script src="../assets/js/wow.min.js"></script>
+  <script>
+  new WOW().init();
+  </script>
   
   <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
   <script src="../assets/js/chart.js"></script>
@@ -138,8 +138,13 @@ $(function(){
  <?php foreach($userdata as $data) {?>
 <main id="profilePg">
 <div class="container">
-<div id="wrp">
-<div class="prfClm col-xs-4" style="background-image: url(../image/<?php echo $data['image'] ;?>);">
+<div class="wrp">
+<div class="prfClm">
+ <div class="picBox">
+  <img class="pic" src="../image/<?php echo $data['image'] ;?>" width="100%" height="auto" alt=""/>
+  <img class="gra" src="../assets/img/gra.png" width="100%" height="auto" alt=""/>
+</div>
+<!-- <div class="prfClm col-xs-4" style="background-image: url(../image/<?php echo $data['image'] ;?>);"> -->
  <div class="prfBox">
   <!-- ニックネーム -->
  <p class="nickname"><?php echo $data['nickname'] ;?></p>
@@ -160,14 +165,11 @@ $(function(){
  <!-- メッセージ -->
  <a href="#"><div class="message"><img src="../assets/img/message_w.png" width="17" height="13" alt=""/> メッセージを送る</div></a>
 </div>
- </div>
 </div>
 <?php } ?>
 
 
-
-
- <div class="feedClm col-xs-8">
+ <div class="feedClm">
 <h1 style="text-align: center;">All TIMELINE</h1>
 <br><br>
   <?php foreach($post as $content){ ?>
@@ -199,7 +201,8 @@ $(function(){
   <?php } ?>
  </div>
 
- <!--　本文  -->
+
+<!-- 写真がある場合、col-xs-6になる -->
  <div class="txtClm col-xs-6">
  <p class="sentence"><?php echo $content['content']; ?></p>
  
@@ -217,11 +220,29 @@ $(function(){
     <input class="text" type="txt" name="comment" placeholder="いいね&一言コメント" value="いいね！！">
     <input class="login" type="submit" value="送信"><i class="fa fa-pencil" aria-hidden="true"></i>
   </form>
-
-
   </div>
  </div>
+
+<!-- 写真がなかった場合、col-xs-12になる -->
+  <div class="txtClm col-xs-12">
+ <p class="sentence"><?php echo $content['content']; ?></p>
+  <div class="commentBox">
+   <a href="profile.php?id=<?php echo $content['id'] ;?>"><img src="../image/<?php echo $content['image'];?>" width="35" height="35" alt=""/></a>
+   <p class="txt"><?php echo $content['comment']; ?></p>
+  </div>  
+  <div class="postBox">
+   <a href="profile.php?id=<?php echo $content['id'] ;?>"><img src="../image/<?php echo $_SESSION['login_user']['image'];?>" width="35" height="35" alt=""/></a>
+   <!-- <p class="txt"></p> -->
+  <form method="POST" action="">
+    <input class="text" type="txt" name="comment" placeholder="いいね&一言コメント" value="">
+    <input class="login" type="submit" value="送信"><i class="fa fa-pencil" aria-hidden="true"></i>
+  </form>
+  </div>
+ </div>
+
 </div>
+
+
 </section>
  <?php } ?>
  
