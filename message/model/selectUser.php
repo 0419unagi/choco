@@ -2,7 +2,6 @@
 
 
 //サイドバーにトーク中のユーザーを表示
-// (TO DO)other_idのimageカラムを取得する
 $sql = 'SELECT
 		 x.user_id AS "user_id",
 		 x.user_name AS "user_name",
@@ -76,8 +75,6 @@ error_log(print_r($user_info,true),"3","../../../../../logs/error_log");
 
 
 //トーク履歴を表示するためのクエリ
-// (TO DO)other_idのimageカラムを取得する
-
 $sql = 'SELECT
 		 x.user_id AS "user_id",
 		 NAME AS "user_name",
