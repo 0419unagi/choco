@@ -101,7 +101,7 @@ new WOW().init();
 					<?php foreach($userdata as $data1){?>
 						<?php if($data1['datepicker']==$data['datepicker']){ ?>
 							<li>
-								<a href="timeline.php?id=<?php echo $data1['id'] ;?>">
+								<a href="profile.php?id=<?php echo $data1['id'] ;?>">
 								<!-- プロフィール画像 -->
 								<!-- もし、$data1のimageが存在していたら以下を表示 -->
 								<?php if(!empty($data1['image'])){ ?>

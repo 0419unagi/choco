@@ -60,7 +60,11 @@ new WOW().init();
    <div id="prf">
     <a href="../login/profile.php?id=<?php echo $_SESSION['login_user']['id'] ?>">
     <img id="ill" class="wow slideInDown" data-wow-duration="0.8s" src="../assets/img/ill_hand.png" width="133" alt=""/>
+      <?php if(!empty($_SESSION['login_user']['image'])){ ?>
     <img id="pic" src="../image/<?php echo $_SESSION['login_user']['image']; ?>" width="70" height="70" alt=""/>
+    <?php }else{ ?>
+  <img id="pic" src="../assets/img/damy.jpg" width="70" height="70" alt=""/>
+   <?php } ?>
     </a>
    </div>
   

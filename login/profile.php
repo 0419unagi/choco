@@ -14,38 +14,9 @@
   }
 
 
-//   // POSTチェック
-// if(!empty($_POST)){
-//   // バリデーションチェック
-//   $errors = array();
-
-//   if(isset($_POST['comment'])){
-//     // ツイートするを押すと個々の処理が走ります。
-//   $comment = htmlspecialchars($_POST['comment']);
-
-//   // バリデーション
-//   if($comment==''){
-//     $errors['comment']='blank';
-//     }
-
-//   if(empty($errors)){
-
-//   // コメント記入の為のINSERT
-//   $sql = "INSERT INTO `post` SET `user_id` =?, `comment`=?";
-//   $data = array($_SESSION['login_user']['id'],$comment);
-//   $stmt = $dbh->prepare($sql);
-//   $stmt->execute($data);
-
-//   header('Location: timeline.php');
-//   exit();
-//   }
-//   }
-// }
-
-
   //ユーザーデータをSELECTする
   $sql = 'SELECT * FROM `batch_users` WHERE id=?';
-  $data = array($_SESSION['login_user']['id']);
+  $data = array($_GET['id']);
   $stmt = $dbh->prepare($sql);
   $stmt->execute($data);
 
@@ -87,7 +58,80 @@
 // echo '<pre>';
 // var_dump($data);
 // echo '</pre>';
+
+  // $sql = 'SELECT `comment`. * ,`batch_users`.`id`, `batch_users`.`nickname`,`batch_users`.`image`
+  //         FROM `comment`
+  //         LEFT JOIN `batch_users`
+  //         ON `comment`.`users_id` = `batch_users`.`id`
+  //         WHERE 1';
+  // $data = array(); 
+  // $stmt = $dbh->prepare($sql);
+  // $stmt->execute($data);
+
+  // $aaa = array();
+  // while(true){
+  // $data = $stmt->fetch(PDO::FETCH_ASSOC);
+  // if(!$data){
+  //   // ここに入ったらループを止めてあげる
+  //   break;
+  // }
+  // $aaaa[] = $data;
+  // }
+
+
+
+//   // POSTチェック
+// if(!empty($_POST)){
+//   // バリデーションチェック
+//   $errors = array();
+
+//   if(isset($_POST['comment'])){
+//     // ツイートするを押すと個々の処理が走ります。
+//   $comment = htmlspecialchars($_POST['comment']);
+
+//   // バリデーション
+//   if($comment==''){
+//     $errors['comment']='blank';
+//     }
+
+//   if(empty($errors)){
+
+//   // コメント記入の為のINSERT
+//   $sql = "INSERT INTO `comment` SET `user_id` =?, `comment`=?";
+//   $data = array($_SESSION['login_user']['id'],$comment);
+//   $stmt = $dbh->prepare($sql);
+//   $stmt->execute($data);
+
+//   header('Location: timeline.php');
+//   exit();
+//   }
+//   }
+// }
+
+
  
+ // 投稿とコメントをjoin
+ $sql = 'SELECT `comment`. * ,`post`.`id`,`post`.`users_id`
+          FROM `comment`
+          LEFT JOIN `post`
+          ON `comment`.`post_id` = `post`.`id`
+          WHERE 1';
+  $data = array(); 
+  $stmt = $dbh->prepare($sql);
+  $stmt->execute($data);
+
+  $comment = array();
+  while(true){
+  $data = $stmt->fetch(PDO::FETCH_ASSOC);
+  if(!$data){
+    // ここに入ったらループを止めてあげる
+    break;
+  }
+  $comment[] = $data;
+  }
+
+
+
  ?>
 
 
@@ -104,31 +148,13 @@
   
   <!-- アニメーション --> 
   <link href="../assets/css/animate.css" rel="stylesheet">
-<script src="../assets/js/wow.min.js"></script>
-<script>
-new WOW().init();
-</script>
+    <script src="../assets/js/wow.min.js"></script>
+  <script>
+  new WOW().init();
+  </script>
   
   <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
   <script src="../assets/js/chart.js"></script>
-  
-  <!-- <link href="../assets/css/jquery.bxslider.css" rel="stylesheet" type="text/css"> -->
-  <!-- <script src="../assets/js/jquery.bxslider.js"></script> -->
-<!--   <script src="../assets/js/jquery.easing.1.3.js"></script>
-  <script type="text/javascript">
-$(function(){
-	$('.slider').bxSlider({
-		auto:true,
-		speed:4000,
-		mode: 'fade',
-		controls:false, //コントロール（Next, Prev）を有無
-		pager:true, //ページャーの有無
-		captions: false
-	});
-});
-</script> -->
-
-
 <link rel="stylesheet" href="../assets/css/lightbox.css">
 <script src="../assets/js/lightbox.js"></script>
 </head>
@@ -138,8 +164,13 @@ $(function(){
  <?php foreach($userdata as $data) {?>
 <main id="profilePg">
 <div class="container">
-<div id="wrp">
-<div class="prfClm col-xs-4" style="background-image: url(../image/<?php echo $data['image'] ;?>);">
+<div class="wrp">
+<div class="prfClm">
+ <div class="picBox">
+  <img class="pic" src="../image/<?php echo $data['image'] ;?>" width="100%" height="auto" alt=""/>
+  <img class="gra" src="../assets/img/gra.png" width="100%" height="auto" alt=""/>
+</div>
+
  <div class="prfBox">
   <!-- ニックネーム -->
  <p class="nickname"><?php echo $data['nickname'] ;?></p>
@@ -160,14 +191,11 @@ $(function(){
  <!-- メッセージ -->
  <a href="#"><div class="message"><img src="../assets/img/message_w.png" width="17" height="13" alt=""/> メッセージを送る</div></a>
 </div>
- </div>
 </div>
 <?php } ?>
 
 
-
-
- <div class="feedClm col-xs-8">
+ <div class="feedClm">
 <h1 style="text-align: center;">All TIMELINE</h1>
 <br><br>
   <?php foreach($post as $content){ ?>
@@ -187,58 +215,50 @@ $(function(){
  </div>
 
  <div class="row">
-  <?php if(!empty($content['post_image'] !== 'NULL')){ ?>
  <div class="picClm col-xs-6">
-   
+   <?php if(!empty($content['post_image'])){ ?>
 
    <!-- 投稿画像 -->
   <a class="example-image-link" href="../post_image/<?php echo $content['post_image']?>" data-lightbox="example">
   <img class="example-image" src="../post_image/<?php echo $content['post_image']?>" width="100%" height="auto" alt=""/></a>
-
+  <?php }else{ ?>
+   <a class="example-image-link" href="../assets/img/img_dumy6.jpg" data-lightbox="example">
+  <img class="example-image" src="../assets/img/img_dumy6.jpg" width="100%" height="auto" alt=""/></a>
+  <?php } ?>
  </div>
 
- <!--　本文  -->
+
  <div class="txtClm col-xs-6">
  <p class="sentence"><?php echo $content['content']; ?></p>
  
  <!-- コメント表示 -->
+ <?php foreach($comment as $reply){ ?>
   <div class="commentBox">
-   <a href="profile.php?id=<?php echo $content['id'] ;?>"><img src="../image/<?php echo $content['image'];?>" width="35" height="35" alt=""/></a>
-   <p class="txt"><?php echo $content['comment']; ?></p>
+   <a href="profile.php?id=<?php echo $reply['id'] ;?>"><img src="../image/<?php echo $content['image'];?>" width="35" height="35" alt=""/></a>
+   <p class="txt"><?php echo $reply['comment']; ?></p>
   </div>
-  
+  <?php } ?>
   <!-- コメント投稿欄 -->
-  <form method="POST" action="">
   <div class="postBox">
    <a href="profile.php?id=<?php echo $content['id'] ;?>"><img src="../image/<?php echo $_SESSION['login_user']['image'];?>" width="35" height="35" alt=""/></a>
    <!-- <p class="txt"></p> -->
-    <input class="text" type="txt" name="comment" placeholder="いいね&一言コメント" value="いいね！！">
-    <input class="login" type="submit" value="送信"><i class="fa fa-pencil" aria-hidden="true"></i>
-  </form>
-  <?php } else {?>
-   <!--　本文  -->
- <div class="txtClm col-xs-6">
- <p class="sentence"><?php echo $content['content']; ?></p>
- 
- <!-- コメント表示 -->
-  <div class="commentBox">
-   <a href="profile.php?id=<?php echo $content['id'] ;?>"><img src="../image/<?php echo $content['image'];?>" width="35" height="35" alt=""/></a>
-   <p class="txt"><?php echo $content['comment']; ?></p>
-  </div>
-  
-  <!-- コメント投稿欄 -->
   <form method="POST" action="">
-  <div class="postBox">
-   <a href="profile.php?id=<?php echo $content['id'] ;?>"><img src="../image/<?php echo $_SESSION['login_user']['image'];?>" width="35" height="35" alt=""/></a>
-   <!-- <p class="txt"></p> -->
-    <input class="text" type="txt" name="comment" placeholder="いいね&一言コメント" value="いいね！！">
-    <input class="login" type="submit" value="送信"><i class="fa fa-pencil" aria-hidden="true"></i>
+    <input class="text" type="txt" name="comment" placeholder="一言コメント" value="">
+              <?php if(isset($errors['tweet']) ){ ?>
+              <div class="alert alert-danger">
+                投稿する内容を入力してください。
+              </div>
+            <?php } ?>
+    <input class="login" type="submit" value="送信">
+
+    <!-- <i class="fa fa-pencil" aria-hidden="true"></i> -->
   </form>
-<?php } ?>
   </div>
  </div>
 
 </div>
+
+
 </section>
  <?php } ?>
  
@@ -254,7 +274,9 @@ $(function(){
 </main>
 
 <footer>
- <small>copyright ©︎chocomallow.All rights reserved.</small>
+ <!-- <small>copyright ©︎chocomallow.All rights reserved.</small> -->
+ <?php require('../part/footer.php') ;?>
+
 </footer>
 
 </body>
