@@ -37,6 +37,7 @@ require('model/selectUser.php');
  ?>
 
 <?php require('../part/header.php'); ?>
+  <link rel="stylesheet" type="text/css" href="../assets/css/custom.css">
 <script src="../assets/js/jquery-2.1.4.min.js"></script>
 <script src="../assets/js/main.js"></script>
 <script src="../assets/js/dist/jquery.quicksearch.js"></script>
