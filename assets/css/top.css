@@ -80,6 +80,8 @@ header #clm_l #prf #pic {
  z-index: -5;
  border-radius: 35px;
  padding-right: 0px;
+ object-fit: cover;
+ height: 70px;
 }
 
 header #clm_l #logo {
@@ -162,16 +164,12 @@ header #clm_r #icon p {
 main {
  position: relative;
 }
-main .line_tate {
- border-left: 1px solid #E8E8E8;
- left: 50%;
- position: absolute;
- height: 1700px;
- z-index: -1;
-}
 #topPg {
  text-align: center;
  position: relative;
+ background-image: url(../img/tate.jpg);
+ background-repeat: repeat-y;
+ background-position: center 0%;
 }
 section {
  padding-top: 30px;
@@ -204,7 +202,7 @@ section {
  position: relative;
 }
 #topPg ul li div {
- border-radius: 70px;
+ border-radius: 200px;
  margin-bottom: 8px;
 }
 #topPg ul li div.frame_y {
@@ -329,7 +327,8 @@ footer {
  margin-right: 15px;
  margin-left: 15px;
  margin-bottom: 0;
- width: 140px;
+ width: 150px;
+ height: 150px;
  float: left;
  display: block;
  position: relative;
@@ -354,8 +353,10 @@ footer {
 }
 
 .carousel ul li img {
- width: 100%;
- border-radius: 100px;
+	 height: 150px;
+	 object-fit: cover;
+	 border-radius: 500px;
+	 width: 100%;
 }
 
 .carousel ul li p {

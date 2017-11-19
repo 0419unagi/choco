@@ -89,10 +89,6 @@ new WOW().init();
 
   
 <main id="topPg">
-	<div class="line_tate"></div>
-
- 
- 
 <?php foreach($gdata as $data) { ?>
 	<section>
 
