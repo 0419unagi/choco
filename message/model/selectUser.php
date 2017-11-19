@@ -2,11 +2,13 @@
 
 
 //サイドバーにトーク中のユーザーを表示
+// (TO DO)other_idのimageカラムを取得する
 $sql = 'SELECT
 		 x.user_id AS "user_id",
 		 x.user_name AS "user_name",
 		 x.other_id AS "other_id",
 		 batch_users.username AS "other_name",
+		 batch_users.image AS "other_image",
 		 x.time AS "time"
 		 FROM ( 
 		 	SELECT 
@@ -49,10 +51,6 @@ while (true) {
 }
 
 
-// echo "<pre>";
-// var_dump($talking_user);
-
-
 //もしトークが初めての場合に、ログインユーザーと相手ユーザーを呼び出す
 	$query_1 = 'SELECT `id`,`username` FROM `batch_users` WHERE `id` = ?';
 	$data = [$user_id];
@@ -78,6 +76,7 @@ error_log(print_r($user_info,true),"3","../../../../../logs/error_log");
 
 
 //トーク履歴を表示するためのクエリ
+// (TO DO)other_idのimageカラムを取得する
 
 $sql = 'SELECT
 		 x.user_id AS "user_id",

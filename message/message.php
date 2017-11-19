@@ -6,19 +6,34 @@ require('../dbconnect.php');
 $user_id = $_SESSION['login_user']['id'] ;
 $other_id = '';
 
+
+ 
+
 //サイドバーでトークしたいユーザーを選択した場合に、そのユーザーとのトーク履歴を表示する 
 if (isset($_GET['id'])) {
 	$other_id = $_GET['id'];
+	error_log(print_r($_GET['id'],true),"3","../../../../../logs/error_log");
 }
+// error_log(print_r($_GET['other_id'],true),"3","../../../../../logs/error_log");
 
+
+// messageボタンからmessage.phpに遷移した場合は、何も表示しない
+// profileから飛んだ場合には、そのユーザーとのトークを表示
+// リロードしても見ている人とのトークを見たい
+
+
+
+//main.jsからgetリクエストでoter_idを取得する
 if (isset($_GET['other_id'])) {
 	$_SESSION['other_id'] = $_GET['other_id'];
-	echo $_SESSION['other_id'];
+	// echo $_SESSION['other_id'];
 	$other_id = $_SESSION['other_id'];
 }
-
-
- // error_log(print_r($user_id,true),"3","../../../../../logs/error_log");
+//リロードした時に、現在見ているユーザーとのトーク履歴を表示
+if (isset($_SESSION['other_id'])) {
+	$other_id = $_SESSION['other_id'];
+}
+ // error_log(print_r($other_id,true),"3","../../../../../logs/error_log");
 
 
 
@@ -33,21 +48,10 @@ $inputValue = [];
 require('model/selectUser.php');
  ?>
 
-<?php  ?>
 <link rel="stylesheet" type="text/css" href="../assets/css/custom.css">
 <script src="../assets/js/jquery-2.1.4.min.js"></script>
 <script src="../assets/js/main.js"></script>
-<!-- <script src="../assets/js/dist/jquery.quicksearch.js"></script> -->
 <script src="../assets/js/dist/jquery.searcher.js"></script>
-<!-- <script src="../assets/js/dist/jquery.searcher.min.js"></script> -->
-
-
-
-<!-- <div id="sampletakuya" value="今日の感想"></div>	
-<script>
-	var sample = $('div#sampletakuya').val(); 
-	console.log(sample);
-</script> -->
 
 
 <div class="container">
@@ -68,7 +72,8 @@ require('model/selectUser.php');
 			<div class="user_list">
 				<?php foreach ($talking_user as $user) { ?>
 					<div class="tom" id="talk_history" value="<?php echo $user['other_id']; ?>" >
-						<img src="../assets/img/icon.png" alt="icon" id="mes_icon">
+						<!-- <img src="../assets/img/icon.png" alt="icon" id="mes_icon"> -->
+						<img src="../image/<?php echo $user['other_image'] ?>" alt="icon" id="mes_icon">
 						<p id="his_name"><?php echo $user['other_name']; ?></p>
 						<p id="his_time"><?php echo $user['time']; ?></p>
 					</div>

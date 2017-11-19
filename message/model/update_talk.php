@@ -88,7 +88,7 @@ while (true) {
 $inputValue[] = $other_name;
 
 // $inputValue =['aaa','bbb'];
-error_log(print_r($inputValue,true),"3","../../../../../../logs/error_log");
+// error_log(print_r($inputValue,true),"3","../../../../../../logs/error_log");
 $test = implode('',$inputValue);
 
 
