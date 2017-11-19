@@ -4,7 +4,6 @@ session_start();
 require('../dbconnect.php');
 
 //仮想的にSESSIONからユーザー取得
-//	想定：$user_id = $_SESSION['id'] ;
 $user_id = $_SESSION['user_id'] ; //ユーザー名：takuya
 
 //サイドバーでトークしたいユーザーを選択した場合に、そのユーザーとのトーク履歴を表示する
@@ -19,7 +18,7 @@ if (isset($_GET['other_id'])) {
 }
 
 $other_id = $_SESSION['other_id'];
-
+ // error_log(print_r($other_id,true),"3","../../../../../logs/error_log");
 // error_log(print_r('test',true),"3","../../../../../logs/error_log");
 // error_log(print_r($other_id,true),"3","../../../../../logs/error_log");
 // error_log(print_r('test',true),"3","../../../../../logs/error_log");
@@ -35,12 +34,19 @@ $inputValue = [];
 //ユーザーデータ読み出し
 require('model/selectUser.php');
 
-
  ?>
 
 <?php require('../part/header.php'); ?>
 <script src="../assets/js/jquery-2.1.4.min.js"></script>
 <script src="../assets/js/main.js"></script>
+<script src="../assets/js/dist/jquery.quicksearch.js"></script>
+
+
+<!-- <div id="sampletakuya" value="今日の感想"></div>	
+<script>
+	var sample = $('div#sampletakuya').val(); 
+	console.log(sample);
+</script> -->
 
 
 <div class="container">
@@ -68,11 +74,7 @@ require('model/selectUser.php');
 		</div>
 
 
-
-
-
-
-
+	
 		<div class="content">
 			<!-- トーク中のユーザー名表示 -->
 			<div id="mes_head">
@@ -80,7 +82,7 @@ require('model/selectUser.php');
 			</div>
 			
 
-
+			
 			<!-- トーク内容 -->
 			<div id="talk_content">
 				<div id="talkField">
@@ -92,7 +94,6 @@ require('model/selectUser.php');
 					<br class="clear_balloon"/>
 					<div id="end"></div>
 				</div>
-
 			</div>
 
 			<!-- 入力バー -->
@@ -106,11 +107,13 @@ require('model/selectUser.php');
 						<input type="file" name="image_uplode" id="file" style="display:none;" onchange="img_up()">
 						<img src="../assets/img/img_up.png" id="uplode_image" name="image_uplode" value="" onClick="$('#file').click();">
 					</div>
-					<div id="textbox" >
+
+					<?php //error_log(print_r($user_info,true),"3","../../../../../logs/error_log"); ?>
+ 					<div id="textbox" >
 						<!-- 隠しデータで配列を送信する -->
 						<?php if (!empty($user_info)): ?>
 							<?php foreach ($user_info as $k => $v) { ?>
-								<input type="hidden" id="<?php echo $k ?>" value="<?php echo $v ?>">
+									<input type="hidden" class="ins" id="<?php echo $k ?>" value="<?php echo $v ?>">
 							<?php } ?>
 						<?php endif ; ?>
 							
@@ -121,8 +124,9 @@ require('model/selectUser.php');
 
 					<!-- 送信ボタン -->
 					<div id="push" >
-						<input type="image" src="../assets/img/post.png"  id="submit">
+						<img src="../assets/img/post.png" id="submit" onClick="$('#submit').click();">
 					</div>	
+
 				</form>	
 			</div>
 		</div>
@@ -132,4 +136,4 @@ require('model/selectUser.php');
 	
 	
 </body>
-</html> -->
+</html> 
