@@ -135,11 +135,8 @@ $(function(){
  <!-- メッセージ -->
  <a href="#"><div class="message"><img src="../assets/img/message_w.png" width="17" height="13" alt=""/> メッセージを送る</div></a>
 </div>
- </div>
 </div>
 <?php } ?>
-
-
 
 
  <div class="feedClm">
@@ -162,6 +159,7 @@ $(function(){
  </div>
  </div>
 
+<!-- 写真がある場合、col-xs-6になる -->
  <div class="txtClm col-xs-6">
  <p class="sentence"><?php echo $content['content']; ?></p>
  
@@ -177,11 +175,29 @@ $(function(){
     <input class="text" type="txt" name="comment" placeholder="いいね&一言コメント" value="">
     <input class="login" type="submit" value="送信"><i class="fa fa-pencil" aria-hidden="true"></i>
   </form>
-
-
   </div>
  </div>
+
+<!-- 写真がなかった場合、col-xs-12になる -->
+  <div class="txtClm col-xs-12">
+ <p class="sentence"><?php echo $content['content']; ?></p>
+  <div class="commentBox">
+   <a href="profile.php?id=<?php echo $content['id'] ;?>"><img src="../image/<?php echo $content['image'];?>" width="35" height="35" alt=""/></a>
+   <p class="txt"><?php echo $content['comment']; ?></p>
+  </div>  
+  <div class="postBox">
+   <a href="profile.php?id=<?php echo $content['id'] ;?>"><img src="../image/<?php echo $_SESSION['login_user']['image'];?>" width="35" height="35" alt=""/></a>
+   <!-- <p class="txt"></p> -->
+  <form method="POST" action="">
+    <input class="text" type="txt" name="comment" placeholder="いいね&一言コメント" value="">
+    <input class="login" type="submit" value="送信"><i class="fa fa-pencil" aria-hidden="true"></i>
+  </form>
+  </div>
+ </div>
+
 </div>
+
+
 </section>
  <?php } ?>
  

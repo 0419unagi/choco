@@ -163,10 +163,10 @@ main {
 #profilePg {
 }
 #profilePg .wrp {
- display: flex;
- flex-wrap: nowrap;
- justify-content: space-between;
- align-items: stretch;
+ display:flex;
+ flex-wrap:nowrap;
+ justify-content:space-between;
+ align-items:stretch;
 }
 #profilePg .prfClm {
  background-color: #000000;
@@ -279,6 +279,9 @@ main {
  margin-bottom: 50px;
  letter-spacing: 1px;
  position: relative;
+ background-image: url(../img/tate.jpg);
+ background-repeat: repeat-y;
+ background-position: center 0%;
 }
 #profilePg .feedClm .date {
  background-color: #000000;
