@@ -152,7 +152,8 @@ new WOW().init();
 
 </main>
 <footer>
- <small>copyright ©︎chocomallow.All rights reserved.</small>
+ <!-- <small>copyright ©︎chocomallow.All rights reserved.</small> -->
+<?php require('../part/footer.php'); ?>
 </footer>
   <script>
 $(function(){

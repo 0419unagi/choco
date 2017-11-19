@@ -187,16 +187,14 @@ $(function(){
  </div>
 
  <div class="row">
+  <?php if(!empty($content['post_image'] !== 'NULL')){ ?>
  <div class="picClm col-xs-6">
-   <?php if(!empty($content['post_image'])){ ?>
+   
 
    <!-- 投稿画像 -->
   <a class="example-image-link" href="../post_image/<?php echo $content['post_image']?>" data-lightbox="example">
   <img class="example-image" src="../post_image/<?php echo $content['post_image']?>" width="100%" height="auto" alt=""/></a>
-  <?php }else{ ?>
-   <a class="example-image-link" href="../assets/img/img_dumy6.jpg" data-lightbox="example">
-  <img class="example-image" src="../assets/img/img_dumy6.jpg" width="100%" height="auto" alt=""/></a>
-  <?php } ?>
+
  </div>
 
  <!--　本文  -->
@@ -217,10 +215,29 @@ $(function(){
     <input class="text" type="txt" name="comment" placeholder="いいね&一言コメント" value="いいね！！">
     <input class="login" type="submit" value="送信"><i class="fa fa-pencil" aria-hidden="true"></i>
   </form>
-
-
+  <?php } else {?>
+   <!--　本文  -->
+ <div class="txtClm col-xs-6">
+ <p class="sentence"><?php echo $content['content']; ?></p>
+ 
+ <!-- コメント表示 -->
+  <div class="commentBox">
+   <a href="profile.php?id=<?php echo $content['id'] ;?>"><img src="../image/<?php echo $content['image'];?>" width="35" height="35" alt=""/></a>
+   <p class="txt"><?php echo $content['comment']; ?></p>
+  </div>
+  
+  <!-- コメント投稿欄 -->
+  <form method="POST" action="">
+  <div class="postBox">
+   <a href="profile.php?id=<?php echo $content['id'] ;?>"><img src="../image/<?php echo $_SESSION['login_user']['image'];?>" width="35" height="35" alt=""/></a>
+   <!-- <p class="txt"></p> -->
+    <input class="text" type="txt" name="comment" placeholder="いいね&一言コメント" value="いいね！！">
+    <input class="login" type="submit" value="送信"><i class="fa fa-pencil" aria-hidden="true"></i>
+  </form>
+<?php } ?>
   </div>
  </div>
+
 </div>
 </section>
  <?php } ?>
@@ -237,9 +254,7 @@ $(function(){
 </main>
 
 <footer>
- <!-- <small>copyright ©︎chocomallow.All rights reserved.</small> -->
- <?php require('../part/footer.php') ;?>
-
+ <small>copyright ©︎chocomallow.All rights reserved.</small>
 </footer>
 
 </body>
