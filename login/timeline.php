@@ -333,7 +333,7 @@ if(!empty($_POST)){
     <input type="hidden" name="post_id" value="<?php echo $content['id']?>">
     <input type="hidden" name="users_id" value="<?php echo $_SESSION['login_user']['id']?>">
     <input type="hidden" name="delete" value="delete">
-    <input type="submit" value="削除" class="btn btn-primary btn-xs" style="margin-right: 0px;">
+    <input type="submit" value="削除" class="btn btn-primary btn-xs">
   </form>
   </div>
 <?php } ?>
