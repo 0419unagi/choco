@@ -1,7 +1,5 @@
 <?php 
-
     session_start();
-
     require('../dbconnect.php');
 
     $email = '';
@@ -67,62 +65,50 @@
 <head>
     <meta charset="utf-8">
     <title>Batch ログイン画面</title>
-    <link rel="stylesheet" href="../assets/css/bootstrap.css">
-    <link rel="stylesheet" href="../assets/css/login.css">
-
+    <link href="../assets/css/reset.css" rel="stylesheet">
+    <link href="../assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../assets/css/bootstrap.css" rel="stylesheet">
+    <link href="../assets/css/login.css" rel="stylesheet">
+    
 </head>
 <body>
-
-    <div id="tablecell" >
-    <br><br><br>
-    <img src="../assets/img/logomark.png" alt="hand_logo" >
-    <br><br>
+  <div id="wrp" >
+   <div id="logoBox">
+    <img src="../assets/img/logomark.png" alt="hand_logo" width="81" height="135" id="logo" >
     <h1>BATCH</h1>
-    <p>make a history together !</p>
-    <br><br><br>
-
-
+    <p id="sub">make a history together</p>
+   </div>
 
     <!-- ログイン -->
     <form method="POST" action="" >
-
         <?php if(isset($errors['login']) ){ ?>
           <div>
             メールアドレスまたはパスワードが違います。
           </div>
         <?php } ?>
-
-        <br>
-        <div class="top">EMAIL ADDRESS</div>
+        
+        <div class="inputBox">EMAIL ADDRESS</div>
         <input class="text" type="email" name="email"  placeholder="chocomallow@jollibee" value="<?php echo $email; ?>">
-        <br>
-
         <?php if (isset($errors['email']) && $errors['email'] == 'blank'){
-            echo "メールアドレスを入力してください".'<br>';
+            echo '<div class="att">※メールアドレスを入力してください</div>'.'<br>';
         }
         ?>
-        <br><br>
-        <div class="top">PASSWORD</div>
+        
+        <div class="inputBox">PASSWORD</div>
         <input class="text" type="password" name="password" placeholder="●●●●●●●●" value="<?php echo $password; ?>">
         <br> 
-
-
         <?php if (isset($errors['password']) && $errors['password'] == 'blank'){
-             echo 'パスワードは4文字以上8文字以内で入力してください。';
+             echo '<div class="att">※パスワードは4文字以上8文字以内で入力してください。</div>';
         }elseif(isset($errors['password']) && $errors['password'] == 'length'){
-            echo 'パスワードは4文字以上8文字以内で入力してください。';
+            echo '<div class="att">※パスワードは4文字以上8文字以内で入力してください。</div>';
         }?>
 
-        <br><br>
-        <input class="login" type="submit" value="LOGIN">
-        　　<a class="create" href="new.php">CREATE ACCOUNT</a>
+        <div id="submitBox">
+         <input class="login" type="submit" value="LOGIN">
+         <a class="create" href="new.php">CREATE ACCOUNT</a>
+        </div>
     </form> 
-    <br><br><br>
-
-    <br>
     </div>
-
-
 
 </body>
 </html>
