@@ -95,6 +95,6 @@ $test = implode('',$inputValue);
 $usre_name = $record;
 
 $output_data = json_encode($inputValue);
-	echo $output_data;
+echo $output_data;
 
 

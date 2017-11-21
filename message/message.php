@@ -104,10 +104,9 @@ require('model/selectUser.php');
 			<!-- Search Message検索フォームのアンダーバー	 -->
 			<div id="bar"></div>
 			<!-- ユーザー履歴一覧 -->
-			<div class="user_list">
+			<div class="user_list" id="user_list">
 				<?php foreach ($talking_user as $user) { ?>
 					<div class="tom" id="talk_history" value="<?php echo $user['other_id']; ?>" >
-						<!-- <img src="../assets/img/icon.png" alt="icon" id="mes_icon"> -->
 						<img src="../image/<?php echo $user['other_image'] ?>" alt="icon" id="mes_icon">
 						<p id="his_name"><?php echo $user['other_name']; ?></p>
 						<p id="his_time"><?php echo $user['time']; ?></p>
@@ -138,7 +137,7 @@ require('model/selectUser.php');
 			<!-- 入力バー -->
 			<div id="mes_footer">
 				<!-- イメージ図選択ボタン		 -->
-				<form id="foo">
+				<form id="foo" action="bbs.php" method="GET">
 					<div id="image" >
 						<input type="file" name="image_uplode" id="file" style="display:none;" onchange="img_up()">
 						<img src="../assets/img/img_up.png" id="uplode_image" name="image_uplode" value="" onClick="$('#file').click();">
@@ -157,7 +156,11 @@ require('model/selectUser.php');
 
 					<!-- 送信ボタン -->
 					<div id="push" >
-						<img src="../assets/img/post.png" id="submit" onClick="$('#submit').click();">
+<!-- 						<img src="../assets/img/post.png" id="submit" onClick="$('#submit').click();"> -->
+
+						<!-- 下記コード、保留 -->
+						<!-- <img src="../assets/img/post.png" id="submit"> -->
+						<input type="image" src="../assets/img/post.png" id="submit" >
 					</div>	
 				</form>	
 			</div>
