@@ -55,25 +55,25 @@
     // echo '</pre>';
   }
   // batch_usersとpostをjoin
-  $sql = 'SELECT `post`. * ,`batch_users`.`id`, `batch_users`.`nickname`,`batch_users`.`image`
-          FROM `post`
-          LEFT JOIN `batch_users`
-          ON `post`.`users_id` = `batch_users`.`id`
-          WHERE 1
-          ORDER BY `post`. `created` DESC';
-  $data = array(); 
-  $stmt = $dbh->prepare($sql);
-  $stmt->execute($data);
+  // $sql = 'SELECT `post`. * ,`batch_users`.`id`, `batch_users`.`nickname`,`batch_users`.`image`
+  //         FROM `post`
+  //         LEFT JOIN `batch_users`
+  //         ON `post`.`users_id` = `batch_users`.`id`
+  //         WHERE 1
+  //         ORDER BY `post`. `created` DESC';
+  // $data = array(); 
+  // $stmt = $dbh->prepare($sql);
+  // $stmt->execute($data);
 
-  $post = array();
-  while(true){
-  $data = $stmt->fetch(PDO::FETCH_ASSOC);
-  if(!$data){
-    // ここに入ったらループを止めてあげる
-    break;
-  }
-  $post[] = $data;
-  }
+  // $post = array();
+  // while(true){
+  // $data = $stmt->fetch(PDO::FETCH_ASSOC);
+  // if(!$data){
+  //   // ここに入ったらループを止めてあげる
+  //   break;
+  // }
+  // $post[] = $data;
+  // }
   // error_log(print_r('$tweets',true),"3","../../../../../logs/error_log");
 
 // echo '<pre>';
@@ -98,7 +98,7 @@ if(!empty($_POST)){
   if(empty($errors)){
 
   // コメント記入の為のINSERT
-  $sql = "INSERT INTO `comment` SET `post_id` =?, `comment`=?";
+  $sql = "INSERT INTO `comment` SET `post_id` =?, `comment`=? ,`created`= NOW()";
   $data = array($post,$comment);
   $stmt = $dbh->prepare($sql);
   $stmt->execute($data);
@@ -109,45 +109,27 @@ if(!empty($_POST)){
   }
 }
 
- // ユーザー情報とコメントをjoin
- $sql = 'SELECT `comment`. * ,`batch_users`.`id`,`batch_users`.`image`
-          FROM `comment`
-          LEFT JOIN `batch_users`
-          ON `comment`.`users_id` = `batch_users`.`id`
-          WHERE 1';
+  // batch_usersとcommentとpostをjoin
+  "SELECT　`comment`. * ,
+           `batch_users`.`id`,`batch_users`.`image`,　
+           `post`.`ud`,
+  FROM `comment` INNER JOIN `post` ON `comment`.`post_id` = `post`.`id`
+                 INNER JOIN `batch_users` ON `comment`.`users_id` = `batch_users`.`id`
+  WHERE `post_id`=1";
+
   $data = array(); 
   $stmt = $dbh->prepare($sql);
   $stmt->execute($data);
 
-  $users = array();
+  $post = array();
   while(true){
   $data = $stmt->fetch(PDO::FETCH_ASSOC);
-  if(!$data){
-    // ここに入ったらループを止めてあげる
-    break;
+    if(!$data){
+      // ここに入ったらループを止めてあげる
+      break;
+    }
+  $post[] = $data;
   }
-  $users[] = $data;
-  }
-
- // $sql = 'SELECT `comment`. * ,`post`.`id`
- //          FROM `comment`
- //          LEFT JOIN `post`
- //          ON `comment`.`post_id` = `post`.`id`
- //          WHERE 1';
- //  $data = array(); 
- //  $stmt = $dbh->prepare($sql);
- //  $stmt->execute($data);
-
- //  $comment = array();
- //  while(true){
- //  $data = $stmt->fetch(PDO::FETCH_ASSOC);
- //  if(!$data){
- //    // ここに入ったらループを止めてあげる
- //    break;
- //  }
- //  $comment[] = $data;
- //  }
-
 
  ?>
 
@@ -226,9 +208,9 @@ if(!empty($_POST)){
 <div class="feedClm">
   <h1 style="text-align: center;">All TIMELINE</h1>
     <br><br>
+
   <?php foreach($post as $content){ ?>
-    <section>
- 
+    <section> 
       <!-- 日時 -->
         <p class="date"><?php echo $content['created']; ?></p>
           <div class="nameBox">
@@ -263,18 +245,16 @@ if(!empty($_POST)){
  <p class="sentence"><?php echo $content['content']; ?></p>
  
  <!-- コメント表示 -->
-<?php foreach($users as $reply){ ?>
   <div class="commentBox">
-      <a href="profile.php?id=<?php echo $reply['id'] ;?>">
+      <a href="profile.php?id=<?php echo $content['id'] ;?>">
     <?php if(!empty($reply['image'])){ ?>
-      <img src="../image/<?php echo $reply['image'];?>" width="35" height="35" alt=""/></a>
+      <img src="../image/<?php echo $content['image'];?>" width="35" height="35" alt=""/></a>
     <?php }else{ ?>
-      <a href="profile.php?id=<?php echo $reply['id'] ;?>">
+      <a href="profile.php?id=<?php echo $content['id'] ;?>">
       <img src="../assets/img/damy.jpg" width="35" height="35" alt=""/></a>
     <?php } ?>
-  <p class="txt"><?php echo $reply['comment']; ?></p>
+  <p class="txt"><?php echo $content['comment']; ?></p>
   </div>
-<?php } ?>
 
   <!-- コメント投稿欄 -->
 <div class="postBox">
