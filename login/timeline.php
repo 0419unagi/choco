@@ -13,27 +13,6 @@
     exit();
   }
 
-// いいねのデータを表示
-  // $sql = 'SELECT * FROM `like` WHERE user_id=? AND post_id=?'
-  // $data = array($_SESSION['login_user']['id'],$_REQUEST['post_id']);
-  // $stmt = $dbh->prepare($sql);
-  // $stmt->execute($data);
-
-
-// いいねのデータ挿入
-  // $sql = 'INSERT INTO `like` WHERE user_id=? AND post_id=?'
-  // $data = array($_SESSION['login_user']['id'],$_REQUEST['post_id']);
-  // $stmt = $dbh->prepare($sql);
-  // $stmt->execute($data);
-
-
-// いいねのデータ削除
-  // $sql = 'DELETE `like` WHERE user_id=? AND post_id=?'
-  // $data = array($_SESSION['login_user']['id'],$_REQUEST['post_id']);
-  // $stmt = $dbh->prepare($sql);
-  // $stmt->execute($data);
-
-
 
   //ユーザーデータをSELECTする
   $sql = 'SELECT * FROM `batch_users` WHERE id=?';
@@ -55,7 +34,7 @@
     // echo '</pre>';
   }
   // batch_usersとpostをjoin
-  $sql = 'SELECT `post`. * ,`batch_users`.`id`, `batch_users`.`nickname`,`batch_users`.`image`
+  $sql = 'SELECT `post`. * ,`batch_users`.`id` AS user_id, `batch_users`.`nickname`,`batch_users`.`image`
           FROM `post`
           LEFT JOIN `batch_users`
           ON `post`.`users_id` = `batch_users`.`id`
@@ -86,55 +65,84 @@ if(!empty($_POST)){
   // バリデーションチェック
   $errors = array();
 
+  if(isset($_POST['like'])){
+    // echo 'いいねしました';
+
+    // いいね！をDBへ登録する
+    $sql = 'INSERT INTO `like` SET `post_id`=?,`users_id`=?,`created`=NOW()';
+    $data = array($_POST['post_id'],$_SESSION['login_user']['id']);
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+
+    // いいね数をカウントする。
+    $sql = 'SELECT count(*) AS `con` FROM `like` WHERE `post_id`=?';
+    $data = array($_POST['post_id']);
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+
+    $like = $stmt->fetch(PDO::FETCH_ASSOC);
+    // var_dump($like);
+    echo 'いいねの数は'.$like["con"].'です。<br>';
+
+
+
+  }
+
   if(isset($_POST['comment'])){
     // ツイートするを押すと個々の処理が走ります。
   $comment = htmlspecialchars($_POST['comment']);
+  // echo 'POST送信しました。';
 
   // バリデーション
   if($comment==''){
     $errors['comment']='blank';
-    }
+      }elseif(strlen($comment) >= 57 ){
+        $errors['comment'] = 'length';
+  }
+
 
   if(empty($errors)){
 
   // コメント記入の為のINSERT
-  $sql = "INSERT INTO `comment` SET `post_id` =?, `comment`=?";
-  $data = array($post,$comment);
+  $sql = "INSERT INTO `comment` SET `post_id` =?, `users_id`=?, `comment`=?,`created`=NOW()";
+  $data = array($_POST['post_id'],$_SESSION['login_user']['id'],$comment);
   $stmt = $dbh->prepare($sql);
   $stmt->execute($data);
 
-  header('Location: timeline.php');
+  header('Location: timeline.php#post_'.$_POST['post_id']);
   exit();
   }
   }
 }
 
- // ユーザー情報とコメントをjoin
- $sql = 'SELECT `comment`. * ,`batch_users`.`id`,`batch_users`.`image`
-          FROM `comment`
-          LEFT JOIN `batch_users`
-          ON `comment`.`users_id` = `batch_users`.`id`
-          WHERE 1';
-  $data = array(); 
-  $stmt = $dbh->prepare($sql);
-  $stmt->execute($data);
 
-  $users = array();
-  while(true){
-  $data = $stmt->fetch(PDO::FETCH_ASSOC);
-  if(!$data){
-    // ここに入ったらループを止めてあげる
-    break;
-  }
-  $users[] = $data;
-  }
+
+ // ユーザー情報とコメントをjoin
+ // $sql = 'SELECT `comment`. * ,`batch_users`.`id`,`batch_users`.`image`
+ //         FROM `comment`
+ //         LEFT JOIN `batch_users`
+ //         ON `comment`.`users_id` = `batch_users`.`id`
+ //         WHERE 1';
+ //  $data = array(); 
+ //  $stmt = $dbh->prepare($sql);
+ //  $stmt->execute($data);
+
+ //  $users = array();
+ //  while(true){
+ //  $data = $stmt->fetch(PDO::FETCH_ASSOC);
+ //  if(!$data){
+ //    // ここに入ったらループを止めてあげる
+ //    break;
+ //  }
+ //  $users[] = $data;
+ //  }
 
  // $sql = 'SELECT `comment`. * ,`post`.`id`
  //          FROM `comment`
  //          LEFT JOIN `post`
  //          ON `comment`.`post_id` = `post`.`id`
- //          WHERE 1';
- //  $data = array(); 
+ //          WHERE post_id=1';
+ //  $data = array(''); 
  //  $stmt = $dbh->prepare($sql);
  //  $stmt->execute($data);
 
@@ -147,7 +155,6 @@ if(!empty($_POST)){
  //  }
  //  $comment[] = $data;
  //  }
-
 
  ?>
 
@@ -194,6 +201,7 @@ if(!empty($_POST)){
               <img class="gra" src="../assets/img/gra.png" width="100%" height="auto" alt=""/>
           </div>
 
+
           <div class="prfBox">
             <!-- ニックネーム -->
             <p class="nickname"><?php echo $data['nickname'] ;?></p>
@@ -230,7 +238,7 @@ if(!empty($_POST)){
     <section>
  
       <!-- 日時 -->
-        <p class="date"><?php echo $content['created']; ?></p>
+        <p id="post_<?php echo $content['id']; ?>" class="date"><?php echo $content['created']; ?></p>
           <div class="nameBox">
  
             <!-- 投稿ユーザーのページへ遷移 -->
@@ -244,6 +252,12 @@ if(!empty($_POST)){
               <!-- いいね -->
               <div class="badgeClm"><img src="../assets/img/badge.png" width="13" height="16" alt=""/>050</div>
           </div>
+<!--               <form method="POST" action="">
+                <input type="hidden" name="post_id" value="">
+                <input type="hidden" name="users_id" value="">
+                <input type="hidden" name="like" value="like">
+                <input type="submit" value="いいね！" class="btn btn-primary btn-xs">
+              </form> -->
 
     <div class="row">
       <div class="picClm col-xs-6">
@@ -256,12 +270,47 @@ if(!empty($_POST)){
               <img class="example-image" src="../assets/img/img_dumy6.jpg" width="100%" height="auto" alt=""/>
             </a>
         <?php } ?>
+
+      <!-- いいね -->
+      <br><br>
+      <form method="POST" action="">
+        <input type="hidden" name="post_id" value="<?php echo $content['id'];?>">
+        <input type="hidden" name="users_id" value="<?php echo $_SESSION['login_user']['id']?>">
+        <input type="hidden" name="like" value="like">
+        <input type="submit" value="いいね！" class="btn btn-primary btn-xs">
+      </form>
+
       </div>
 
 
  <div class="txtClm col-xs-6">
  <p class="sentence"><?php echo $content['content']; ?></p>
  
+
+<?php
+
+ $sql = 'SELECT `comment`. * ,`batch_users`.`id`,`batch_users`.`image`
+         FROM `comment`
+         LEFT JOIN `batch_users`
+         ON `comment`.`users_id` = `batch_users`.`id`
+         WHERE `post_id`=?';
+  $data = array($content['id']); 
+  $stmt = $dbh->prepare($sql);
+  $stmt->execute($data);
+
+  $users = array();
+  while(true){
+  $data = $stmt->fetch(PDO::FETCH_ASSOC);
+  if(!$data){
+    // ここに入ったらループを止めてあげる
+    break;
+  }
+  $users[] = $data;
+  }
+
+?>
+
+
  <!-- コメント表示 -->
 <?php foreach($users as $reply){ ?>
   <div class="commentBox">
@@ -276,20 +325,26 @@ if(!empty($_POST)){
   </div>
 <?php } ?>
 
+
   <!-- コメント投稿欄 -->
 <div class="postBox">
-  <?php if(!empty($data['image'])){ ?>
+  <?php if(!empty($content['image'])){ ?>
     <a href="profile.php?id=<?php echo $data['id'] ;?>">
     <img src="../image/<?php echo $_SESSION['login_user']['image'];?>" width="35" height="35" alt=""/></a>
   <?php }else{ ?>
     <img src="../assets/img/damy.jpg" width="35" height="35" alt=""/>
    <?php } ?>
   <form method="POST" action="">
+    <input type="hidden" name="post_id" value="<?php echo $content['id'];?>">
     <input style="border:none; outline: 0;width:230px;" class="text" type="txt" name="comment" placeholder="Write a Comment" value="">
-      <?php if(isset($errors['comment']) ){ ?>
+      <?php if(isset($errors['comment']) && $errors['comment'] == 'blank'){ ?>
         <div class="alert alert-danger">投稿内容を入力してください。</div>
+      <?php }elseif(isset($errors['comment']) && $errors['comment'] == 'length'){ ?>
+        <div class="alert alert-danger">18文字以内で入力してください。</div>
       <?php } ?>
-    <input type="submit" value="送信">
+
+
+    <input type="submit" value="Send">
     <!-- <i class="fa fa-pencil" aria-hidden="true"></i> -->
   </form>
 </div>
@@ -312,7 +367,6 @@ if(!empty($_POST)){
 </main>
 
 <footer>
- <!-- <small>copyright ©︎chocomallow.All rights reserved.</small> -->
  <?php require('../part/footer.php') ;?>
 
 </footer>

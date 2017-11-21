@@ -34,7 +34,7 @@ while(true){
 }
 
 
-$sql = 'SELECT `datepicker` FROM `batch_users` GROUP BY `datepicker` DESC';
+$sql = 'SELECT `datepicker`,COUNT(`id`) as c FROM `batch_users` GROUP BY `datepicker` DESC';
 $data = array();
 $stmt = $dbh->prepare($sql);
 $stmt->execute($data);
@@ -100,44 +100,119 @@ new WOW().init();
 				<ul>
 					<?php foreach($userdata as $data1){?>
 						<?php if($data1['datepicker']==$data['datepicker']){ ?>
+						<!-- もし、ユーザーが６人未満であればダミーを表示させる -->
+						<?php if(!empty($data['c'] >= 6)) {?>
 							<li>
 								<a href="profile.php?id=<?php echo $data1['id'] ;?>">
 								<!-- プロフィール画像 -->
 								<!-- もし、$data1のimageが存在していたら以下を表示 -->
 								<?php if(!empty($data1['image'])){ ?>
 
-								<!-- 色を変えたい -->
-								<?php if($data1['course']=='programming'){ ?>
-								  	<!-- プログラミング生の時、青色表示 -->
-			 						 <div class="frame_b">
-									 <img src="../image/<?php echo $data1['image'];?>" width="100%" height="auto" alt=""/>
-									 </div>
-								<?php }else { ?>
-								  	<!-- 英語生の時、黄色表示 -->
-									 <div class="frame_y">
-									 <img src="../image/<?php echo $data1['image'];?>" width="100%" height="auto" alt=""/>
-									 </div>
-								<?php } ?>
+									<!-- 色を変えたい -->
+									<?php if($data1['course']=='programming'){ ?>
+								  		<!-- プログラミング生の時、青色表示 -->
+			 						 	<div class="frame_b">
+									 		<img src="../image/<?php echo $data1['image'];?>" width="100%" height="auto" alt=""/>
+									 	</div>
+									<?php }else { ?>
+								  		<!-- 英語生の時、黄色表示 -->
+									 	<div class="frame_y">
+									 		<img src="../image/<?php echo $data1['image'];?>" width="100%" height="auto" alt=""/>
+									 	</div>
+									<?php } ?>
 
 								<?php }else{ ?>
 									<?php if($data1['course']=='programming'){ ?>
-								  	<!-- プログラミング生の時、青色表示 -->
-			 						 <div class="frame_b">
-									 <img src="../assets/img/damy.jpg" width="100%" height="auto" alt=""/>
-									 </div>
-								<?php }else { ?>
-								  	<!-- 英語生の時、黄色表示 -->
-									 <div class="frame_y">
-									 <img src="../assets/img/damy.jpg" width="100%" height="auto" alt=""/>
-									 </div>
-								<?php } ?>
+								  		<!-- プログラミング生の時、青色表示 -->
+			 						 	<div class="frame_b">
+									 		<img src="../assets/img/damy.jpg" width="100%" height="auto" alt=""/>
+									 	</div>
+									<?php }else { ?>
+								  		<!-- 英語生の時、黄色表示 -->
+									 	<div class="frame_y">
+									 		<img src="../assets/img/damy.jpg" width="100%" height="auto" alt=""/>
+									 	</div>
+									<?php } ?>
 								<?php } ?>
 
 								   	<!-- ユーザーネーム -->
 								  	<p class="name"><?php echo $data1['nickname'];?></p>
 								</a>
 							</li>
+						
+						<?php }else{ ?>
+							<li>
+								<a href="profile.php?id=<?php echo $data1['id'] ;?>">
+								<!-- プロフィール画像 -->
+								<!-- もし、$data1のimageが存在していたら以下を表示 -->
+								<?php if(!empty($data1['image'])){ ?>
+
+									<!-- 色を変えたい -->
+									<?php if($data1['course']=='programming'){ ?>
+								  		<!-- プログラミング生の時、青色表示 -->
+			 						 	<div class="frame_b">
+									 		<img src="../image/<?php echo $data1['image'];?>" width="100%" height="auto" alt=""/>
+									 	</div>
+									<?php }else { ?>
+								  		<!-- 英語生の時、黄色表示 -->
+									 	<div class="frame_y">
+									 		<img src="../image/<?php echo $data1['image'];?>" width="100%" height="auto" alt=""/>
+									 	</div>
+									<?php } ?>
+
+								<?php }else{ ?>
+									<?php if($data1['course']=='programming'){ ?>
+								  		<!-- プログラミング生の時、青色表示 -->
+			 						 	<div class="frame_b">
+									 		<img src="../assets/img/damy.jpg" width="100%" height="auto" alt=""/>
+									 	</div>
+									<?php }else { ?>
+								  		<!-- 英語生の時、黄色表示 -->
+									 	<div class="frame_y">
+									 		<img src="../assets/img/damy.jpg" width="100%" height="auto" alt=""/>
+									 	</div>
+									<?php } ?>
+								<?php } ?>
+
+								   	<!-- ユーザーネーム -->
+								  	<p class="name"><?php echo $data1['nickname'];?></p>
+								</a>
+							</li>
+
+							<li>
+							 	<div class="frame_b">
+						 			<img src="../assets/img/damy.jpg" width="100%" height="auto" alt=""/>
+						 		</div>
+						 		<p class="name">NickName</p>
+						 	</li>
+						 	<li>
+						 		<div class="frame_y">
+						 			<img src="../assets/img/damy.jpg" width="100%" height="auto" alt=""/>
+						 		</div>
+						 		<p class="name">NickName</p>
+						 	<li>
+						 		<div class="frame_b">
+						 			<img src="../assets/img/damy.jpg" width="100%" height="auto" alt=""/>
+						 		</div>
+						 		<p class="name">NickName</p>
+						 	</li>
+						 	<li>
+						 		<div class="frame_y">
+						 			<img src="../assets/img/damy.jpg" width="100%" height="auto" alt=""/>
+						 		</div>
+						 		<p class="name">NickName</p>
+						 	<li>
+						 		<div class="frame_b">
+						 			<img src="../assets/img/damy.jpg" width="100%" height="auto" alt=""/>
+						 		</div>
+						 		<p class="name">NickName</p>
+						 	</li>
+
+						<!-- if(data６件) -->
 						<?php } ?>
+						<!-- if(datepiker閉じタグ) -->
+						<?php } ?>
+					<!-- foreach閉じタグ -->
 					<?php } ?>
 				</ul>
 			</div>
