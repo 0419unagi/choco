@@ -84,9 +84,21 @@ if(!empty($_POST)){
     // var_dump($like);
     echo 'いいねの数は'.$like["con"].'です。<br>';
 
+  }
 
+  if(isset($_POST['delete'])){
+    echo '削除しました';
+
+    // コメント削除のDELETE文
+    $sql = 'DELETE `id` FROM `comment` WHERE `id`=?';
+    $data = array('id');
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
 
   }
+
+
+
 
   if(isset($_POST['comment'])){
     // ツイートするを押すと個々の処理が走ります。
@@ -96,7 +108,7 @@ if(!empty($_POST)){
   // バリデーション
   if($comment==''){
     $errors['comment']='blank';
-      }elseif(strlen($comment) >= 57 ){
+      }elseif(strlen($comment) >= 51 ){
         $errors['comment'] = 'length';
   }
 
@@ -249,15 +261,9 @@ if(!empty($_POST)){
                 <?php echo $content['nickname']; ?>
               </div>
             </a>
-              <!-- いいね -->
+              <!-- いいね数表示 -->
               <div class="badgeClm"><img src="../assets/img/badge.png" width="13" height="16" alt=""/>050</div>
           </div>
-<!--               <form method="POST" action="">
-                <input type="hidden" name="post_id" value="">
-                <input type="hidden" name="users_id" value="">
-                <input type="hidden" name="like" value="like">
-                <input type="submit" value="いいね！" class="btn btn-primary btn-xs">
-              </form> -->
 
     <div class="row">
       <div class="picClm col-xs-6">
@@ -322,6 +328,13 @@ if(!empty($_POST)){
       <img src="../assets/img/damy.jpg" width="35" height="35" alt=""/></a>
     <?php } ?>
   <p class="txt"><?php echo $reply['comment']; ?></p>
+  <!--  -->
+  <form method="POST" action="">
+    <input type="hidden" name="post_id" value="<?php echo $content['id']?>">
+    <input type="hidden" name="users_id" value="<?php echo $_SESSION['login_user']['id']?>">
+    <input type="hidden" name="delete" value="delete">
+    <input type="submit" value="削除" class="btn btn-primary btn-xs" style="margin-right: 0px;">
+  </form>
   </div>
 <?php } ?>
 
@@ -340,7 +353,7 @@ if(!empty($_POST)){
       <?php if(isset($errors['comment']) && $errors['comment'] == 'blank'){ ?>
         <div class="alert alert-danger">投稿内容を入力してください。</div>
       <?php }elseif(isset($errors['comment']) && $errors['comment'] == 'length'){ ?>
-        <div class="alert alert-danger">18文字以内で入力してください。</div>
+        <div class="alert alert-danger">16文字以内で入力してください。</div>
       <?php } ?>
 
 
