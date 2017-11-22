@@ -84,21 +84,21 @@ if(!empty($_POST)){
     // var_dump($like);
     echo 'いいねの数は'.$like["con"].'です。<br>';
 
-  }
-
-  if(isset($_POST['delete'])){
-    echo '削除しました';
-
-    // コメント削除のDELETE文
-    $sql = 'DELETE `id` FROM `comment` WHERE `id`=?';
-    $data = array('id');
+    // DBにいいね！の数を保存する(更新する)
+    $sql = 'UPDATE `post` SET `like_count`=? WHERE `id`=?';
+    $data = array($like['con'],$_POST['post_id']);
     $stmt = $dbh->prepare($sql);
     $stmt->execute($data);
 
+    // POST送信を破棄する
+    header('Location: timeline.php#post_'.$_POST['post_id']);
+    exit();
+
+
+
+
+
   }
-
-
-
 
   if(isset($_POST['comment'])){
     // ツイートするを押すと個々の処理が走ります。
@@ -127,47 +127,6 @@ if(!empty($_POST)){
   }
 }
 
-
-
- // ユーザー情報とコメントをjoin
- // $sql = 'SELECT `comment`. * ,`batch_users`.`id`,`batch_users`.`image`
- //         FROM `comment`
- //         LEFT JOIN `batch_users`
- //         ON `comment`.`users_id` = `batch_users`.`id`
- //         WHERE 1';
- //  $data = array(); 
- //  $stmt = $dbh->prepare($sql);
- //  $stmt->execute($data);
-
- //  $users = array();
- //  while(true){
- //  $data = $stmt->fetch(PDO::FETCH_ASSOC);
- //  if(!$data){
- //    // ここに入ったらループを止めてあげる
- //    break;
- //  }
- //  $users[] = $data;
- //  }
-
- // $sql = 'SELECT `comment`. * ,`post`.`id`
- //          FROM `comment`
- //          LEFT JOIN `post`
- //          ON `comment`.`post_id` = `post`.`id`
- //          WHERE post_id=1';
- //  $data = array(''); 
- //  $stmt = $dbh->prepare($sql);
- //  $stmt->execute($data);
-
- //  $comment = array();
- //  while(true){
- //  $data = $stmt->fetch(PDO::FETCH_ASSOC);
- //  if(!$data){
- //    // ここに入ったらループを止めてあげる
- //    break;
- //  }
- //  $comment[] = $data;
- //  }
-
  ?>
 
 
@@ -181,6 +140,7 @@ if(!empty($_POST)){
   <link href="../assets/css/bootstrap.css" rel="stylesheet">
   <link href="../assets/css/font-awesome.min.css" rel="stylesheet">
   <link href="../assets/css/profile.css" rel="stylesheet" type="text/css">
+  <link href="../assets/css/font-awesome.min.css">
   
   <!-- アニメーション --> 
   <link href="../assets/css/animate.css" rel="stylesheet">
@@ -248,13 +208,13 @@ if(!empty($_POST)){
     <br><br>
   <?php foreach($post as $content){ ?>
     <section>
- 
+
       <!-- 日時 -->
         <p id="post_<?php echo $content['id']; ?>" class="date"><?php echo $content['created']; ?></p>
           <div class="nameBox">
  
             <!-- 投稿ユーザーのページへ遷移 -->
-            <a href="profile.php?id=<?php echo $content['id'] ;?>">
+            <a href="profile.php?id=<?php echo $content['user_id'] ;?>">
  
               <!-- ユーザー画像＆ニックネーム -->
               <div class="selfClm"><img src="../image/<?php echo $content['image'];?>" width="80" height="80" alt=""/>
@@ -262,7 +222,7 @@ if(!empty($_POST)){
               </div>
             </a>
               <!-- いいね数表示 -->
-              <div class="badgeClm"><img src="../assets/img/badge.png" width="13" height="16" alt=""/>050</div>
+              <div class="badgeClm"><img src="../assets/img/badge.png" width="13" height="16" alt=""/><?php echo $content['like_count']?></div>
           </div>
 
     <div class="row">
@@ -282,8 +242,34 @@ if(!empty($_POST)){
       <form method="POST" action="">
         <input type="hidden" name="post_id" value="<?php echo $content['id'];?>">
         <input type="hidden" name="users_id" value="<?php echo $_SESSION['login_user']['id']?>">
-        <input type="hidden" name="like" value="like">
-        <input type="submit" value="いいね！" class="btn btn-primary btn-xs">
+        
+        <?php 
+        // 自分がいいねしたかどうかチェックする。
+        $sql = 'SELECT * FROM `like` WHERE `post_id`=? AND `users_id`=?';
+        $data = array($content['id'],$_SESSION['login_user']['id']);
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute($data);
+
+        // データベースから1件取得して
+        // 自分がいいねしてなかったら0が来るようにする
+        $check = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        ?>
+
+
+        <?php if(!$check){ ?>
+          <input type="hidden" name="like" value="like">
+          <div class="like">
+            <input type="submit" value="いいね！" class="btn-xs">
+            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+          </div>
+        <?php }else{ ?>
+          <input type="hidden" name="like" value="unlike">
+          <div class="like">
+            <input type="submit" value="いいね取消" class="btn-xs">
+            <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+          </div>
+        <?php } ?>
       </form>
 
       </div>
@@ -328,13 +314,16 @@ if(!empty($_POST)){
       <img src="../assets/img/damy.jpg" width="35" height="35" alt=""/></a>
     <?php } ?>
   <p class="txt"><?php echo $reply['comment']; ?></p>
-  <!--  -->
-  <form method="POST" action="">
-    <input type="hidden" name="post_id" value="<?php echo $content['id']?>">
-    <input type="hidden" name="users_id" value="<?php echo $_SESSION['login_user']['id']?>">
-    <input type="hidden" name="delete" value="delete">
-    <input type="submit" value="削除" class="btn btn-primary btn-xs">
-  </form>
+  <!-- 削除-->
+  <?php if($_SESSION['login_user']['id'] == $reply['id']){ ?>
+      <form method="POST" action="">
+        <div class="send">
+          <input type="submit" value="" class="btn-xs">
+          <i class="fa fa-trash-o" aria-hidden="true"></i>
+        </div>
+      </form>
+
+  <?php } ?>
   </div>
 <?php } ?>
 
@@ -342,7 +331,7 @@ if(!empty($_POST)){
   <!-- コメント投稿欄 -->
 <div class="postBox">
   <?php if(!empty($content['image'])){ ?>
-    <a href="profile.php?id=<?php echo $data['id'] ;?>">
+    <a href="profile.php?id=<?php echo $_SESSION['login_user']['id'] ;?>">
     <img src="../image/<?php echo $_SESSION['login_user']['image'];?>" width="35" height="35" alt=""/></a>
   <?php }else{ ?>
     <img src="../assets/img/damy.jpg" width="35" height="35" alt=""/>
@@ -356,9 +345,10 @@ if(!empty($_POST)){
         <div class="alert alert-danger">16文字以内で入力してください。</div>
       <?php } ?>
 
-
-    <input type="submit" value="Send">
-    <!-- <i class="fa fa-pencil" aria-hidden="true"></i> -->
+<div class="send">
+    <input type="submit" value="" class="btn-xs">
+    <i class="fa fa-pencil" aria-hidden="true"></i>
+</div>
   </form>
 </div>
 </div>
