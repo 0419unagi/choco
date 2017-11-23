@@ -5,8 +5,10 @@ session_start();
 // error_log(print_r('update_side_bar.php',true),"3","../../../../../../logs/error_log");
 
 $user_id = $_SESSION['login_user']['id'] ;
-// $other_id = $_GET['other_id'];
-error_log(print_r($user_id,true),"3","../../../../../../logs/error_log");
+$other_id = '';
+$other_id = $_GET['other_id'];
+error_log(print_r('se',true),"3","../../../../../../logs/error_log");
+
 
 
 $sql = 'SELECT
@@ -94,9 +96,22 @@ while (true) {
 	}
 	$talking_user[] =$record;	
 }
+error_log(print_r($talking_user,true),"3","../../../../../logs/error_log");
 foreach ($talking_user as $user) {
-	$inputValue[] = '<div class="tom" id="talk_history" value="'.$user['other_id'].'" ><img src="../image/'.$user['other_image'].'  " alt="icon" id="mes_icon"><p id="his_name">'.$user['other_name'].'</p><p id="his_time">'.$user['time'].'</p></div>';
+	if ($other_id==$user['other_id']){ 
+
+		error_log(print_r('UP',true),"3","../../../../../logs/error_log");
+		$inputValue[] = '<div class="tom highlight" id="talk_history" value="'.$user['other_id'].'" ><img src="../image/'.$user['other_image'].'  " alt="icon" id="mes_icon"><p id="his_name">'.$user['other_name'].'</p><p id="his_time">'.$user['time'].'</p></div>';
+	}else{ 
+		error_log(print_r('DOWN',true),"3","../../../../../logs/error_log");
+		$inputValue[] = '<div class="tom" id="talk_history" value="'.$user['other_id'].'" ><img src="../image/'.$user['other_image'].'  " alt="icon" id="mes_icon"><p id="his_name">'.$user['other_name'].'</p><p id="his_time">'.$user['time'].'</p></div>';
+	}
+
+
+
+	// $inputValue[] = '<div class="tom" id="talk_history" value="'.$user['other_id'].'" ><img src="../image/'.$user['other_image'].'  " alt="icon" id="mes_icon"><p id="his_name">'.$user['other_name'].'</p><p id="his_time">'.$user['time'].'</p></div>';
 } 
+
 
 
 

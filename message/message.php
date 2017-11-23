@@ -1,4 +1,11 @@
-<?php 
+<?php
+
+// if(!isset($_SESSION['login_user']['id'])){
+//     header('Location: ../login/index.php');
+//     exit();
+//   }
+
+
 require('../part/header.php');
 // データベース呼び出し
 require('../dbconnect.php');
@@ -54,7 +61,7 @@ if (isset($_GET['id'])) {
 // 	$stmt->execute($data);
 // 	$record = $stmt->fetch(PDO::FETCH_ASSOC);
 // 	$_SESSION['other_id'] = $record['other_id'];
-// 	// error_log(print_r($other_id,true),"3","../../../../../logs/error_log");
+	// error_log(print_r($other_id,true),"3","../../../../../logs/error_log");
 // 	}
 
 
@@ -106,7 +113,15 @@ require('model/selectUser.php');
 			<!-- ユーザー履歴一覧 -->
 			<div class="user_list" id="user_list">
 				<?php foreach ($talking_user as $user) { ?>
-					<div class="tom" id="talk_history" value="<?php echo $user['other_id']; ?>" >
+					<!-- もし今見ているユーザーの場合、ハイライトで示す。	 -->
+					<?php if ($other_id==$user['other_id']){ ?>
+						<?php error_log(print_r('上',true),"3","../../../../../logs/error_log"); ?>
+						<div class="tom highlight" id="talk_history" value="<?php echo $user['other_id']; ?>" >
+					<?php }else{ ?>
+						<?php error_log(print_r('下',true),"3","../../../../../logs/error_log"); ?>
+						<div class="tom" id="talk_history" value="<?php echo $user['other_id']; ?>" >
+					<?php } ?>
+
 						<img src="../image/<?php echo $user['other_image'] ?>" alt="icon" id="mes_icon">
 						<p id="his_name"><?php echo $user['other_name']; ?></p>
 						<p id="his_time"><?php echo $user['time']; ?></p>
@@ -156,10 +171,6 @@ require('model/selectUser.php');
 
 					<!-- 送信ボタン -->
 					<div id="push" >
-<!-- 						<img src="../assets/img/post.png" id="submit" onClick="$('#submit').click();"> -->
-
-						<!-- 下記コード、保留 -->
-						<!-- <img src="../assets/img/post.png" id="submit"> -->
 						<input type="image" src="../assets/img/post.png" id="submit" >
 					</div>	
 				</form>	

@@ -27,6 +27,7 @@ $(document).ready(function(){
           .done(function(data) {            
             //指定されたユーザーIDとのトーク履歴を表示する
             changeTalk(other_id);
+            updateSideBar(other_id);
 
             //コメント送信ボタンのother_idのvalue値を上で定義したother_id
             //がセットされた要素を上書きする
@@ -48,36 +49,16 @@ $(document).ready(function(){
                 textSelector: "p",
                 inputSelector: "#mes_search"
             });
-
-
-
 });
+
 
 //メッセージ送信機能
 $(function(){
-    //(課題)#submitにenterキーを押すると以下のコードを実行する
-
-    // //メッセージ送信ボタンをクリックするとメッセージ投稿
-    // $('#submit').click(function(){
-    //     //メッセージをデータベースへ保存
-    //     sendMessage();
-    // });
-    // //メッセージ送信ボタンをenter押すとメッセージ投稿
-    // $('#submit').keypress(function(){
-    //     //メッセージをデータベースへ保存
-    //     sendMessage();
-    // });
-    
     //メッセージ送信
     $('#foo').submit(function(event){
         event.preventDefault();
         sendMessage();
-
     });
-
-
-
-
 });
 
 
@@ -86,9 +67,10 @@ function sendMessage(){
     //フォームに何も入力されていない場合は、そのままreturn
         if(!$('#text_input').val()) return;
         //bbs.phpへgetリクエストで配列を送信している
+        var other_id = $('#other_id').val();
         $.get('bbs.php', {
             user_id: $('#user_id').val(),
-            other_id: $('#other_id').val(),
+            other_id: other_id,
             content: $('#text_input').val(),
             uplode_image: "NULL",
             mode: "0" // 書き込み
@@ -98,7 +80,7 @@ function sendMessage(){
             // 入力後にテキストボックスを空にする
             $('#text_input').val('');
             // サイドバーを更新
-            updateSideBar();
+            updateSideBar(other_id);
         }); 
 }
 
@@ -144,13 +126,17 @@ function changeTalk(data){
 
 
 //トーク送信時にサイドバーを更新
-function updateSideBar() {
-    console.log('execute updatesSideBar');
+function updateSideBar(data) {
+    console.log(data);
+    //(TODO)update_side_bar.phpにother_idを送信する
+    var other_id = data;
 
     $.ajax({
       type: 'GET',
-      // url: "model/update_side_bar.php",
       url:"model/update_side_bar.php",
+      data: {
+                    other_id: other_id,
+                },
       error : function(XMLHttpRequest, textStatus, errorThrown) {
         console.log("ajax通信に失敗しました");
         console.log("XMLHttpRequest : " + XMLHttpRequest.status);
@@ -160,26 +146,8 @@ function updateSideBar() {
     })
       .done(function(data) { 
         console.log('done');
-        console.log(data);
-
-
         var sidebar = $.parseJSON(data);
-        // // 返り値の最後にユーザーネームを付けているので、取得する
-        // var user_name = test[test.length - 1];
-        // // ユーザーネーム取得後、最後の要素を削除する
-        // test.pop();
-        // console.log(test);
-        // console.log($.type(test));  
-
-
-        // var logs = test.join('');
         $("#user_list").html(sidebar);
-        // scrollDown();
-
-
-
-        // // console.log(user_name);
-        // $("#mes_head").html(user_name);
 
      }).fail(function(data) {                
         console.log('fail');
@@ -260,10 +228,7 @@ function makeImg(){
                 contentType: false,
             })
             .done(function(data) {                
-                // $('#result').text(data.width + "x" + data.height);
-                
                 console.log('done');
-                console.log(data);
 
             }).fail(function(data) {                
                 console.log('fail');
