@@ -68,11 +68,26 @@ if(!empty($_POST)){
   if(isset($_POST['like'])){
     // echo 'いいねしました';
 
+    if($_POST['like']){
+      if($_POST['like'] == 'like'){
+
     // いいね！をDBへ登録する
     $sql = 'INSERT INTO `like` SET `post_id`=?,`users_id`=?,`created`=NOW()';
     $data = array($_POST['post_id'],$_SESSION['login_user']['id']);
     $stmt = $dbh->prepare($sql);
     $stmt->execute($data);
+
+      }elseif($_POST['like'] == 'unlike'){
+        // いいねを取り消した時
+        $sql = 'DELETE FROM `like` WHERE `post_id`=? AND `users_id`=?';
+        $data = array($_POST['post_id'],$_SESSION['login_user']['id']);
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute($data);
+
+      }
+    }
+
+
 
     // いいね数をカウントする。
     $sql = 'SELECT count(*) AS `con` FROM `like` WHERE `post_id`=?';
@@ -281,7 +296,7 @@ if(!empty($_POST)){
 
 <?php
 
- $sql = 'SELECT `comment`. * ,`batch_users`.`id`,`batch_users`.`image`
+ $sql = 'SELECT `comment`. * ,`batch_users`.`id` AS `user_id`,`batch_users`.`image`
          FROM `comment`
          LEFT JOIN `batch_users`
          ON `comment`.`users_id` = `batch_users`.`id`
@@ -306,23 +321,17 @@ if(!empty($_POST)){
  <!-- コメント表示 -->
 <?php foreach($users as $reply){ ?>
   <div class="commentBox">
-      <a href="profile.php?id=<?php echo $reply['id'] ;?>">
+      <a href="profile.php?id=<?php echo $reply['user_id'] ;?>">
     <?php if(!empty($reply['image'])){ ?>
       <img src="../image/<?php echo $reply['image'];?>" width="35" height="35" alt=""/></a>
     <?php }else{ ?>
-      <a href="profile.php?id=<?php echo $reply['id'] ;?>">
+      <a href="profile.php?id=<?php echo $reply['user_id'] ;?>">
       <img src="../assets/img/damy.jpg" width="35" height="35" alt=""/></a>
     <?php } ?>
   <p class="txt"><?php echo $reply['comment']; ?></p>
   <!-- 削除-->
-  <?php if($_SESSION['login_user']['id'] == $reply['id']){ ?>
-      <form method="POST" action="">
-        <div class="send">
-          <input type="submit" value="" class="btn-xs">
-          <i class="fa fa-trash-o" aria-hidden="true"></i>
-        </div>
-      </form>
-
+  <?php if($_SESSION['login_user']['id'] == $reply['user_id']){ ?>
+    <a onclick="return confirm('削除してもよろしいでしょうか？')" href="delete_tl.php?id=<?php echo $reply['id']; ?>"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
   <?php } ?>
   </div>
 <?php } ?>

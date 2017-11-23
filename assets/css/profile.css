@@ -409,10 +409,10 @@ main {
  top: 5px;
 }
 
-/*投稿・削除ボタン*/
+/*投稿ボタン*/
 .send{display:inline-block;position:relative;}
 .send input[type=submit]{padding:0px 20px;font-size:16px;cursor:pointer;border: none;}
-.send i{position:absolute;top:50%;left:80%;margin-top:-0.5em;margin-left:-1.5em;}
+.send i{position:absolute;top:50%;left:90%;margin-top:-0.5em;margin-left:-1.5em;}
 
 /*いいね!ボタン*/
 .like{display:inline-block;position:relative;}
