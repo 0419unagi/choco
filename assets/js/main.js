@@ -40,9 +40,13 @@ $(document).ready(function(){
          });         
     });
 
-    $(function(){
-      $('input#mes_search').quicksearch('div p #his_name');
-    });
+
+    サイドバーのユーザー検索機能    
+    $(".user_list").searcher({
+                itemSelector: ".tom",
+                textSelector: "p",
+                inputSelector: "#mes_search"
+            });
 
 
 
@@ -72,6 +76,48 @@ $(function(){
         }); 
     });
 });
+
+
+
+// function searchUser(){
+//     $('#mes_search').keypress(function(){
+//         var search_user = $('#mes_search').val();
+//         console.log('//////////////////////////////');
+//         console.log(search_user);
+
+//         $.ajax({
+//           type: 'GET',
+//           url: "bbs_search_user.php",
+//           data: search_user,
+//           error : function(XMLHttpRequest, textStatus, errorThrown) {
+//             console.log("ajax通信に失敗しました");
+//             console.log("XMLHttpRequest : " + XMLHttpRequest.status);
+//             console.log("textStatus     : " + textStatus);
+//             console.log("errorThrown    : " + errorThrown.message);
+//         },
+//         })
+//           .done(function(data) { 
+//             // 選択されたユーザーの要素をJsonから配列にデコードする
+//             var test = $.parseJSON(data);
+//             // console.log(test);
+//             var logs = test.join('');
+//             $("#result").html(logs);
+//             scrollDown();
+//             // console.log(user_name);
+//             $("#mes_head").html(user_name);
+
+//          }).fail(function(data) {                
+//             // console.log('fail');
+
+//          }).always(function(data) {                
+//             // console.log('always');
+//          });         
+
+        
+
+// });
+// }
+
 
 
 //サイドバーで選択したユーザーとのトーク画面を表示する
