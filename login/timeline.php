@@ -223,11 +223,15 @@ if(!empty($_POST)){
     <br><br>
   <?php foreach($post as $content){ ?>
     <section>
+      <?php 
+        $test = $content['created'] ;
+        $date = substr($test,0,10);
+      ?>
 
       <!-- 日時 -->
-        <p id="post_<?php echo $content['id']; ?>" class="date"><?php echo $content['created']; ?></p>
+        <p class="date"><?php echo $date; ?></p>
           <div class="nameBox">
- 
+
             <!-- 投稿ユーザーのページへ遷移 -->
             <a href="profile.php?id=<?php echo $content['user_id'] ;?>">
  
