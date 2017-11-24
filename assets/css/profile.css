@@ -409,10 +409,21 @@ main {
  top: 5px;
 }
 
+#sendWrp{
+  display: flex;
+  justify-content: space-between;
+}
+
+#btnWrp{
+  display: flex;
+  justify-content: flex-start;
+}
+
+
 /*投稿ボタン*/
-.send{display:inline-block;position:relative;}
-.send input[type=submit]{padding:0px 20px;font-size:16px;cursor:pointer;border: none;}
-.send i{position:absolute;top:50%;left:90%;margin-top:-0.5em;margin-left:-1.5em;}
+.penBox{display:inline-block;position:relative;}
+.penBox input[type=submit]{padding:0px 20px;font-size:16px;cursor:pointer;border: none;}
+.penBox i{position:absolute;top:50%;left:90%;margin-top:-0.5em;margin-left:-1.5em;}
 
 /*いいね!ボタン*/
 .like{display:inline-block;position:relative;}

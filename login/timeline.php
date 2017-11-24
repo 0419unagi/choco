@@ -358,7 +358,7 @@ if(!empty($_POST)){
         <div class="alert alert-danger">16文字以内で入力してください。</div>
       <?php } ?>
 
-<div class="send">
+<div class="penBox">
     <input type="submit" value="" class="btn-xs">
     <i class="fa fa-pencil" aria-hidden="true"></i>
 </div>
