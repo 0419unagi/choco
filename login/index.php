@@ -80,28 +80,30 @@
    </div>
 
     <!-- ログイン -->
-    <form method="POST" action="" >
+    <form method="POST" action="" >              
+              
         <?php if(isset($errors['login']) ){ ?>
-          <div>
-            メールアドレスまたはパスワードが違います。
-          </div>
+          <p class="att">メールアドレスまたはパスワードが違います。</p>
         <?php } ?>
         
-        <div class="inputBox">EMAIL ADDRESS</div>
-        <input class="text" type="email" name="email"  placeholder="chocomallow@jollibee" value="<?php echo $email; ?>">
-        <?php if (isset($errors['email']) && $errors['email'] == 'blank'){
-            echo '<div class="att">※メールアドレスを入力してください</div>'.'<br>';
-        }
-        ?>
+        <div class="list">
+           <p class="ttl">EMAIL ADDRESS</p>
+           <input class="text" type="email" name="email"  placeholder="chocomallow@jollibee" value="<?php echo $email; ?>">
+           <?php if (isset($errors['email']) && $errors['email'] == 'blank'){
+               echo '<p class="att">※メールアドレスを入力してください</p>'.'<br>';
+           }
+           ?>
+        </div>
         
-        <div class="inputBox">PASSWORD</div>
-        <input class="text" type="password" name="password" placeholder="●●●●●●●●" value="<?php echo $password; ?>">
-        <br> 
-        <?php if (isset($errors['password']) && $errors['password'] == 'blank'){
-             echo '<div class="att">※パスワードは4文字以上8文字以内で入力してください。</div>';
-        }elseif(isset($errors['password']) && $errors['password'] == 'length'){
-            echo '<div class="att">※パスワードは4文字以上8文字以内で入力してください。</div>';
-        }?>
+        <div class="list">
+           <p class="ttl">PASSWORD</p>
+           <input class="text" type="password" name="password" placeholder="●●●●●●●●" value="<?php echo $password; ?>">
+           <?php if (isset($errors['password']) && $errors['password'] == 'blank'){
+                echo '<p class="att">※パスワードは4文字以上8文字以内で入力してください。</p>';
+           }elseif(isset($errors['password']) && $errors['password'] == 'length'){
+               echo '<p class="att">※パスワードは4文字以上8文字以内で入力してください。</p>';
+           }?>
+        </div>
 
         <div id="submitBox">
          <input class="login" type="submit" value="LOGIN">

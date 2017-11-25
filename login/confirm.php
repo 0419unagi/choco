@@ -12,7 +12,6 @@
     if (!empty($_POST)) {
       echo "エラーなし！ok！";
 
-
     $username = ($_SESSION["login_user"]['username']);
     $nickname = ($_SESSION["login_user"]['nickname']);
     $email = ($_SESSION["login_user"]['email']);
@@ -36,10 +35,9 @@
     $_SESSION['login_user']['id']=$data['id'];
        header("Location:top.php");
        exit();
-
    }
-
  ?>
+
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -49,94 +47,78 @@
   <link rel="stylesheet" type="text/css" href="../assets/css/login.css">
   <title>登録確認画面</title>
 </head>
+
+
 <body>
-
-  <div id="tablecellboke">
   <div class="container">
-    <div class="row">
-      <div class="col-xs-3"></div>
 
-      <div class="col-xs-3">
-        <div class="batch">
-          <img src="../assets/img/logomark.png" alt="hand_logo" >
-          <h1>BATCH</h1>
-          <p>make a history together!</p>
-          <br>
-          <h2>Sign up</h2>
+      <div class="clmWrp">
+       
+        <div class="clm" id="clm_1">
+            <div id="logoBox">
+              <img src="../assets/img/logomark.png" alt="hand_logo" width="81" height="135" id="logo" >
+              <h1>BATCH</h1>
+              <p id="sub">make a history together</p>
+            </div>
+            <div id="ctgBox">
+              <div class="line"></div>
+              <h2>SIGN UP</h2>
+              <div class="line"></div>
+          </div>
         </div>
-      </div>
+      
+     
+      <div class="clm" id="clm_2">
+       <p class="catch">下記の情報で登録してもよろしいですか？</p>
 
-  <div class="check">
-   <div class="col-xs-3" style="width: 300px;"><br><br>
-    下記の情報で登録してもよろしいですか？<br>
-    <br><br><br>
+       <div class="list">
+         <p class="ttl">FULLNAME</p>
+         <p class="text"><?php echo $_SESSION['login_user']['username']; ?></p>
+       </div>
+
+        <div class="list">
+         <p class="ttl">NICKNAME</p>
+         <p class="text"><?php echo $_SESSION['login_user']['nickname']; ?></p>
+        </div>
+
+        <div class="list">
+          <p class="ttl">EMAIL</p>
+          <p class="text"><?php echo $_SESSION['login_user']['email']; ?></p>
+        </div>
+
+       <div class="list">
+         <p class="ttl">COURSE</p>
+         <p class="text"><?php echo $_SESSION['login_user']['course']; ?></p>
+       </div>
+
+       <div class="list">
+         <p class="ttl">ENTRANCE</p>
+         <p class="text"><?php echo $_SESSION['login_user']['datepicker']; ?></p>
+       </div>
+
+       <div class="list">
+         <p class="ttl">GRADUATION</p>
+         <p class="text"><?php echo $_SESSION['login_user']['datepicker2'];?></p>
+       </div>
+
+       <div class="list">
+         <p class="ttl">PASSWORD</p>
+         <p class="text"><?php echo $_SESSION['login_user']['password']; ?></p>
+       </div>
+     </div>
+
+
+     <div class="clm" id="clm_3">
+      <div class="position"  id="submitBox">
+       <form method="POST" action="">
+         <input type="hidden" name="batch_users" value="batch_users">
+         <input class="login" type="submit" value="SIGN UP">
+         <input class="login" type="button" value="BACK" onclick="history.back()">
+       </form>
+     </div>
+    </div>
     
-    <div class="top">FULLNAME<br>
-    <div class="text">
-    <?php echo $_SESSION['login_user']['username']; ?> 
-    </div>
-    </div><br>
-    
-
-    <div class="top">NICKNAME<br>
-    <div class="text">
-    <?php echo $_SESSION['login_user']['nickname']; ?>
-    </div>
-    </div><br>
-
-
-    <div class="top">EMAIL<br>
-    <div class="text">
-    <?php echo $_SESSION['login_user']['email']; ?>
-    </div>
-    </div><br>
-
-
-    <div class="top">COURSE<br>
-    <div class="text">
-    <?php echo $_SESSION['login_user']['course']; ?>
-    </div>
-    </div><br>
-
-
-    <div class="top">ENTRANCE<br>
-    <div class="text">
-    <?php echo $_SESSION['login_user']['datepicker']; ?>
-    </div>
-    </div><br>
-
-
-    <div class="top">GRADUATION<br>
-    <div class="text">
-    <?php echo $_SESSION['login_user']['datepicker2'];?>
-    </div>
-    </div><br>
-
-    <div class="top">PASSWORD<br>
-    <div class="text">
-    <?php echo $_SESSION['login_user']['password']; ?>
-    </div>
-    </div><br><br><br><br><br>
-   
-   </div>
   </div>
-
-  <br>
-  <div class="position">
-  <form method="POST" action="">
-    <input type="hidden" name="batch_users" value="batch_users">
-    <input class="login" type="submit" value="SIGN UP">
-  </form>
-  <br>
-  <input class="login" type="button" value="BACK" onclick="history.back()">
-  </div>
-
-    </div>
-  </div>
-  </div>
-
-
-
 
 </body>
 </html>
