@@ -33,26 +33,7 @@
     // var_dump($data);
     // echo '</pre>';
   }
-  // batch_usersとpostをjoin
-  $sql = 'SELECT `post`. * ,`batch_users`.`id` AS user_id, `batch_users`.`nickname`,`batch_users`.`image`
-          FROM `post`
-          LEFT JOIN `batch_users`
-          ON `post`.`users_id` = `batch_users`.`id`
-          WHERE `post`.`users_id`=?;
-          ORDER BY `post`. `created` DESC';
-  $data = array($_GET['id']); 
-  $stmt = $dbh->prepare($sql);
-  $stmt->execute($data);
 
-  $post = array();
-  while(true){
-  $data = $stmt->fetch(PDO::FETCH_ASSOC);
-  if(!$data){
-    // ここに入ったらループを止めてあげる
-    break;
-  }
-  $post[] = $data;
-  }
   // error_log(print_r('$tweets',true),"3","../../../../../logs/error_log");
 
 // echo '<pre>';
@@ -68,8 +49,10 @@ if(!empty($_POST)){
   if(isset($_POST['content'])){
     // ツイートするを押すと個々の処理が走ります。
   $content = htmlspecialchars($_POST['content']);
-  // echo 'POST送信しました。';
+  $content = nl2br($content);
+  // $content=str_replace("\n","<br>",$content);
 
+  // var_dump($content);
     // バリデーション
     if($content==''){
       $errors['content']='blank';
@@ -132,6 +115,7 @@ if(!empty($_POST)){
         $stmt->execute($data);
 
       }
+
     }
 
 
@@ -153,12 +137,8 @@ if(!empty($_POST)){
     $stmt->execute($data);
 
     // POST送信を破棄する
-    header('Location: profile.php?id=45');
+    header('Location: profile.php?id='.$_POST['user_id'].'#'.$_POST['post_id']);
     exit();
-
-
-
-
 
   }
 
@@ -183,11 +163,33 @@ if(!empty($_POST)){
   $stmt = $dbh->prepare($sql);
   $stmt->execute($data);
 
-  header('Location: profile.php?id=45');
+  header('Location: profile.php?id='.$_POST['user_id'].'#'.$_POST['post_id']);
   exit();
   }
   }
 }
+
+
+  // batch_usersとpostをjoin
+  $sql = 'SELECT `post`. * ,`batch_users`.`id` AS user_id, `batch_users`.`nickname`,`batch_users`.`image`
+          FROM `post`
+          LEFT JOIN `batch_users`
+          ON `post`.`users_id` = `batch_users`.`id`
+          WHERE `post`.`users_id`=?;
+          ORDER BY `post`. `created` DESC';
+  $data = array($_GET['id']); 
+  $stmt = $dbh->prepare($sql);
+  $stmt->execute($data);
+
+  $post = array();
+  while(true){
+  $data = $stmt->fetch(PDO::FETCH_ASSOC);
+  if(!$data){
+    // ここに入ったらループを止めてあげる
+    break;
+  }
+  $post[] = $data;
+  }
 
  ?>
 
@@ -264,7 +266,7 @@ if(!empty($_POST)){
 <?php } ?>
 
 
-<!-- 全ユーザーのタイムラインを表示 -->
+<!-- 個人タイムラインを表示 -->
 <div class="feedClm">
 
   <!-- 以下のコードはログインユーザーのプロフィール画面の場合に表示   -->
@@ -349,15 +351,20 @@ if(!empty($_POST)){
 
         ?>
 
+      <div id="<?php echo $content['id']; ?>"></div>
       <div id="btnWrp">
         <?php if(!$check){ ?>
           <input type="hidden" name="like" value="like">
+          <input type="hidden" name="id" value="<?php echo $content['id']; ?>">
+          <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($_GET['id']); ?>">
           <div class="like">
             <input type="submit" value="いいね！" class="btn-xs">
             <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
           </div>
         <?php }else{ ?>
+          <input type="hidden" name="id" value="<?php echo $content['id']; ?>">
           <input type="hidden" name="like" value="unlike">
+          <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($_GET['id']); ?>">
           <div class="like">
             <input type="submit" value="いいね取消" class="btn-xs">
             <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
@@ -373,7 +380,7 @@ if(!empty($_POST)){
 
 
  <div class="txtClm col-xs-6">
- <p class="sentence"><?php echo $content['content']; ?></p>
+ <p class="sentence"><?php echo nl2br($content['content']); ?></p>
  
 
 <?php
@@ -420,6 +427,7 @@ if(!empty($_POST)){
 
 
   <!-- コメント投稿欄 -->
+  <div id="<?php echo $content['id']; ?>"></div>
 <div class="postBox">
   <?php if(!empty($content['image'])){ ?>
     <a href="profile.php?id=<?php echo $_SESSION['login_user']['id'] ;?>">
@@ -429,6 +437,16 @@ if(!empty($_POST)){
    <?php } ?>
   <form method="POST" action="">
     <input type="hidden" name="post_id" value="<?php echo $content['id'];?>">
+
+
+
+
+              <input type="hidden" name="id" value="<?php echo $content['id']; ?>">
+          <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($_GET['id']); ?>">
+
+
+
+
     <input style="border:none; outline: 0;width:230px;" class="text" type="txt" name="comment" placeholder="Write a Comment" value="">
       <?php if(isset($errors['comment']) && $errors['comment'] == 'blank'){ ?>
         <div class="alert alert-danger">投稿内容を入力してください。</div>

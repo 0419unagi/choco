@@ -232,9 +232,16 @@ $pref = ['1'=>'北海道','2'=>'青森県','3'=>'岩手県','4'=>'宮城県','5'
         <br>
         <div class="top"></div><br>
 
-
+        <?php if(!empty($_SESSION['login_user']['image'])){ ?>
+          <img src="../image/<?php echo $image; ?>" width="80px">
+        <?php }else{ ?>
+          <img src="../assets/img/damy.jpg" width="100%" height="auto" alt=""/>
+        <?php } ?>
         <input type="file" name="image" accept="image/*">
-        <img src="../image/<?php echo $image; ?>" width="80px">
+
+
+
+
 
         <br><br>
 

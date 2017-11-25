@@ -30,7 +30,10 @@ if(!isset($_SESSION['login_user']['id'])){
       $stmt->execute($data);
     }
 
-header('Location: profile.php?id=45');
+    $users_id=$record['users_id'];
+    $post_id=$record['post_id'];
+
+header('Location: profile.php?id='.$users_id.'#'.$post_id);
 exit();
 
 
