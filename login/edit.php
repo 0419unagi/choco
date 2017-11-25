@@ -156,7 +156,6 @@ require('../dbconnect.php');
                        error_log(print_r('$fileName',true),"3","../../../../../logs/error_log");
                   
                   }
-                
                   // イメージのフォルダの中にファイルを保存する
               }
            
@@ -168,8 +167,6 @@ require('../dbconnect.php');
                 $_SESSION['login_user']['image']=$fileName;
                 header('Location: top.php?id=' . $_SESSION['login_user']['id']);
                 exit();
-
-
             }else{ 
               $errors["image"] = "blank"; 
             }  
@@ -216,226 +213,156 @@ $pref = ['1'=>'北海道','2'=>'青森県','3'=>'岩手県','4'=>'宮城県','5'
 
 
 <body>
-<div id="tablecellboke">
   <div class="container">
-    <div class="row">
-
-      <div class="col-xs-3">
-       <div class="batch">
-        <img src="../assets/img/logomark.png" alt="hand_logo" >
-        <h1>BATCH</h1>
-        <p>make a history together!</p>
-        <br>
-        <h2>My Profile Edit</h2>
+    
+        <a class="back" href="top.php"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
 
         <form method="POST" action="" enctype="multipart/form-data">
-        <br>
-        <div class="top"></div><br>
-
-
-        <input type="file" name="image" accept="image/*">
-        <img src="../image/<?php echo $image; ?>" width="80px">
-
-        <br><br>
-
-        <?php if (isset($errors["image"])
-              && $errors["image"] == "blank") { ?>
-        <div>
-          *プロフィール画像を選択してください
-        </div>
-
-        <?php }elseif (isset($errors["image"])
-              && $errors["image"] == "extention") {?>
-        <div>
-          *使用できる拡張子は「jpg」または「png」、「gif」のみです。
-        </div>
-
-        <?php } ?>
-
-        </div>
+          <div class="clmWrp">
+              <div class="clm" id="clm_1">
+            <div id="logoBox">
+              <img src="../assets/img/logomark.png" alt="hand_logo" width="81" height="135" id="logo" >
+              <h1>BATCH</h1>
+              <p id="sub">make a history together</p>
+            </div>
+            <div id="ctgBox">
+              <div class="line"></div>
+              <h2>PROFILE EDIT</h2>
+              <div class="line"></div>
+            </div>
+            
+            
+             <input type="file" name="image" accept="image/*">
+             <img src="../image/<?php echo $image; ?>" width="80px">
+             <?php if (isset($errors["image"])
+                   && $errors["image"] == "blank") { ?>
+             <div>*プロフィール画像を選択してください</div>
+             <?php }elseif (isset($errors["image"])
+                   && $errors["image"] == "extention") {?>
+             <div>*使用できる拡張子は「jpg」または「png」、「gif」のみです。</div>
+             <?php } ?>
       </div>
 
+              <div class="clm" id="clm_2">
+                 <div class="list">
+                   <p class="ttl">FULLNAME</p>
+                   <input class="text" type="text" name="username" placeholder="小川 ともゆき" value="<?php echo $username; ?>">
+                   <?php if (isset($errors["username"])  && $errors["username"] == "blank"): ?>
+                   <p class="att">※名前を入力してください</p>
+                   <?php endif; ?>
+                 </div>
 
-  
-      <div class="col-xs-3"><br><br>
-        <div class="top">FULLNAME</div><br>
-          <input class="text" type="text" name="username" placeholder="小川ともゆき" value="<?php echo $username; ?>">
-          <br><br>
-          <?php if (isset($errors["username"]) 
-      && $errors["username"] == "blank"): ?>
-          <div>
-            *名前を入力してください
-          </div>
-          <?php endif; ?>
+                 <div class="list">
+                   <p class="ttl">NICKNAME</p>
+                   <input class="text" type="text" name="nickname" placeholder="tomtom" value="<?php echo $nickname; ?>">
+                   <?php if (isset($errors["nickname"]) && $errors["nickname"] == "blank"): ?>
+                    <p class="att">※ニックネームを入力してください</p>
+                   <?php endif; ?>
+                 </div>
 
+                 <div class="list">
+                   <p class="ttl">EMAIL</p>
+                   <input class="text" type="email" name="email" placeholder="seed@com" value="<?php echo $email; ?>">
+                   <?php if (isset($errors["email"]) && $errors["email"] == "blank"): ?>
+                   <p class="att">※メールアドレスを入力してください</p>
+                   <?php endif; ?>
+                 </div>
 
-        <div class="top">NICKNAME</div><br>
-          <input class="text" type="text" name="nickname" placeholder="tomtom" value="<?php echo $nickname; ?>">
-          <br><br>
-          <?php if (isset($errors["nickname"]) 
-      && $errors["nickname"] == "blank"): ?>
-          <div>
-            *ニックネームを入力してください
-          </div>
-          <?php endif; ?>
+                 <div class="list">
+                   <p class="ttl">COURSE</p>
+                     <input type="radio" name="course" value="programming" <?php echo $course_p; ?> > <p class="course">Programming</p>　
+                     <input type="radio" name="course" value="english" <?php echo $course_e; ?> > <p class="course">English</p>
+                     <?php if (isset($errors["course"]) && $errors["course"] == "blank"): ?>
+                     <p class="att">※コースを選択してください</p>
+                     <?php endif; ?>
+                 </div>
 
+                 <div class="list">
+                   <p class="ttl">ENTRANCE</p>
+                   <input class="text underlineWrp" type="text" name="datepicker" id="datepicker" value="<?php echo $datepicker; ?>"><br><br>
+                   <p class="ttl">GRADUATION</p>
+                   <input class="text" type="text" name="datepicker2" id="datepicker2" value="<?php echo $datepicker2; ?>">
+                   <?php if (isset($errors["datepicker"]) && (isset($errors["datepicker2"])) && $errors["datepicker"] == "blank" && $errors["datepicker2"] == "blank"): ?>
+                    <p class="att">*入学日・卒業日を選択してください</p>
+                   <?php endif; ?>
+                   <?php if (isset($errors["datepicker"]) && $errors["datepicker"] == "blank" && (!empty($datepicker2))): ?>
+                    <p class="att"> *入学日を選択してください</p>
+                   <?php endif; ?>
+                   <?php if (isset($errors["datepicker2"]) && $errors["datepicker2"] == "blank" && (!empty($datepicker))): ?>
+                    <p class="att">*卒業日を選択してください</p>
+                   <?php endif; ?>
+                  </div>
 
-        <div class="top">EMAIL</div><br>
-          <input class="text" type="email" name="email" placeholder="seed@com" value="<?php echo $email; ?>">
-          <br><br>
-          <?php if (isset($errors["email"]) 
-      && $errors["email"] == "blank"): ?>
-          <div>
-            *メールアドレスを入力してください
-          </div>
-          <?php endif; ?>
+                 <div class="list">
+                   <p class="att">PASSWORD</p>
+                   <input class="text" type="password" name="password" value="<?php echo $password; ?>">
+                   <?php if (isset($errors["password"])  && $errors["password"] == "blank"): ?>
+                    <p class="att">*パスワードを入力してください</p>
+                   <?php endif; ?>
+                   <?php if(isset($errors["password"])  && $errors["password"] == "length"): ?>
+                    <p class="att">*パスワードは4文字以上8文字以内で入力してください</p>
+                   <?php endif; ?>
+                 </div>
+             </div>
 
+              <div class="clm" id="clm_3">
+                <div class="list">
+                 <p class="ttl">BIRTHDAY</p>
+                 <select name="year">
+                   <?php optionLoop("1950" , "2020" , $year);?> // 第一引数、第二引数、第三引数（1st argument, 2nd argument, 3rd argument)
+                 </select>
+                 <select name="month">
+                   <?php optionLoop("1" , "12" , $month);?>
+                 </select>
+                 <select name="day">
+                   <?php optionLoop("1" , "31" , $day);?>
+                 </select>
+                 <?php if(isset($errors["year"]) && $errors["year"] == "blank"): ?>
+                  <p class="att">※生年月日を選択してください</p>
+                 <?php endif; ?>
+                 </div>
 
-        <div class="top">COURSE<br><br>
-          <input type="radio" name="course" value="programming" <?php echo $course_p; ?> >Programming&emsp;
-          <input type="radio" name="course" value="english" <?php echo $course_e; ?> >English
-          </div><br>
-          <?php if (isset($errors["course"]) 
-      && $errors["course"] == "blank"): ?>
-          <div>
-            *コースを選択してください
-          </div>
-          <?php endif; ?>
+                <div class="list">
+                <p class="ttl">PLACE</p>
+                 <select name="birthplace">
+                     <?php foreach ($pref as $v):?>  
+                         <option value = "<?php echo $v; ?>" <?php echo $v == $birthplace ? 'selected': '';?> ><?php echo $v; ?> </option>
+                         <?php var_dump($value); ?>
+                         <?php var_dump($birthplace); ?>
+                      <?php endforeach;?>
+                 </select>
+                   <?php if (isset($errors["birthplace"])  && $errors["birthplace"] == "blank"): ?>
+                   <p class="att">*出身地を選択してください</p>
+                   <?php endif; ?>
+                </div>
 
+                <div class="list">
+                   <p class="ttl">HOBBY</p>
+                   <input class="text" type="textbox" name="hobby" placeholder="旅行,読書,器械体操" value="<?php echo $hobby; ?>">
+                   <?php if (isset($errors["hobby"]) && $errors["hobby"] == "blank"): ?>
+                   <p class="att">*趣味を入力してください</p>
+                   <?php endif; ?>
+                 </div>
 
-        <div class="top">ENTRANCE</div><br>
-          <input class="text" type="text" name="datepicker" id="datepicker" value="<?php echo $datepicker; ?>">
+                <div class="list">
+                 <p class="ttl">INTRODUCE</p>
+                  <!-- <?php var_dump($intro); ?> -->
+                  <textarea class="text" name="intro" style="width: 100%; height: 200px;" placeholder="自己紹介文と共に、SNSなどのURLを貼っていただくと、他のユーザーがあなたのことをより理解してくれます！" value="<?php echo $intro; ?>"><?php echo $intro; ?></textarea>
+                  <?php if (isset($errors["intro"]) && $errors["intro"] == "blank"): ?>
+                  <p class="att">自己紹介を入力してください！<br>短くても構いません！</p>
+                  <?php endif; ?>
+                </div>
+            </div>
 
-        <br><br>
-        <div class="top">GRADUATION</div><br>
-          <input class="text" type="text" name="datepicker2" id="datepicker2" value="<?php echo $datepicker2; ?>">
-        <br><br>
-
-        <?php if (isset($errors["datepicker"]) && (isset($errors["datepicker2"])) && $errors["datepicker"] == "blank" && $errors["datepicker2"] == "blank"): ?>
-        <div>
-          *入学日・卒業日を選択してください
-        </div>
-        <?php endif; ?>
-
-        <?php if (isset($errors["datepicker"]) 
-      && $errors["datepicker"] == "blank" && (!empty($datepicker2))): ?>
-        <div>
-          *入学日を選択してください
-        </div>
-        <?php endif; ?>
-
-        <?php if (isset($errors["datepicker2"]) 
-      && $errors["datepicker2"] == "blank" && (!empty($datepicker))): ?>
-        <div>
-          *卒業日を選択してください
-        </div>
-        <?php endif; ?>
-
-
-        <div class="top">PASSWORD</div><br>
-          <input class="text" type="password" name="password" value="<?php echo $password; ?>">
-          <br><br>
-          <?php if (isset($errors["password"]) 
-      && $errors["password"] == "blank"): ?>
-          <div>
-            *パスワードを入力してください
-          </div>
-          <?php endif; ?>
-
-          <?php if(isset($errors["password"]) 
-      && $errors["password"] == "length"): ?>
-          <div>
-            *パスワードは4文字以上8文字以内で入力してください
-          </div>
-          <?php endif; ?>
-        </div>
-
-
-
-      <div class="col-xs-3">
-        <br><br>
-        <div class="top">BIRTH DAY</div><br>
-          <select name="year">
-            <?php optionLoop("1950" , "2020" , $year);?>
-// 第一引数、第二引数、第三引数（1st argument, 2nd argument, 3rd argument)
-          </select>
-          <select name="month">
-            <?php optionLoop("1" , "12" , $month);?>
-          </select>
-          <select name="day">
-            <?php optionLoop("1" , "31" , $day);?>
-          </select>
-          <?php if(isset($errors["year"]) 
-        && $errors["year"] == "blank"): ?>
-          <div>
-            *生年月日を選択してください
-          </div>
-          <?php endif; ?>
-          <br><br>
-
-      <div class="top">PLACE</div><br>
-
-
-<select name ="birthplace">
-    <?php foreach ($pref as $v):?>  
-        <option value = "<?php echo $v; ?>" <?php echo $v == $birthplace ? 'selected': '';?> >
-        <?php echo $v; ?> 
-        </option>
-
-        <?php var_dump($value); ?>
-        <br>
-        <?php var_dump($birthplace); ?>
-
-     <?php endforeach;?>
-</select>
-          <?php if (isset($errors["birthplace"]) 
-      && $errors["birthplace"] == "blank"): ?>
-          <div>
-            *出身地を選択してください
-          </div>
-          <?php endif; ?>
-          <br><br>
-
-
-        <div class="top">HOBBY</div><br>
-          <input class="text" type="textbox" style="width: 300px;" name="hobby" placeholder="旅行,読書,器械体操" value="<?php echo $hobby; ?>">
-          <?php if (isset($errors["hobby"]) 
-      && $errors["hobby"] == "blank"): ?>
-          <div>
-            *趣味を入力してください
-          </div>
-          <?php endif; ?>
-          <br><br>
-
-
-        <div class="top">INTRODUCE</div><br>
-          <!-- <?php var_dump($intro); ?> -->
-          <textarea class="text" name="intro" style="width: 300px; height: 320px;" placeholder="自己紹介文と共に、SNSなどのURLを貼っていただくと、他のユーザーがあなたのことをより理解してくれます！" value="<?php echo $intro; ?>"><?php echo $intro; ?></textarea>
-          <?php if (isset($errors["intro"]) 
-      && $errors["intro"] == "blank"): ?>
-          <div>
-            自己紹介を入力してください！<br>短くても構いません！
-          </div>
-          <?php endif; ?>
-          <br><br>
-      </div>
-
-      <a class="back" href="top.php"><i class="fa fa-arrow-left" aria-hidden="true"></i>
-</a>
-
-      <div class="position">
-        <div class="col-xs-3">
-          <input class="login" type="submit" value="SAVE">
-        </div>
-      </div>
-
-  </form>
-</div>
-</div>
-</div>
-</div>
-</div>
-
+              <div class="clm" id="clm_4">
+             <div class="position"  id="submitBox">
+              <div class="col-xs-3">
+                <input class="login" type="submit" value="SAVE">
+              </div>
+            </div>
+            </div>
+         </div>
+      </form>
 
 </body>
 </html>
