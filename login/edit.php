@@ -151,14 +151,12 @@ require('../dbconnect.php');
              
 
                // 画像を保存する
-              if(!empty($fileName)){
-              $fileName = $_SESSION['login_user']['id'].'_'.$fileName;
+                  if(!empty($fileName)){
+                    // echo$fileName;
 
-              // 前回の画像を削除する
-              unlink('../image/'.$_SESSION['login_user']['image']);
-
-              move_uploaded_file($_FILES["image"]["tmp_name"],'../image/'.$fileName); 
-                       // error_log(print_r('$fileName',true),"3","../../../../../logs/error_log");
+                    
+                    move_uploaded_file($_FILES["image"]["tmp_name"],'../image/'.$fileName); 
+                       error_log(print_r('$fileName',true),"3","../../../../../logs/error_log");
                   
                   }
                   // イメージのフォルダの中にファイルを保存する
