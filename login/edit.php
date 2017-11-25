@@ -57,7 +57,8 @@ require('../dbconnect.php');
         $day = $_POST['day']; 
         $birthplace = $_POST["birthplace"]; 
         $hobby = $_POST["hobby"]; 
-        $intro = $_POST["intro"]; 
+        $intro = $_POST["intro"];
+        $intro = nl2br($intro);
 
  
         $errors = array(); 
@@ -150,10 +151,14 @@ require('../dbconnect.php');
              
 
                // 画像を保存する
-                  if(!empty($fileName)){
-                    // echo$fileName;
-                    move_uploaded_file($_FILES["image"]["tmp_name"],'../image/'.$fileName); 
-                       error_log(print_r('$fileName',true),"3","../../../../../logs/error_log");
+              if(!empty($fileName)){
+              $fileName = $_SESSION['login_user']['id'].'_'.$fileName;
+
+              // 前回の画像を削除する
+              unlink('../image/'.$_SESSION['login_user']['image']);
+
+              move_uploaded_file($_FILES["image"]["tmp_name"],'../image/'.$fileName); 
+                       // error_log(print_r('$fileName',true),"3","../../../../../logs/error_log");
                   
                   }
                   // イメージのフォルダの中にファイルを保存する
@@ -231,9 +236,14 @@ $pref = ['1'=>'北海道','2'=>'青森県','3'=>'岩手県','4'=>'宮城県','5'
               <div class="line"></div>
             </div>
             
-            
-             <input type="file" name="image" accept="image/*">
+            <br><br>
+            <?php if(!empty($_SESSION['login_user']['image'])){ ?>
              <img src="../image/<?php echo $image; ?>" width="80px">
+             <?php }else{ ?>
+              <img src="../assets/img/damy.jpg" width="100%" height="auto" alt=""/>
+             <?php } ?>
+             <input type="file" name="image" accept="image/*">
+
              <?php if (isset($errors["image"])
                    && $errors["image"] == "blank") { ?>
              <div>*プロフィール画像を選択してください</div>
