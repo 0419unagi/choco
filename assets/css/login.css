@@ -1,4 +1,5 @@
 @import url("../../webfonts/AvenirNextCondensed_UltraLight/stylesheet.css");
+@import url("../../webfonts/AvenirNextCondensed_UltraLight/stylesheet.css");
 /*all*/
 html {
  background-color: #000000;
@@ -33,7 +34,7 @@ body {
 
 /* ロゴマーク */
 #logoBox {
-margin-bottom: 60px;
+ margin-bottom: 80px;
 }
 #logoBox #logo {
  margin-bottom: 25px;
@@ -172,6 +173,9 @@ form .text::-webkit-input-placeholder {
 .relative {
  position: relative;
 }
+.fix {
+ position: fixed;
+}
 .clmWrp {
  display: flex;
  justify-content: center;
@@ -186,7 +190,6 @@ form .text::-webkit-input-placeholder {
  width: 270px;
 }
 .clmWrp #clm_1 {
- padding-top: 70px;
 }
 .clmWrp #clm_2 {
  width: 270px;
@@ -205,4 +208,18 @@ form .text::-webkit-input-placeholder {
 .clmWrp .course {
  letter-spacing: 1px;
  display: inline;
+}
+.clmWrp .plfpicBox {
+}
+.clmWrp .plfpicBox img {
+ border: 6px solid #FFFFFF;
+ border-radius: 200px;
+ width: 180px;
+ margin-bottom: 15px;
+}
+.clmWrp .plfpicBox label {
+ font-size: 14px;
+ text-align: center;
+ letter-spacing: 2px;
+ display: block;
 }

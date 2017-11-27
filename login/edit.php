@@ -223,34 +223,41 @@ $pref = ['1'=>'北海道','2'=>'青森県','3'=>'岩手県','4'=>'宮城県','5'
         <form method="POST" action="" enctype="multipart/form-data">
           <div class="clmWrp">
               <div class="clm" id="clm_1">
-            <div id="logoBox">
-              <img src="../assets/img/logomark.png" alt="hand_logo" width="81" height="135" id="logo" >
-              <h1>BATCH</h1>
-              <p id="sub">make a history together</p>
-            </div>
-            <div id="ctgBox">
-              <div class="line"></div>
-              <h2>PROFILE EDIT</h2>
-              <div class="line"></div>
-            </div>
-            
-            <br><br>
-            <?php if(!empty($_SESSION['login_user']['image'])){ ?>
-             <img src="../image/<?php echo $image; ?>" width="80px">
-             <?php }else{ ?>
-              <img src="../assets/img/damy.jpg" width="100%" height="auto" alt=""/>
-             <?php } ?>
-             <input type="file" name="image" accept="image/*">
+                <div class="fix">
+                 <div id="logoBox">
+                   <img src="../assets/img/logomark.png" alt="hand_logo" width="81" height="135" id="logo" >
+                   <h1>BATCH</h1>
+                   <p id="sub">make a history together</p>
+                 </div>
 
-             <?php if (isset($errors["image"])
-                   && $errors["image"] == "blank") { ?>
-             <div>*プロフィール画像を選択してください</div>
-             <?php }elseif (isset($errors["image"])
-                   && $errors["image"] == "extention") {?>
-             <div>*使用できる拡張子は「jpg」または「png」、「gif」のみです。</div>
-             <?php } ?>
-      </div>
+                 <div id="ctgBox">
+                   <div class="line"></div>
+                   <h2>PROFILE EDIT</h2>
+                   <div class="line"></div>
+                 </div>
 
+                 <div class="plfpicBox">
+                    <?php if(!empty($_SESSION['login_user']['image'])){ ?>
+                     <img src="../image/<?php echo $image; ?>" >
+                     <?php }else{ ?>
+                      <img src="../assets/img/damy.jpg" width="100%" height="auto" alt=""/>
+                     <?php } ?>
+
+                     <label for="file_photo">
+                      <i class="fa fa-camera" aria-hidden="true"></i> 写真を選択
+                      <input type="file" name="image" accept="image/*"  style="display:none;"  id="file_photo">
+                     </label>
+
+                     <?php if (isset($errors["image"]) && $errors["image"] == "blank") { ?>
+                      <div>※ プロフィール画像を選択してください</div>
+                     <?php }elseif (isset($errors["image"]) && $errors["image"] == "extention") {?>
+                      <div>※ 使用できる拡張子は「jpg」または「png」、「gif」のみです。</div>
+                     <?php } ?>
+                  </div>
+               </div>
+              </div>
+
+             
               <div class="clm" id="clm_2">
                  <div class="list">
                    <p class="ttl">FULLNAME</p>
@@ -311,37 +318,35 @@ $pref = ['1'=>'北海道','2'=>'青森県','3'=>'岩手県','4'=>'宮城県','5'
                     <p class="att">*パスワードは4文字以上8文字以内で入力してください</p>
                    <?php endif; ?>
                  </div>
-             </div>
-
-              <div class="clm" id="clm_3">
-                <div class="list">
-                 <p class="ttl">BIRTHDAY</p>
-                 <select name="year">
-                   <?php optionLoop("1950" , "2020" , $year);?> // 第一引数、第二引数、第三引数（1st argument, 2nd argument, 3rd argument)
-                 </select>
-                 <select name="month">
-                   <?php optionLoop("1" , "12" , $month);?>
-                 </select>
-                 <select name="day">
-                   <?php optionLoop("1" , "31" , $day);?>
-                 </select>
-                 <?php if(isset($errors["year"]) && $errors["year"] == "blank"): ?>
-                  <p class="att">※生年月日を選択してください</p>
-                 <?php endif; ?>
+                 
+                 <div class="list">
+                    <p class="ttl">BIRTHDAY</p>
+                    <select name="year">
+                      <?php optionLoop("1950" , "2020" , $year);?> // 第一引数、第二引数、第三引数（1st argument, 2nd argument, 3rd argument)
+                    </select>
+                    <select name="month">
+                      <?php optionLoop("1" , "12" , $month);?>
+                    </select>
+                    <select name="day">
+                      <?php optionLoop("1" , "31" , $day);?>
+                    </select>
+                    <?php if(isset($errors["year"]) && $errors["year"] == "blank"): ?>
+                     <p class="att">※生年月日を選択してください</p>
+                    <?php endif; ?>
                  </div>
 
                 <div class="list">
-                <p class="ttl">PLACE</p>
-                 <select name="birthplace">
-                     <?php foreach ($pref as $v):?>  
-                         <option value = "<?php echo $v; ?>" <?php echo $v == $birthplace ? 'selected': '';?> ><?php echo $v; ?> </option>
-                         <?php var_dump($value); ?>
-                         <?php var_dump($birthplace); ?>
-                      <?php endforeach;?>
-                 </select>
-                   <?php if (isset($errors["birthplace"])  && $errors["birthplace"] == "blank"): ?>
-                   <p class="att">*出身地を選択してください</p>
-                   <?php endif; ?>
+                  <p class="ttl">PLACE</p>
+                   <select name="birthplace">
+                       <?php foreach ($pref as $v):?>  
+                           <option value = "<?php echo $v; ?>" <?php echo $v == $birthplace ? 'selected': '';?> ><?php echo $v; ?> </option>
+                           <?php var_dump($value); ?>
+                           <?php var_dump($birthplace); ?>
+                        <?php endforeach;?>
+                   </select>
+                     <?php if (isset($errors["birthplace"])  && $errors["birthplace"] == "blank"): ?>
+                     <p class="att">*出身地を選択してください</p>
+                     <?php endif; ?>
                 </div>
 
                 <div class="list">
@@ -360,7 +365,9 @@ $pref = ['1'=>'北海道','2'=>'青森県','3'=>'岩手県','4'=>'宮城県','5'
                   <p class="att">自己紹介を入力してください！<br>短くても構いません！</p>
                   <?php endif; ?>
                 </div>
-            </div>
+             </div>
+
+
 
               <div class="clm" id="clm_4">
              <div class="position"  id="submitBox">
