@@ -178,6 +178,7 @@ main {
 }
 #profilePg .prfClm .picBox .pic {
  object-fit: cover;
+ object-position: 0% 50%;
  height: 300px;
 }
 #profilePg .prfClm .picBox .gra {
