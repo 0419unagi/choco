@@ -16,29 +16,32 @@
   $datepicker = "";
   $datepicker2 = "";
   $password = "";
+  $errors = array();
+
 
   if (!empty($_POST)) {
     $username = htmlspecialchars($_POST["username"]);
     $nickname = htmlspecialchars($_POST["nickname"]);
     $email = htmlspecialchars($_POST["email"]);
-    if(isset($_POST["course"])){
+
+    if(isset($_POST["course"]))
+    {
       $course = htmlspecialchars($_POST["course"]); 
     }
+
     $datepicker = htmlspecialchars($_POST["datepicker"]);
     $datepicker2 = htmlspecialchars($_POST["datepicker2"]);
     $password = htmlspecialchars($_POST["password"]);
 
-    $errors = array();
-
-
+    
     $sql = 'SELECT `email` FROM `batch_users` WHERE email=?';
     $data = array($email);
     $stmt = $dbh->prepare($sql);
     $stmt->execute($data);
 
-    // $userdata = array();
-    // while(true){
+
     $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
 
 
     if ($username == "") {
@@ -76,6 +79,7 @@
     elseif (strlen($password) > 8 ) {
       $errors["password"] = "length";
     }
+
 
     if (empty($errors)) {
       echo "エラーなし！ok！";
