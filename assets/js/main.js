@@ -2,11 +2,12 @@
 $(document).ready(function(){
     scrollDown();
     //画像選択ボタンと送信ボタンをタブキーで指定出来るようにする
-    $('#submit').attr("tabindex", "0");
+    // $('#submit').attr("tabindex", "0");
     $('#uplode_image').attr("tabindex", "0");
+    // $('.tomo').attr("tabindex", "0");
 
     // サイドバーでクリックしたユーザーのトーク画面を表示
-    $("div.tom").click(function(){
+    $("#user_list").on("click","div.tom",function(){
         //サイドバーでクリックされたユーザーIDを取得
         var other_id = $(this).attr("value");
         // console.log(other_id);
@@ -26,6 +27,7 @@ $(document).ready(function(){
           .done(function(data) {            
             //指定されたユーザーIDとのトーク履歴を表示する
             changeTalk(other_id);
+            updateSideBar(other_id);
 
             //コメント送信ボタンのother_idのvalue値を上で定義したother_id
             //がセットされた要素を上書きする
@@ -41,30 +43,34 @@ $(document).ready(function(){
     });
 
 
-    サイドバーのユーザー検索機能    
+    // サイドバーのユーザー検索機能
     $(".user_list").searcher({
                 itemSelector: ".tom",
                 textSelector: "p",
                 inputSelector: "#mes_search"
             });
-
-
-
 });
+
 
 //メッセージ送信機能
 $(function(){
-    //#submitにenterキーを押すると以下のコードを実行する
-    $('#submit').keypress(function(){
-        // console.log('//////////////////////////////');
-        // console.log($('#other_id').val());
+    //メッセージ送信
+    $('#foo').submit(function(event){
+        event.preventDefault();
+        sendMessage();
+    });
+});
 
-        //フォームに何も入力されていない場合は、そのままreturn
+
+// メッセージ送信
+function sendMessage(){
+    //フォームに何も入力されていない場合は、そのままreturn
         if(!$('#text_input').val()) return;
         //bbs.phpへgetリクエストで配列を送信している
+        var other_id = $('#other_id').val();
         $.get('bbs.php', {
             user_id: $('#user_id').val(),
-            other_id: $('#other_id').val(),
+            other_id: other_id,
             content: $('#text_input').val(),
             uplode_image: "NULL",
             mode: "0" // 書き込み
@@ -73,58 +79,16 @@ $(function(){
             scrollDown();
             // 入力後にテキストボックスを空にする
             $('#text_input').val('');
+            // サイドバーを更新
+            updateSideBar(other_id);
         }); 
-    });
-});
-
-
-
-// function searchUser(){
-//     $('#mes_search').keypress(function(){
-//         var search_user = $('#mes_search').val();
-//         console.log('//////////////////////////////');
-//         console.log(search_user);
-
-//         $.ajax({
-//           type: 'GET',
-//           url: "bbs_search_user.php",
-//           data: search_user,
-//           error : function(XMLHttpRequest, textStatus, errorThrown) {
-//             console.log("ajax通信に失敗しました");
-//             console.log("XMLHttpRequest : " + XMLHttpRequest.status);
-//             console.log("textStatus     : " + textStatus);
-//             console.log("errorThrown    : " + errorThrown.message);
-//         },
-//         })
-//           .done(function(data) { 
-//             // 選択されたユーザーの要素をJsonから配列にデコードする
-//             var test = $.parseJSON(data);
-//             // console.log(test);
-//             var logs = test.join('');
-//             $("#result").html(logs);
-//             scrollDown();
-//             // console.log(user_name);
-//             $("#mes_head").html(user_name);
-
-//          }).fail(function(data) {                
-//             // console.log('fail');
-
-//          }).always(function(data) {                
-//             // console.log('always');
-//          });         
-
-        
-
-// });
-// }
-
+}
 
 
 //サイドバーで選択したユーザーとのトーク画面を表示する
 function changeTalk(data){
-    console.log('ok');
         var other_id = data;
-        console.log(other_id);
+
         $.ajax({
           type: 'GET',
           url: "model/update_talk.php",
@@ -147,6 +111,7 @@ function changeTalk(data){
             // console.log(test);
             var logs = test.join('');
             $("#result").html(logs);
+            // console.log(logs);
             scrollDown();
             // console.log(user_name);
             $("#mes_head").html(user_name);
@@ -159,12 +124,49 @@ function changeTalk(data){
          });         
 }
 
+
+//トーク送信時にサイドバーを更新
+function updateSideBar(data) {
+    console.log(data);
+    //(TODO)update_side_bar.phpにother_idを送信する
+    var other_id = data;
+
+    $.ajax({
+      type: 'GET',
+      url:"model/update_side_bar.php",
+      data: {
+                    other_id: other_id,
+                },
+      error : function(XMLHttpRequest, textStatus, errorThrown) {
+        console.log("ajax通信に失敗しました");
+        console.log("XMLHttpRequest : " + XMLHttpRequest.status);
+        console.log("textStatus     : " + textStatus);
+        console.log("errorThrown    : " + errorThrown.message);
+    },
+    })
+      .done(function(data) { 
+        console.log('done');
+        var sidebar = $.parseJSON(data);
+        $("#user_list").html(sidebar);
+
+     }).fail(function(data) {                
+        console.log('fail');
+
+     }).always(function(data) {                
+        console.log('always');
+     });         
+
+}
+
+
 // 画像送信ボタンが押された時に以下の関数を実行
 function img_up(){
     // 画像送信ボタンが押された時に、データベースへインサート
         insertDateImg();
     // 画像を指定のディレクトリへ移動させるため
         makeImg();
+    //　画像送信後、サイドバーを更新
+        updateSideBar();
 
         return false;
 }
@@ -226,10 +228,7 @@ function makeImg(){
                 contentType: false,
             })
             .done(function(data) {                
-                // $('#result').text(data.width + "x" + data.height);
-                
                 console.log('done');
-                console.log(data);
 
             }).fail(function(data) {                
                 console.log('fail');

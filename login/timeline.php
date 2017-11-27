@@ -29,9 +29,6 @@
 
     $userdata[] = $data;
 
-    // echo '<pre>';
-    // var_dump($data);
-    // echo '</pre>';
   }
   // batch_usersとpostをjoin
   $sql = 'SELECT `post`. * ,`batch_users`.`id` AS user_id, `batch_users`.`nickname`,`batch_users`.`image`
@@ -108,10 +105,6 @@ if(!empty($_POST)){
     // POST送信を破棄する
     header('Location: timeline.php#post_'.$_POST['post_id']);
     exit();
-
-
-
-
 
   }
 
