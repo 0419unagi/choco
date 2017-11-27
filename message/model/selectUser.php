@@ -7,6 +7,7 @@ $sql = 'SELECT
 		 x.user_name AS "user_name",
 		 x.other_id AS "other_id",
 		 batch_users.username AS "other_name",
+		 batch_users.image AS "other_image",
 		 x.time AS "time"
 		 FROM ( 
 		 	SELECT 
@@ -29,44 +30,67 @@ $stmt = $dbh->prepare($sql);
 $stmt->execute($data);
 while (true) {
 	$record = $stmt->fetch(PDO::FETCH_ASSOC);
-	error_log(print_r($record,true),"3","../../../../../logs/error_log");
+	// error_log(print_r($record,true),"3","../../../../../logs/error_log");
 	if ($record == false) {
 		break;
 	}
+
+
 	//時間表記変更
 	foreach ($record as $key => $value) {
 		if ($key =='time') {
-			error_log(print_r($value,true),"3","../../../../../logs/error_log");
-			$time = $value;
-			$month = substr($time,5,2);
-			$day = substr($time,8,2);
-			$time1 = substr($time,11,5);
-			$time_final = $month.'/'.$day.' '.$time1;
-			$record['time'] = $time_final;
+			
+			// トーク時間取得(例:2017-11-21 10:19:58)
+			$inputDate = $value;
+			$year = substr($inputDate,0,4);
+			$month = substr($inputDate,5,2);
+			$day = substr($inputDate,8,2);
+			$time = substr($inputDate,11,5);
+			$talk_day = $year.'/'.$month.'/'.$day;
+			// error_log(print_r($talk_day,true),"3","../../../../../logs/error_log");
+
+
+			//今日の日付を取得
+			$today = date("Y/m/d");
+			
+
+			//日付オブジェクトを作成
+			$today_time = new DateTime($today);
+			$talk_day_time = new DateTime($talk_day);
+			 
+			$diff = $today_time->diff($talk_day_time);
+			
+			//トーク時間と現在の時間の差を取得 
+			$date_difference = (int)$diff->d;
+
+
+			//日付のパターン別
+			//1.当日の場合、日付のみ表示
+			if ($date_difference== 0) {
+				$record['time'] = $time;
+			}
+			//2.昨日の場合、yesterdayを表示
+			elseif ($date_difference== 1) {
+				$record['time'] = 'yesterday';
+			}
+			//3.一週間以内の場合、曜日(英語表記)で表示
+			elseif (1<$date_difference && $date_difference<=6) {
+				$date = $talk_day;
+				$datetime = new DateTime($date);
+				$week = ["Sun.", "Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat."];
+				$w = (int)$datetime->format('w');
+				$week = $week[$w];
+				$record['time'] = $week;
+				// error_log(print_r($week,true),"3","../../../../../logs/error_log");
+			}
+			//4.上記以外の場合、yyyy/mm/ddで表記
+			else{
+				$record['time'] = $talk_day;
+			}
 		}
 	}
 	$talking_user[] =$record;	
 }
-
-// $i = 0;
-// foreach ($talking_user as $user) {
-// 	foreach ($user as $key => $value) {
-// 		if ($key == 'time') {
-// 			$time = $value;
-// 			$month = substr($time,5,2);
-// 			$day = substr($time,8,2);
-// 			$time1 = substr($time,11,5);
-// 			$time_final = $month.'/'.$day.' '.$time1;
-
-// 			$talking_user[$i]['time'] = $time_final;
-// 		}
-// 		$i++;
-// 	}
-// }
-
-
-// echo "<pre>";
-// var_dump($talking_user);
 
 
 //もしトークが初めての場合に、ログインユーザーと相手ユーザーを呼び出す
@@ -94,7 +118,6 @@ while (true) {
 
 
 //トーク履歴を表示するためのクエリ
-
 $sql = 'SELECT
 		 x.user_id AS "user_id",
 		 NAME AS "user_name",

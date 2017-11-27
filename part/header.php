@@ -38,8 +38,7 @@ require('../dbconnect.php');
   <link href="../assets/css/bootstrap.css" rel="stylesheet">
   <link href="../assets/css/font-awesome.min.css" rel="stylesheet">
   <link href="../assets/css/top.css" rel="stylesheet" type="text/css">
-<!--   <link rel="stylesheet" type="text/css" href="../assets/css/custom.css"> -->
-  
+
   <!-- アニメーション --> 
   <link href="../assets/css/animate.css" rel="stylesheet">
 <script src="../assets/js/wow.min.js"></script>
@@ -48,7 +47,8 @@ new WOW().init();
 </script>
   
   
-  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <!-- <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script> -->
+  <script src="../assets/js/jquery-1.10.2.min.js"></script>
   <script src="../assets/js/chart.js"></script>
  
 </head>
