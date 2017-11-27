@@ -2,31 +2,31 @@
     session_start();
     require('../dbconnect.php');
 
+//初期値を設定
     $email = '';
     $password = '';
 
-    // echo "<pre>";
-    // var_dump($_POST);
-    // echo "</pre>";
-
     if(!empty($_POST)){
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    
-    $errors = array();
+      $email = $_POST['email'];
+      $password = $_POST['password'];
+      $errors = array();
+      //メールアドレスバリデーション
+      //空文字チェック
+      if($email == ''){
+          $errors['email'] = 'blank';
+      }
 
-        if($email == ''){
-            $errors['email'] = 'blank';
-        }
+      //パスワードバリデーション
+      //空文字チェック, 文字数チェック
+      if($password == ''){
+          $errors['password'] = 'blank';
+      }elseif(strlen($password) >= 9 ){
+          $errors['password'] = 'length';
+      }elseif(strlen($password) < 4 ){
+          $errors['password'] = 'length';
+      }
 
-        if($password == ''){
-            $errors['password'] = 'blank';
-        }elseif(strlen($password) >= 9 ){
-            $errors['password'] = 'length';
-        }elseif(strlen($password) < 4 ){
-            $errors['password'] = 'length';
-        }
-
+    //メールチェックとパスワードのチェックでエラーの場合s
     if(empty($errors)){
         // エラーがなかったら、ログインできるかをチェック
         $sql = 'SELECT * FROM `batch_users` WHERE `email` = ? AND `password` = ?';
@@ -37,15 +37,11 @@
         $stmt->execute($data);
 
         // セレクト文を実行した結果を取得する。
-
         $record = $stmt->fetch(PDO::FETCH_ASSOC);
         // 全件取得させる場合はループさせて、配列に入れる
         // セレクトした内容の一番上(エクセルの表の一番上のみ)だけ取得して存在するかどうかチェックすれば、ログイン判定可能
 
-        // var_dump($record);
-
-        if($record){
-            // echo 'ログインできました。タイムラインへ移動します。<br>';
+        if($record){            
             // 一致した場合はログインする。
             $_SESSION['login_user'] = $record;
             header('Location: top.php');

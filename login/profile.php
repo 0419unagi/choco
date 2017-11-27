@@ -29,16 +29,8 @@
 
     $userdata[] = $data;
 
-    // echo '<pre>';
-    // var_dump($data);
-    // echo '</pre>';
   }
 
-  // error_log(print_r('$tweets',true),"3","../../../../../logs/error_log");
-
-// echo '<pre>';
-// var_dump($data);
-// echo '</pre>';
 
 
   // POSTチェック
@@ -175,11 +167,13 @@ if(!empty($_POST)){
           FROM `post`
           LEFT JOIN `batch_users`
           ON `post`.`users_id` = `batch_users`.`id`
-          WHERE `post`.`users_id`=?;
+          WHERE `post`.`users_id`=?
           ORDER BY `post`. `created` DESC';
   $data = array($_GET['id']); 
   $stmt = $dbh->prepare($sql);
   $stmt->execute($data);
+
+
 
   $post = array();
   while(true){
@@ -296,14 +290,15 @@ if(!empty($_POST)){
   <?php foreach($post as $content){ ?>
   <br><br>
     <section>
-
+  <div id="<?php echo $content['id']; ?>"></div>
       <?php 
-        $time = $content['created'] ;
-        $date = substr($time,0,10);
+        // $time = $content['created'] ;
+        // $date = substr($time,0,10);
+      $day = new DateTime($content['created']);
       ?>
 
       <!-- 日時 -->
-        <p class="date"><?php echo $date; ?></p>
+        <p class="date"><?php echo $day->format('Y年m月d日');?></p>
           <div class="nameBox">
 
             <!-- 投稿ユーザーのページへ遷移 -->
@@ -420,14 +415,13 @@ if(!empty($_POST)){
   <p class="txt"><?php echo $reply['comment']; ?></p>
   <!-- 削除-->
   <?php if($_SESSION['login_user']['id'] == $reply['user_id']){ ?>
-    <a onclick="return confirm('削除してもよろしいでしょうか？')" href="delete_com.php?id=<?php echo $reply['id']; ?>"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+    <a onclick="return confirm('削除してもよろしいでしょうか？')" href="delete_com.php?user_id=<?php echo htmlspecialchars($_GET['id']); ?>&id=<?php echo $reply['id']; ?>"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
   <?php } ?>
   </div>
 <?php } ?>
 
 
   <!-- コメント投稿欄 -->
-  <div id="<?php echo $content['id']; ?>"></div>
 <div class="postBox">
   <?php if(!empty($content['image'])){ ?>
     <a href="profile.php?id=<?php echo $_SESSION['login_user']['id'] ;?>">
