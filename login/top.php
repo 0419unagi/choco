@@ -1,9 +1,5 @@
 <?php 
-  // echo "<pre>";
-  // var_dump($_POST);
-  // echo "</pre>";
-  // session_start();
-  // require('../dbconnect.php');
+  
 	require('../part/header.php');
 
   if(!isset($_SESSION['login_user']['id'])){
@@ -27,9 +23,6 @@ while(true){
   }
 
   $userdata[] = $data;
-  // echo '<pre>';
-  // var_dump($data);
-  // echo '</pre>';
   
 }
 
@@ -50,14 +43,6 @@ while(true){
   $gdata[] = $data;
   
 }
-
-  // echo '<pre>';
-  // var_dump($userdata);
-  // echo '</pre>';
-  // echo '<pre>';
-  // var_dump($gdata);
-  // echo '</pre>';
-  
 
  ?>
 
