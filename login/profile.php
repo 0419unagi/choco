@@ -12,6 +12,7 @@
     header('Location: index.php');
     exit();
   }
+  
 
 
   //ユーザーデータをSELECTする
@@ -88,16 +89,15 @@ if(!empty($_POST)){
 
 
   if(isset($_POST['like'])){
-    // echo 'いいねしました';
 
     if($_POST['like']){
-      if($_POST['like'] == 'like'){
 
-    // いいね！をDBへ登録する
-    $sql = 'INSERT INTO `like` SET `post_id`=?,`users_id`=?,`created`=NOW()';
-    $data = array($_POST['post_id'],$_SESSION['login_user']['id']);
-    $stmt = $dbh->prepare($sql);
-    $stmt->execute($data);
+      if($_POST['like'] == 'like'){
+        // いいね！をDBへ登録する
+        $sql = 'INSERT INTO `like` SET `post_id`=?,`users_id`=?,`created`=NOW()';
+        $data = array($_POST['post_id'],$_SESSION['login_user']['id']);
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute($data);
 
       }elseif($_POST['like'] == 'unlike'){
         // いいねを取り消した時
@@ -119,7 +119,7 @@ if(!empty($_POST)){
     $stmt->execute($data);
 
     $like = $stmt->fetch(PDO::FETCH_ASSOC);
-    // var_dump($like);
+    
     echo 'いいねの数は'.$like["con"].'です。<br>';
 
     // DBにいいね！の数を保存する(更新する)
@@ -137,7 +137,6 @@ if(!empty($_POST)){
   if(isset($_POST['comment'])){
     // ツイートするを押すと個々の処理が走ります。
   $comment = htmlspecialchars($_POST['comment']);
-  // echo 'POST送信しました。';
 
   // バリデーション
   if($comment==''){
@@ -249,6 +248,13 @@ if(!empty($_POST)){
             <p class="hobby"><span>hobby : </span><?php echo $data['hobby'] ;?></p>
             <!-- 自己紹介 -->
             <p class="cmm"><?php echo $data['intro'] ;?></p>
+
+
+
+
+
+
+
             <!-- メッセージ -->
             <a href="#">
               <div class="message">
@@ -258,6 +264,22 @@ if(!empty($_POST)){
           </div>
         </div>
 <?php } ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <!-- 個人タイムラインを表示 -->
@@ -431,16 +453,8 @@ if(!empty($_POST)){
    <?php } ?>
   <form method="POST" action="">
     <input type="hidden" name="post_id" value="<?php echo $content['id'];?>">
-
-
-
-
-              <input type="hidden" name="id" value="<?php echo $content['id']; ?>">
-          <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($_GET['id']); ?>">
-
-
-
-
+    <input type="hidden" name="id" value="<?php echo $content['id']; ?>">
+    <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($_GET['id']); ?>">
     <input style="border:none; outline: 0;width:230px;" class="text" type="txt" name="comment" placeholder="Write a Comment" value="">
       <?php if(isset($errors['comment']) && $errors['comment'] == 'blank'){ ?>
         <div class="alert alert-danger">投稿内容を入力してください。</div>
