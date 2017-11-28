@@ -1,17 +1,19 @@
 <?php
-
-// if(!isset($_SESSION['login_user']['id'])){
-//     header('Location: ../login/index.php');
-//     exit();
-//   }
-
-
+//ヘッダーの呼び出し
 require('../part/header.php');
 // データベース呼び出し
 require('../dbconnect.php');
 
+// ログインユーザーのIDを取得
 $user_id = $_SESSION['login_user']['id'] ;
 $other_id = '';
+
+if(!isset($user_id)){
+    header('Location: ../login/index.php');
+    exit();
+  }
+
+error_log(print_r($user_id,true),"3","../../../../../logs/error_log");
 
 
 // トーク履歴表示パターン
@@ -26,6 +28,8 @@ $other_id = '';
 // 問題
 // 1.timeline.phpからトークしたいユーザーを選択し、リロードするとURLのgetのIDが表示
 //   
+
+
 
 
 
@@ -115,10 +119,8 @@ require('model/selectUser.php');
 				<?php foreach ($talking_user as $user) { ?>
 					<!-- もし今見ているユーザーの場合、ハイライトで示す。	 -->
 					<?php if ($other_id==$user['other_id']){ ?>
-						<?php error_log(print_r('上',true),"3","../../../../../logs/error_log"); ?>
 						<div class="tom highlight" id="talk_history" value="<?php echo $user['other_id']; ?>" >
 					<?php }else{ ?>
-						<?php error_log(print_r('下',true),"3","../../../../../logs/error_log"); ?>
 						<div class="tom" id="talk_history" value="<?php echo $user['other_id']; ?>" >
 					<?php } ?>
 
@@ -168,7 +170,6 @@ require('model/selectUser.php');
 						<?php endif ; ?>
 						<input type="text" name="message" id="text_input">
 					</div>
-
 					<!-- 送信ボタン -->
 					<div id="push" >
 						<input type="image" src="../assets/img/post.png" id="submit" >

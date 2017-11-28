@@ -52,10 +52,6 @@
   }
   // error_log(print_r('$tweets',true),"3","../../../../../logs/error_log");
 
-// echo '<pre>';
-// var_dump($data);
-// echo '</pre>';
-
 
   // POSTチェック
 if(!empty($_POST)){
@@ -216,6 +212,8 @@ if(!empty($_POST)){
     <br><br>
   <?php foreach($post as $content){ ?>
     <section>
+      <div id="post_<?php echo $content['id']; ?>"></div>
+
       <?php 
         $test = $content['created'] ;
         $date = substr($test,0,10);
@@ -271,12 +269,16 @@ if(!empty($_POST)){
 
         <?php if(!$check){ ?>
           <input type="hidden" name="like" value="like">
+          <input type="hidden" name="id" value="<?php echo $content['id']; ?>">
+          <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($_GET['id']); ?>">
           <div class="like">
             <input type="submit" value="いいね！" class="btn-xs">
             <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
           </div>
         <?php }else{ ?>
           <input type="hidden" name="like" value="unlike">
+          <input type="hidden" name="like" value="unlike">
+          <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($_GET['id']); ?>">
           <div class="like">
             <input type="submit" value="いいね取消" class="btn-xs">
             <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
@@ -344,6 +346,9 @@ if(!empty($_POST)){
    <?php } ?>
   <form method="POST" action="">
     <input type="hidden" name="post_id" value="<?php echo $content['id'];?>">
+    <input type="hidden" name="id" value="<?php echo $content['id']; ?>">
+    <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($_GET['id']); ?>">
+
     <input style="border:none; outline: 0;width:230px;" class="text" type="txt" name="comment" placeholder="Write a Comment" value="">
       <?php if(isset($errors['comment']) && $errors['comment'] == 'blank'){ ?>
         <div class="alert alert-danger">投稿内容を入力してください。</div>
