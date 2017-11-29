@@ -116,19 +116,22 @@ require('model/selectUser.php');
 			<div id="bar"></div>
 			<!-- ユーザー履歴一覧 -->
 			<div class="user_list" id="user_list">
-				<?php foreach ($talking_user as $user) { ?>
-					<!-- もし今見ているユーザーの場合、ハイライトで示す。	 -->
-					<?php if ($other_id==$user['other_id']){ ?>
-						<div class="tom highlight" id="talk_history" value="<?php echo $user['other_id']; ?>" >
-					<?php }else{ ?>
-						<div class="tom" id="talk_history" value="<?php echo $user['other_id']; ?>" >
-					<?php } ?>
+				<?php if (isset($talking_user)): ?>
+					<?php foreach ($talking_user as $user) { ?>
+						<!-- もし今見ているユーザーの場合、ハイライトで示す。	 -->
+						<?php if ($other_id==$user['other_id']){ ?>
+							<div class="tom highlight" id="talk_history" value="<?php echo $user['other_id']; ?>" >
+						<?php }else{ ?>
+							<div class="tom" id="talk_history" value="<?php echo $user['other_id']; ?>" >
+						<?php } ?>
 
-						<img src="../image/<?php echo $user['other_image'] ?>" alt="icon" id="mes_icon">
-						<p id="his_name"><?php echo $user['other_name']; ?></p>
-						<p id="his_time"><?php echo $user['time']; ?></p>
-					</div>
-				<?php } ?>
+							<img src="../image/<?php echo $user['other_image'] ?>" alt="icon" id="mes_icon">
+							<p id="his_name"><?php echo $user['other_name']; ?></p>
+							<p id="his_time"><?php echo $user['time']; ?></p>
+						</div>
+					<?php } ?>
+				<?php endif ?>
+				
 			</div>
 		</div>
 	

@@ -61,7 +61,7 @@ while(true){
 	<link href="../assets/css/bootstrap.css" rel="stylesheet">
 	<link href="../assets/css/font-awesome.min.css" rel="stylesheet">
 	<link href="../assets/css/top.css" rel="stylesheet" type="text/css">
-	
+
 	<!-- アニメーション --> 
 	<link href="../assets/css/animate.css" rel="stylesheet">
 	<script src="../assets/js/wow.min.js"></script>
