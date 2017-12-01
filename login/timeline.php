@@ -196,10 +196,10 @@ if(!empty($_POST)){
             <!-- 自己紹介 -->
             <p class="cmm"><?php echo $data['intro'] ;?></p>
             <!-- メッセージ -->
-            <a href="#">
+<!--             <a href="../message/message.php?id=<?php echo $profile_user; ?>">
               <div class="message">
                 <img src="../assets/img/message_w.png" width="17" height="13" alt=""/> メッセージを送る
-              </div>
+              </div> -->
             </a>
           </div>
         </div>
@@ -212,12 +212,8 @@ if(!empty($_POST)){
     <br><br>
   <?php foreach($post as $content){ ?>
     <section>
-<<<<<<< HEAD
         <div id="post_<?php echo $content['id']; ?>"></div>
-=======
-      <div id="post_<?php echo $content['id']; ?>"></div>
 
->>>>>>> master
       <?php 
         $test = $content['created'] ;
         $date = substr($test,0,10);
@@ -349,15 +345,9 @@ if(!empty($_POST)){
    <?php } ?>
   <form method="POST" action="">
     <input type="hidden" name="post_id" value="<?php echo $content['id'];?>">
-<<<<<<< HEAD
 
-              <input type="hidden" name="id" value="<?php echo $content['id']; ?>">
-          <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($_GET['id']); ?>">
-
-=======
     <input type="hidden" name="id" value="<?php echo $content['id']; ?>">
     <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($_GET['id']); ?>">
->>>>>>> master
 
     <input style="border:none; outline: 0;width:230px;" class="text" type="txt" name="comment" placeholder="Write a Comment" value="">
       <?php if(isset($errors['comment']) && $errors['comment'] == 'blank'){ ?>
