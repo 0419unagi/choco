@@ -1,6 +1,6 @@
 <?php
 //データベースの読み込み
-require('dbconnect.php');
+require('../dbconnect.php');
 	
 //初期値の設定
 $user_id = '';
@@ -29,7 +29,7 @@ if ($_GET['mode']=="0") {
 	//ファイル名を取得する際に、不要な文字列が付くので、削除
 	//(再考)ファイルパスを指定
 	$uplode_image = mb_substr($_GET['uplode_image'],12);
-	error_log(print_r('success',true),"3","../../../../../logs/error_log");
+	// error_log(print_r('success',true),"3","../../../../../logs/error_log");
 
 
 	//データベースから取得したデータを以下のフォーマットにする

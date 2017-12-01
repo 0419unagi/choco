@@ -29,9 +29,6 @@
 
     $userdata[] = $data;
 
-    // echo '<pre>';
-    // var_dump($data);
-    // echo '</pre>';
   }
   // batch_usersとpostをjoin
   $sql = 'SELECT `post`. * ,`batch_users`.`id` AS user_id, `batch_users`.`nickname`,`batch_users`.`image`
@@ -54,10 +51,6 @@
   $post[] = $data;
   }
   // error_log(print_r('$tweets',true),"3","../../../../../logs/error_log");
-
-// echo '<pre>';
-// var_dump($data);
-// echo '</pre>';
 
 
   // POSTチェック
@@ -108,10 +101,6 @@ if(!empty($_POST)){
     // POST送信を破棄する
     header('Location: timeline.php#post_'.$_POST['post_id']);
     exit();
-
-
-
-
 
   }
 
@@ -223,7 +212,12 @@ if(!empty($_POST)){
     <br><br>
   <?php foreach($post as $content){ ?>
     <section>
+<<<<<<< HEAD
         <div id="post_<?php echo $content['id']; ?>"></div>
+=======
+      <div id="post_<?php echo $content['id']; ?>"></div>
+
+>>>>>>> master
       <?php 
         $test = $content['created'] ;
         $date = substr($test,0,10);
@@ -355,10 +349,15 @@ if(!empty($_POST)){
    <?php } ?>
   <form method="POST" action="">
     <input type="hidden" name="post_id" value="<?php echo $content['id'];?>">
+<<<<<<< HEAD
 
               <input type="hidden" name="id" value="<?php echo $content['id']; ?>">
           <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($_GET['id']); ?>">
 
+=======
+    <input type="hidden" name="id" value="<?php echo $content['id']; ?>">
+    <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($_GET['id']); ?>">
+>>>>>>> master
 
     <input style="border:none; outline: 0;width:230px;" class="text" type="txt" name="comment" placeholder="Write a Comment" value="">
       <?php if(isset($errors['comment']) && $errors['comment'] == 'blank'){ ?>

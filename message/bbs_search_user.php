@@ -1,6 +1,6 @@
 <?php
 //データベースの読み込み
-require('dbconnect.php');
+require('../dbconnect.php');
 	
 
 //サイドバーにトーク中のユーザーを表示

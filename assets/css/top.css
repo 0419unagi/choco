@@ -69,6 +69,7 @@ header #clm_l #prf {
 }
 header #clm_l #prf #ill {
  position: absolute;
+ z-index: 100;
  border-left: 1px solid #DCDCDC;
  padding-top: 5px;
  padding-bottom: 212px;
