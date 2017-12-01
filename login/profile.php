@@ -251,7 +251,7 @@ if(!empty($_POST)){
             <p class="cmm"><?php echo $data['intro'] ;?></p>
             <!-- メッセージ -->
             <?php if ($_GET['id'] !== $_SESSION['login_user']['id']) { ?>
-            <a href="../message/message.php?id=<?php echo $profile_user; ?>">
+            <a href="../login/message.php?id=<?php echo $profile_user; ?>">
               <div class="message">
                 <img src="../assets/img/message_w.png" width="17" height="13" alt=""/> メッセージを送る
               </div>

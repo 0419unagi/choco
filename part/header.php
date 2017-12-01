@@ -93,7 +93,7 @@ new WOW().init();
     <p>TIME LINE</p></a>
    </li>
    <li>
-    <a href="../message/message.php"><img class="roll" src="../assets/img/message.png" width="17" height="13" alt=""/>
+    <a href="../login/message.php"><img class="roll" src="../assets/img/message.png" width="17" height="13" alt=""/>
     <p>MESSAGE</p></a>
    </li>
   </ul>
