@@ -250,7 +250,7 @@ if(!empty($_POST)){
             <!-- 自己紹介 -->
             <p class="cmm"><?php echo $data['intro'] ;?></p>
             <!-- メッセージ -->
-            <a href="../message/message.php?id=<?php echo $profile_user; ?>">
+            <a href="message.php?id=<?php echo $profile_user; ?>">
               <div class="message">
                 <img src="../assets/img/message_w.png" width="17" height="13" alt=""/> メッセージを送る
               </div>
