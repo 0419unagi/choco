@@ -132,8 +132,8 @@ function updateSideBar(data) {
     var other_id = data;
 
     $.ajax({
-      type: 'GET',
-      url:"model/update_side_bar.php",
+      type: "GET",
+      url:"model/update_side_bar.php?other_id="+other_id,
       data: {
                     other_id: other_id,
                 },
@@ -146,6 +146,8 @@ function updateSideBar(data) {
     })
       .done(function(data) { 
         console.log('done');
+        console.log(data);
+
         var sidebar = $.parseJSON(data);
         $("#user_list").html(sidebar);
 
