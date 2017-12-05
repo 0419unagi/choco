@@ -291,6 +291,9 @@ if(!empty($_POST)){
       <div id="sendWrp">
         <div class="imgBox">
           <input type="file" name="post_image" accept="image/*">
+          <!-- <label for="file_photo"><em class="fa fa-camera" aria-hidden="true"></em> 写真を選択
+            <input type="file" name="post_image" accept="image/*"  id="file_photo"  style="display:none;">
+          </label> -->
         </div>
         <div class="penBox">
           <input type="submit" id="content" value="">

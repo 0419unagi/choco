@@ -274,6 +274,9 @@ main {
 
 #profilePg .feedClm {
  width: 68%;
+ background-image: url(../img/tate.jpg);
+ background-repeat: repeat-y;
+ background-position: center 0%;
 }
 
 #profilePg .feedClm #contributeBox {
@@ -301,12 +304,10 @@ main {
  padding-right: 40px;
  padding-bottom: 40px;
  padding-left: 40px;
- margin-bottom: 50px;
+ margin-bottom: 100px;
  letter-spacing: 1px;
  position: relative;
- background-image: url(../img/tate.jpg);
- background-repeat: repeat-y;
- background-position: center 0%;
+ background-color: #FFFFFF;
 }
 #profilePg .feedClm .date {
  background-color: #000000;
@@ -314,14 +315,14 @@ main {
  text-align: center;
  padding-top: 5px;
  padding-bottom: 5px;
- display: inline-block;
  padding-left: 20px;
  padding-right: 20px;
  letter-spacing: 3px;
  position: absolute;
  top: -20px;
- margin-left: auto;
- margin-right: auto;
+ margin-left: -100px;
+ width: 200px;
+ left: 50%;
 }
 #profilePg .feedClm .nameBox {
  display: flex;
@@ -335,6 +336,7 @@ main {
 #profilePg .feedClm .nameBox .selfClm img {
  border-radius: 50px;
  margin-right: 5px;
+ object-fit: cover;
 }
 #profilePg .feedClm .nameBox .badgeClm {
  font-weight: bold;
@@ -363,6 +365,7 @@ main {
  display: flex;
  align-items: center;
  margin-right: 10px;
+ margin-bottom: 10px;
 }
 #profilePg .feedClm .txtClm .commentBox img {
  margin-right: 10px;
@@ -410,8 +413,9 @@ main {
 }
 
 #sendWrp{
-  display: flex;
-  justify-content: space-between;
+ display: flex;
+ justify-content: space-between;
+ background-color: #FFFFFF;
 }
 
 #btnWrp{

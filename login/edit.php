@@ -216,6 +216,8 @@ $pref = ['1'=>'北海道','2'=>'青森県','3'=>'岩手県','4'=>'宮城県','5'
 
 
 <body>
+
+ 
   <div class="container">
     
         <a class="back" href="top.php"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
@@ -223,7 +225,6 @@ $pref = ['1'=>'北海道','2'=>'青森県','3'=>'岩手県','4'=>'宮城県','5'
         <form method="POST" action="" enctype="multipart/form-data">
           <div class="clmWrp">
               <div class="clm" id="clm_1">
-                <div class="fix">
                  <div id="logoBox">
                    <img src="../assets/img/logomark.png" alt="hand_logo" width="81" height="135" id="logo" >
                    <h1>BATCH</h1>
@@ -243,9 +244,8 @@ $pref = ['1'=>'北海道','2'=>'青森県','3'=>'岩手県','4'=>'宮城県','5'
                       <img src="../assets/img/damy.jpg" width="100%" height="auto" alt=""/>
                      <?php } ?>
 
-                     <label for="file_photo">
-                      <i class="fa fa-camera" aria-hidden="true"></i> 写真を選択
-                      <input type="file" name="image" accept="image/*"  style="display:none;"  id="file_photo">
+                     <label for="file_photo"><em class="fa fa-camera" aria-hidden="true"></em> 写真を選択
+<input type="file" name="image" accept="image/*"  style="display:none;"  id="file_photo">
                      </label>
 
                      <?php if (isset($errors["image"]) && $errors["image"] == "blank") { ?>
@@ -254,7 +254,6 @@ $pref = ['1'=>'北海道','2'=>'青森県','3'=>'岩手県','4'=>'宮城県','5'
                       <div>※ 使用できる拡張子は「jpg」または「png」、「gif」のみです。</div>
                      <?php } ?>
                   </div>
-               </div>
               </div>
 
              

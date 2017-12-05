@@ -139,7 +139,6 @@
          <form method="POST" action="" enctype="multipart/form-data" autocomplete="off">
          <div class="clmWrp">
          <div class="clm" id="clm_1">
-          <div class="fix">
            <div id="logoBox">
              <img src="../assets/img/logomark.png" alt="hand_logo" width="81" height="135" id="logo" >
              <h1>BATCH</h1>
@@ -150,7 +149,6 @@
             <h2>SIGN UP</h2>
             <div class="line"></div>
            </div>
-          </div>
          </div>
          
   

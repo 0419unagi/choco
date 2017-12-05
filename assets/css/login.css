@@ -1,5 +1,6 @@
 @import url("../../webfonts/AvenirNextCondensed_UltraLight/stylesheet.css");
 @import url("../../webfonts/AvenirNextCondensed_UltraLight/stylesheet.css");
+@import url("../../webfonts/AvenirNextCondensed_UltraLight/stylesheet.css");
 /*all*/
 html {
  background-color: #000000;
@@ -14,15 +15,17 @@ body {
  position: relative;
  background-attachment: fixed;
 }
+
+
 #wrp {
-  text-align: center;
-  padding-top: 100px;
-  padding-bottom: 100px;
-  margin-right: auto;
-  margin-left: auto;
-  color: white;
-  letter-spacing: 2px;
- width:250px;
+ text-align: center;
+ padding-top: 130px;
+ padding-bottom: 30px;
+ margin-right: auto;
+ margin-left: auto;
+ color: white;
+ letter-spacing: 2px;
+ width: 250px;
 }
 
 .back {
@@ -79,8 +82,6 @@ form .att {
 /* ログインボタン */
 #submitBox {
  margin-top: 30px;
- position: absolute;
- bottom: 30px;
 }
 #submitBox .login {
  display: inline-block;
@@ -182,8 +183,8 @@ form .text::-webkit-input-placeholder {
  align-items:stretch;
 }
 .clmWrp .clm {
- margin-top: 50px;
- margin-bottom: 50px;
+ margin-top: 60px;
+ margin-bottom: 100px;
  margin-left: 40px;
  margin-right: 40px;
  position: relative;
@@ -215,7 +216,9 @@ form .text::-webkit-input-placeholder {
  border: 6px solid #FFFFFF;
  border-radius: 200px;
  width: 180px;
+ height: 180px;
  margin-bottom: 15px;
+ object-fit: cover;
 }
 .clmWrp .plfpicBox label {
  font-size: 14px;

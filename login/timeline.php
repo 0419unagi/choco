@@ -208,7 +208,7 @@ if(!empty($_POST)){
 
 <!-- 全ユーザーのタイムラインを表示 -->
 <div class="feedClm">
-  <h1 style="text-align: center;">All TIMELINE</h1>
+ <h1 style="text-align: center; margin-top: 60px; margin-bottom: 30px; background-color: white; font-size: 35px; letter-spacing: 3px; padding-top: 20px; padding-bottom: 10px; line-height: 20px;">All TIMELINE<br><span style="font-size: 10px;">▼</span></h1>
     <br><br>
   <?php foreach($post as $content){ ?>
     <section>

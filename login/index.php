@@ -105,7 +105,7 @@
          <input class="login" type="submit" value="LOGIN">
          <a class="create" href="new.php">CREATE ACCOUNT</a>
         </div>
-    </form> 
+    </form> <br><br><br><br><br><br><br><br><br>
     </div>
 
 </body>
