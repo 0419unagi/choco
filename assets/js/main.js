@@ -2,9 +2,7 @@
 $(document).ready(function(){
     scrollDown();
     //画像選択ボタンと送信ボタンをタブキーで指定出来るようにする
-    // $('#submit').attr("tabindex", "0");
     $('#uplode_image').attr("tabindex", "0");
-    // $('.tomo').attr("tabindex", "0");
 
     // サイドバーでクリックしたユーザーのトーク画面を表示
     $("#user_list").on("click","div.tom",function(){
@@ -29,19 +27,15 @@ $(document).ready(function(){
             changeTalk(other_id);
             updateSideBar(other_id);
 
-            //コメント送信ボタンのother_idのvalue値を上で定義したother_id
-            //がセットされた要素を上書きする
+            //コメント送信ボタンのother_idのvalue値を上で定義したother_idがセットされた要素を上書きする
             $('#other_id').val(other_id);
-            // console.log($('#other_id').val());
             
-         }).fail(function(data) {                
-            // console.log('fail');
+         }).fail(function(data) {
 
-         }).always(function(data) {                
-            // console.log('always');
+         }).always(function(data) {
+
          });         
     });
-
 
     // サイドバーのユーザー検索機能
     $(".user_list").searcher({
@@ -87,8 +81,10 @@ function sendMessage(){
 
 //サイドバーで選択したユーザーとのトーク画面を表示する
 function changeTalk(data){
+        //サイドバーで選択されたユーザーのIDを取得
         var other_id = data;
 
+        //model/update_talk.phpに選択されたユーザーIDを渡し、そのユーザーとのトーク情報を取得
         $.ajax({
           type: 'GET',
           url: "model/update_talk.php",
@@ -103,24 +99,23 @@ function changeTalk(data){
         },
         })
           .done(function(data) { 
+            //選択されたユーザー名とそのトーク情報が結合されたJSONデータを取得
+            //　json decode
             var test = $.parseJSON(data);
             // 返り値の最後にユーザーネームを付けているので、取得する
             var user_name = test[test.length - 1];
             // ユーザーネーム取得後、最後の要素を削除する
             test.pop();
-            // console.log(test);
             var logs = test.join('');
             $("#result").html(logs);
-            // console.log(logs);
             scrollDown();
-            // console.log(user_name);
             $("#mes_head").html(user_name);
 
          }).fail(function(data) {                
-            // console.log('fail');
+            
 
          }).always(function(data) {                
-            // console.log('always');
+            
          });         
 }
 
@@ -128,7 +123,6 @@ function changeTalk(data){
 //トーク送信時にサイドバーを更新
 function updateSideBar(data) {
     console.log(data);
-    //(TODO)update_side_bar.phpにother_idを送信する
     var other_id = data;
 
     $.ajax({
@@ -145,17 +139,14 @@ function updateSideBar(data) {
     },
     })
       .done(function(data) { 
-        console.log('done');
         var sidebar = $.parseJSON(data);
         $("#user_list").html(sidebar);
 
      }).fail(function(data) {                
-        console.log('fail');
 
      }).always(function(data) {                
-        console.log('always');
+        
      });         
-
 }
 
 
@@ -172,10 +163,7 @@ function img_up(){
 }
 
 // 画像送信ボタンが押された時に、データベースへインサート
-function insertDateImg() {
-    //ここのやり方を見直す
-    // 1.上記指定の配列を1度、JSONにする
-    // 2.ajaxでbbs.phpに落とす
+function insertDateImg() { 
 
     var user_data = {
         "user_id": $('#user_id').val(),
@@ -201,15 +189,12 @@ function insertDateImg() {
     },
     })
       .done(function(data) {                
-        console.log('done');
-        console.log(data);
         $('#result').append(data);
         scrollDown();
      }).fail(function(data) {                
-        console.log('fail');
 
      }).always(function(data) {                
-        console.log('always');
+        
      });
 }
 
@@ -228,13 +213,13 @@ function makeImg(){
                 contentType: false,
             })
             .done(function(data) {                
-                console.log('done');
+                
 
             }).fail(function(data) {                
-                console.log('fail');
+                
 
             }).always(function(data) {                
-                console.log('always');
+                
             });
             // メッセージ内容ページの最下層を表示
             scrollDown();
